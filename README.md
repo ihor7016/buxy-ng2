@@ -1,1 +1,1 @@
-# buxy-ng2
+# buxy-ngx
