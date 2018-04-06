@@ -1,3 +1,8 @@
-<p>
-  transaction-dialog works!
-</p>
+<h1 mat-dialog-title>{{ data.action }} transaction</h1>
+<div mat-dialog-content>
+  <p>content</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="close()">No Thanks</button>
+  <button mat-button (click)="close()">Ok</button>
+</div>
