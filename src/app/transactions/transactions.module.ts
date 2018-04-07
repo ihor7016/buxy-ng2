@@ -1,8 +1,15 @@
 import { NgModule } from "@angular/core";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import {
   MatDialogModule,
   MatButtonModule,
-  MatIconModule
+  MatIconModule,
+  MatFormFieldModule,
+  MatSelectModule,
+  MatRadioModule,
+  MatInputModule,
+  MatDatepickerModule,
+  MatNativeDateModule
 } from "@angular/material";
 
 import { TransactionsComponent } from "./transactions.component";
@@ -10,7 +17,19 @@ import { TransactionDialogComponent } from "../transaction-dialog/transaction-di
 
 @NgModule({
   declarations: [TransactionsComponent, TransactionDialogComponent],
-  imports: [MatDialogModule, MatButtonModule, MatIconModule],
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatRadioModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule
+  ],
   exports: [TransactionsComponent],
   entryComponents: [TransactionDialogComponent]
 })

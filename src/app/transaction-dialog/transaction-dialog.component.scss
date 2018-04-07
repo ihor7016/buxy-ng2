@@ -1,0 +1,31 @@
+.dialog {
+  &__type-label {
+    margin-right: 8px;
+  }
+
+  &__input {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  &__row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: row;
+
+    &--col {
+      justify-content: space-between;
+    }
+
+    &--actions {
+      justify-content: flex-end;
+    }
+  }
+
+  &__col {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 45%;
+  }
+}

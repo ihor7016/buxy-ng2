@@ -1,4 +1,5 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject } from "@angular/core";
+import { Form, FormControl, FormGroup } from "@angular/forms";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 
 @Component({
@@ -7,7 +8,21 @@ import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
   styleUrls: ["./transaction-dialog.component.scss"]
 })
 export class TransactionDialogComponent implements OnInit {
-  constructor(private matDialogRef: MatDialogRef<TransactionDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {}
+  form: FormGroup;
+
+  constructor(
+    private matDialogRef: MatDialogRef<TransactionDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {
+    this.form = new FormGroup({
+      type: new FormControl(),
+      desc: new FormControl(),
+      amount: new FormControl(),
+      date: new FormControl(),
+      tag: new FormControl(),
+      account: new FormControl()
+    });
+  }
 
   ngOnInit() {}
 
@@ -15,4 +30,3 @@ export class TransactionDialogComponent implements OnInit {
     this.matDialogRef.close();
   }
 }
-

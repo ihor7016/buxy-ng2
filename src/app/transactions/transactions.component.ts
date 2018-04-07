@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material";
-import { TransactionDialogComponent } from "./../transaction-dialog/transaction-dialog.component"
+
+import { TransactionDialogComponent } from "./../transaction-dialog/transaction-dialog.component";
 
 @Component({
   selector: "app-transactions",
@@ -14,7 +15,8 @@ export class TransactionsComponent implements OnInit {
 
   onAddTransactionClick() {
     this.dialog.open(TransactionDialogComponent, {
-      data: { action: "Add" }
+      data: { action: "Add" },
+      minWidth: "50%"
     });
   }
 }

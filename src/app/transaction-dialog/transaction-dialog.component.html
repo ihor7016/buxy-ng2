@@ -1,8 +1,49 @@
-<h1 mat-dialog-title>{{ data.action }} transaction</h1>
-<div mat-dialog-content>
-  <p>content</p>
-</div>
-<div mat-dialog-actions>
-  <button mat-button (click)="close()">No Thanks</button>
-  <button mat-button (click)="close()">Ok</button>
+<div class="dialog">
+  <h1 mat-dialog-title>{{ data.action }} transaction</h1>
+  <form [formGroup]="authForm">
+    <div mat-dialog-content>
+
+      <div class="dialog__row">
+        <label class="dialog__type-label">Type of transaction: </label>
+        <mat-radio-group formControlName="type">
+          <mat-radio-button value="-">Expense</mat-radio-button>
+          <mat-radio-button value="+">income</mat-radio-button>
+        </mat-radio-group>
+      </div>
+
+      <mat-form-field class="dialog__input">
+        <input matInput placeholder="Description" formControlName="desc">
+      </mat-form-field>
+
+      <div class="dialog__row dialog__row--col">
+        <div class="dialog__col">
+          <mat-form-field class="dialog__input">
+            <input matInput placeholder="Amount" formControlName="amount">
+          </mat-form-field>
+          <mat-form-field class="dialog__input">
+            <mat-select placeholder="Tag" formControlName="tag">
+              <mat-option value="option">Option</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="dialog__col">
+          <mat-form-field class="dialog__input">
+            <input matInput [matDatepicker]="date" placeholder="Date of transaction" formControlName="date">
+            <mat-datepicker-toggle matSuffix [for]="date"></mat-datepicker-toggle>
+            <mat-datepicker #date></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field class="dialog__input">
+            <mat-select placeholder="Account" formControlName="account">
+              <mat-option value="option">Option</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div mat-dialog-actions class="dialog__row dialog__row--actions">
+      <button mat-button (click)="close()" color="primary">CANCEL</button>
+      <button mat-button (click)="close()" color="primary">OK</button>
+    </div>
+  </form>
 </div>
