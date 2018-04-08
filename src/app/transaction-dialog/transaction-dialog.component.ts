@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from "@angular/core";
+import { Component, Inject } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { DatePipe } from "@angular/common";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
@@ -9,7 +9,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
   styleUrls: ["./transaction-dialog.component.scss"],
   providers: [DatePipe]
 })
-export class TransactionDialogComponent implements OnInit {
+export class TransactionDialogComponent {
   form: FormGroup;
   accounts: any[];
   tags: string[];
@@ -35,8 +35,6 @@ export class TransactionDialogComponent implements OnInit {
     ];
     this.createForm();
   }
-
-  ngOnInit() {}
 
   createForm() {
     this.form = this.formBuilder.group({
