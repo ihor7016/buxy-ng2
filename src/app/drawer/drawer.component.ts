@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-
+import {Component, ElementRef, HostBinding, OnInit, ViewChild} from '@angular/core';
 @Component({
   selector: 'app-drawer',
   templateUrl: './drawer.component.html',
@@ -7,7 +6,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DrawerComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+
+  }
 
   ngOnInit() {
   }

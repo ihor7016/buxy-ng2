@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import {AppComponent} from "../app.component";
+import {DrawerComponent} from "../drawer/drawer.component";
 @Component({
   selector: 'app-toolbar',
   templateUrl: './toolbar.component.html',
@@ -7,9 +9,15 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 })
 export class ToolbarComponent implements OnInit {
 
+  @Output() toggle: EventEmitter<null> = new EventEmitter();
+
   constructor() { }
 
   ngOnInit() {
+  }
+  toggleSideBar() {
+    console.log("sd");
+    this.toggle.emit();
   }
 
 }
