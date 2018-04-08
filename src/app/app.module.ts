@@ -7,6 +7,8 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
 import { DrawerComponent } from './drawer/drawer.component';
 import {MaterialComponentsModule} from './material/material.module';
 import { ContentComponent } from './content/content.component';
+import { AccountsComponent } from './accounts/accounts.component';
+import { TagsComponent } from './tags/tags.component';
 
 
 @NgModule({
@@ -14,7 +16,9 @@ import { ContentComponent } from './content/content.component';
     AppComponent,
     ToolbarComponent,
     DrawerComponent,
-    ContentComponent
+    ContentComponent,
+    AccountsComponent,
+    TagsComponent
 
   ],
   imports: [
