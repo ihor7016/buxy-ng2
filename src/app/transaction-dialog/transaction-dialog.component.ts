@@ -11,6 +11,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 })
 export class TransactionDialogComponent implements OnInit {
   form: FormGroup;
+  accounts: any[];
+  tags: string[];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -18,17 +20,34 @@ export class TransactionDialogComponent implements OnInit {
     private matDialogRef: MatDialogRef<TransactionDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
+    this.accounts = [
+      { name: "Cash", id: "ibf3y0kuv4" },
+      { name: "BoaBank", id: "w2dvndxoz7n" },
+      { name: "Private", id: "tfcmw2vqfgk" }
+    ];
+    this.tags = [
+      "Rent",
+      "Restaurant",
+      "Salary",
+      "Groceries",
+      "Entertainment",
+      "Building"
+    ];
+    this.createForm();
+  }
+
+  ngOnInit() {}
+
+  createForm() {
     this.form = this.formBuilder.group({
       type: "-",
       desc: "",
       amount: "",
       date: new Date(),
       tag: "",
-      account: ""
+      accountId: ""
     });
   }
-
-  ngOnInit() {}
 
   submit(form) {
     const data = JSON.parse(JSON.stringify(form.value));

@@ -6,7 +6,7 @@
         <label class="dialog__type-label">Type of transaction: </label>
         <mat-radio-group formControlName="type">
           <mat-radio-button value="-">Expense</mat-radio-button>
-          <mat-radio-button value="+">income</mat-radio-button>
+          <mat-radio-button value="+">Income</mat-radio-button>
         </mat-radio-group>
       </div>
       <mat-form-field class="dialog__input">
@@ -19,7 +19,7 @@
           </mat-form-field>
           <mat-form-field class="dialog__input">
             <mat-select placeholder="Tag" formControlName="tag">
-              <mat-option value="option">Option</mat-option>
+              <mat-option *ngFor="let tag of tags" [value]="tag">{{tag}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -30,8 +30,8 @@
             <mat-datepicker #date></mat-datepicker>
           </mat-form-field>
           <mat-form-field class="dialog__input">
-            <mat-select placeholder="Account" formControlName="account">
-              <mat-option value="option">Option</mat-option>
+            <mat-select placeholder="Account" formControlName="accountId">
+              <mat-option *ngFor="let account of accounts" [value]="account.id">{{account.name}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
