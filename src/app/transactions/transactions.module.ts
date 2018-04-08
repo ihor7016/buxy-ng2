@@ -1,5 +1,5 @@
 import { NgModule } from "@angular/core";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { ReactiveFormsModule } from "@angular/forms";
 import {
   MatDialogModule,
   MatButtonModule,
@@ -18,7 +18,6 @@ import { TransactionDialogComponent } from "../transaction-dialog/transaction-di
 @NgModule({
   declarations: [TransactionsComponent, TransactionDialogComponent],
   imports: [
-    FormsModule,
     ReactiveFormsModule,
     MatDialogModule,
     MatButtonModule,
