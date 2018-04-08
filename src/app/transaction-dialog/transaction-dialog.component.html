@@ -2,7 +2,6 @@
   <h1 mat-dialog-title>{{ data.action }} transaction</h1>
   <form [formGroup]="form" (ngSubmit)="submit(form)">
     <div mat-dialog-content>
-
       <div class="dialog__row">
         <label class="dialog__type-label">Type of transaction: </label>
         <mat-radio-group formControlName="type">
@@ -10,11 +9,9 @@
           <mat-radio-button value="+">income</mat-radio-button>
         </mat-radio-group>
       </div>
-
       <mat-form-field class="dialog__input">
         <input matInput placeholder="Description" formControlName="desc">
       </mat-form-field>
-
       <div class="dialog__row dialog__row--col">
         <div class="dialog__col">
           <mat-form-field class="dialog__input">
@@ -26,7 +23,6 @@
             </mat-select>
           </mat-form-field>
         </div>
-
         <div class="dialog__col">
           <mat-form-field class="dialog__input">
             <input matInput [matDatepicker]="date" placeholder="Date of transaction" formControlName="date">

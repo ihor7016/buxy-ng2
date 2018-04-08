@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from "@angular/core";
-import { Form, FormControl, FormGroup, FormBuilder } from "@angular/forms";
+import { Form, FormControl, FormGroup } from "@angular/forms";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 
 @Component({
@@ -11,21 +11,20 @@ export class TransactionDialogComponent implements OnInit {
   form: FormGroup;
 
   constructor(
-    private formBuilder: FormBuilder,
     private matDialogRef: MatDialogRef<TransactionDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
-  ) {}
-
-  ngOnInit() {
-    this.form = this.formBuilder.group({
-      type: "-",
-      desc: "",
-      amount: "",
-      date: new Date(),
-      tag: "",
-      account: ""
+  ) {
+    this.form = new FormGroup({
+      type: new FormControl("-"),
+      desc: new FormControl(),
+      amount: new FormControl(),
+      date: new FormControl(new Date()),
+      tag: new FormControl(),
+      account: new FormControl()
     });
   }
+
+  ngOnInit() {}
 
   submit(form) {
     this.matDialogRef.close(form.value);
