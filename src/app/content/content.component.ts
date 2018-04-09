@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from "@angular/core";
 import {MatSidenav} from "@angular/material";
 
 @Component({
@@ -6,17 +6,15 @@ import {MatSidenav} from "@angular/material";
   templateUrl: './content.component.html',
   styleUrls: ['./content.component.scss']
 })
-export class ContentComponent implements OnInit {
 
+export class ContentComponent {
   @Input() sideBar: MatSidenav;
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor() {
   }
 
   toggleSideBar() {
-this.sideBar.toggle();
+    this.sideBar.toggle();
   }
 
 }
