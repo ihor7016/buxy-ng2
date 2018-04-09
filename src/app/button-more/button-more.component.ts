@@ -6,10 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./button-more.component.scss']
 })
 export class ButtonMoreComponent implements OnInit {
-
   constructor() { }
 
   ngOnInit() {
+  }
+  clickButtonMore() {
+    console.log("clickButtonMore");
   }
 
 }

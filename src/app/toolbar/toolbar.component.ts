@@ -16,7 +16,6 @@ export class ToolbarComponent implements OnInit {
   ngOnInit() {
   }
   toggleSideBar() {
-    console.log("sd");
     this.toggle.emit();
   }
 
