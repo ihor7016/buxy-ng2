@@ -28,7 +28,7 @@ export class TransactionsComponent {
     ];
   }
 
-  onAddTransactionClick() {
+  handleAddTransactionClick() {
     this.transactionDialog = this.dialog.open(TransactionDialogComponent, {
       data: { action: "Add", accounts: this.accounts, tags: this.tags },
       minWidth: "50%"
