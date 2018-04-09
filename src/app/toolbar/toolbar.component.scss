@@ -1,4 +1,6 @@
 .toolbar {
-  background-color: red;
   margin: 0;
+}
+.toolbar-fill-remaining-space {
+  flex: 1 1 auto;
 }
