@@ -16,8 +16,8 @@ export class ToolbarComponent {
     this.toggle.emit();
   }
 
-  clickButtonAbout() {
-    console.log("clickButtonAbout");
+  handleAboutClick() {
+    console.log("handleAboutClick");
   }
 
 }
