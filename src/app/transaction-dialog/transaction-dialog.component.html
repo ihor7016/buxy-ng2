@@ -9,31 +9,41 @@
           <mat-radio-button value="+">Income</mat-radio-button>
         </mat-radio-group>
       </div>
-      <mat-form-field class="dialog__input">
-        <input matInput placeholder="Description" formControlName="desc">
-      </mat-form-field>
+      <div class="dialog__row">
+        <mat-form-field class="dialog__input">
+          <input matInput placeholder="Description" formControlName="desc">
+        </mat-form-field>
+      </div>
       <div class="dialog__row dialog__row--col">
         <div class="dialog__col">
-          <mat-form-field class="dialog__input">
-            <input matInput placeholder="Amount" formControlName="amount">
-          </mat-form-field>
-          <mat-form-field class="dialog__input">
-            <mat-select placeholder="Tag" formControlName="tag">
-              <mat-option *ngFor="let tag of tags" [value]="tag">{{tag}}</mat-option>
-            </mat-select>
-          </mat-form-field>
+          <div class="dialog__row">
+            <mat-form-field class="dialog__input">
+              <input matInput placeholder="Amount" formControlName="amount">
+            </mat-form-field>
+          </div>
+          <div class="dialog__row">
+            <mat-form-field class="dialog__input">
+              <mat-select placeholder="Tag" formControlName="tag">
+                <mat-option *ngFor="let tag of data.tags" [value]="tag">{{tag}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
         </div>
         <div class="dialog__col">
-          <mat-form-field class="dialog__input">
-            <input matInput [matDatepicker]="date" placeholder="Date of transaction" formControlName="date">
-            <mat-datepicker-toggle matSuffix [for]="date"></mat-datepicker-toggle>
-            <mat-datepicker #date></mat-datepicker>
-          </mat-form-field>
-          <mat-form-field class="dialog__input">
-            <mat-select placeholder="Account" formControlName="accountId">
-              <mat-option *ngFor="let account of accounts" [value]="account.id">{{account.name}}</mat-option>
-            </mat-select>
-          </mat-form-field>
+          <div class="dialog__row">
+            <mat-form-field class="dialog__input">
+              <input matInput [matDatepicker]="date" placeholder="Date of transaction" formControlName="date">
+              <mat-datepicker-toggle matSuffix [for]="date"></mat-datepicker-toggle>
+              <mat-datepicker #date></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="dialog__row">
+            <mat-form-field class="dialog__input">
+              <mat-select placeholder="Account" formControlName="accountId">
+                <mat-option *ngFor="let account of data.accounts" [value]="account.id">{{account.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
         </div>
       </div>
     </div>

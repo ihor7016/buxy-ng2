@@ -6,13 +6,11 @@ import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 @Component({
   selector: "app-transaction-dialog",
   templateUrl: "./transaction-dialog.component.html",
-  styleUrls: ["./transaction-dialog.component.scss"],
+  styleUrls: ["../dialog/dialog.scss"],
   providers: [DatePipe]
 })
 export class TransactionDialogComponent {
   form: FormGroup;
-  accounts: any[];
-  tags: string[];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -20,19 +18,6 @@ export class TransactionDialogComponent {
     private matDialogRef: MatDialogRef<TransactionDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-    this.accounts = [
-      { name: "Cash", id: "ibf3y0kuv4" },
-      { name: "BoaBank", id: "w2dvndxoz7n" },
-      { name: "Private", id: "tfcmw2vqfgk" }
-    ];
-    this.tags = [
-      "Rent",
-      "Restaurant",
-      "Salary",
-      "Groceries",
-      "Entertainment",
-      "Building"
-    ];
     this.createForm();
   }
 
@@ -48,9 +33,9 @@ export class TransactionDialogComponent {
   }
 
   submit(form) {
-    const data = JSON.parse(JSON.stringify(form.value));
-    data.amount = Number.parseInt(data.amount);
-    data.date = this.datePipe.transform(data.date, "yyyy-MM-dd");
-    this.matDialogRef.close(data);
+    const trans = Object.assign(form.value);
+    trans.amount = Number.parseInt(trans.amount) || 0;
+    trans.date = this.datePipe.transform(trans.date, "yyyy-MM-dd");
+    this.matDialogRef.close(trans);
   }
 }
