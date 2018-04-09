@@ -1,6 +1,6 @@
 .toolbar {
   margin: 0;
-}
-.toolbar-fill-remaining-space {
-  flex: 1 1 auto;
+  &__fill-remaining-space {
+    flex: 1 1 auto;
+  }
 }

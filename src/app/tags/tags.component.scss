@@ -1,18 +1,13 @@
-.add-tags {
-  padding: 0;
-}
-.tags-menu {
-  padding: 0;
-}
-
-.tags-menu-item:hover {
-  background-color: #f5f5f5;
-}
-
-.tags-menu-item {
-}
-.tags-button-more {
-  position: absolute;
-  right: 10px;
-  top: 2px;
+.tags {
+  &__add-tag {
+    padding: 0;
+  }
+  &__menu {
+    padding: 0;
+  }
+  &__button-more {
+    position: absolute;
+    right: 10px;
+    top: 2px;
+  }
 }
