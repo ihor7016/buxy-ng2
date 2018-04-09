@@ -9,6 +9,7 @@ import {MaterialComponentsModule} from './material/material.module';
 import { ContentComponent } from './content/content.component';
 import { AccountsComponent } from './accounts/accounts.component';
 import { TagsComponent } from './tags/tags.component';
+import { ButtonMoreComponent } from './button-more/button-more.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { TagsComponent } from './tags/tags.component';
     DrawerComponent,
     ContentComponent,
     AccountsComponent,
-    TagsComponent
+    TagsComponent,
+    ButtonMoreComponent
 
   ],
   imports: [

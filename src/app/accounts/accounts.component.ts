@@ -7,12 +7,16 @@ import {Component, OnInit} from '@angular/core';
 })
 export class AccountsComponent implements OnInit {
 
-  accounts: Array;
+
+  accounts: Array<string>;
 
   constructor() {
   }
+  handleAddAccountClick() {
+    console.log("handleAddAccountClick");
+  }
 
   ngOnInit() {
-    this.accounts = Array(5).fill(0).map((_, i) => `Account ${i + 1}`);
+    this.accounts = Array(5).fill(0).map((_, i) => `Account 100USD `);
   }
 }

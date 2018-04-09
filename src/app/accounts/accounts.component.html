@@ -1,3 +1,16 @@
-<mat-nav-list>
-  <a mat-list-item *ngFor="let name of accounts">{{name}}</a>
-</mat-nav-list>
+<div class="accounts">
+
+  <mat-nav-list class="add-accounts">
+    <mat-list-item (click)="handleAddAccountClick()">
+      <mat-icon>add</mat-icon>
+      Add new account
+    </mat-list-item>
+  </mat-nav-list>
+  <mat-list class="accounts-menu">
+    <mat-list-item *ngFor="let name of accounts" class="accounts-menu-item">
+      <mat-icon>account_balance</mat-icon>{{name}}
+      <app-button-more></app-button-more>
+    </mat-list-item>
+
+  </mat-list>
+</div>
