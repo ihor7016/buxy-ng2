@@ -9,8 +9,8 @@ export class ButtonMoreComponent {
   constructor() {
   }
 
-  clickButtonMore() {
-    console.log("clickButtonMore");
+  handleButtonMoreClick() {
+    console.log("handleButtonMoreClick");
   }
 
 }
