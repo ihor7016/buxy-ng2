@@ -1,3 +1,6 @@
+.sidenav {
+  width: 300px;
+}
 .sidenav-container {
   display: flex;
   flex-direction: column;
@@ -6,7 +9,4 @@
   bottom: 0;
   left: 0;
   right: 0;
-}
-.sidenav {
-  width: 300px;
 }
