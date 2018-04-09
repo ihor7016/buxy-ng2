@@ -11,7 +11,6 @@ import { AccountsComponent } from './accounts/accounts.component';
 import { TagsComponent } from './tags/tags.component';
 import { ButtonMoreComponent } from './button-more/button-more.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,7 +20,6 @@ import { ButtonMoreComponent } from './button-more/button-more.component';
     AccountsComponent,
     TagsComponent,
     ButtonMoreComponent
-
   ],
   imports: [
     MaterialComponentsModule,
