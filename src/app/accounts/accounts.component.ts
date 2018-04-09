@@ -5,13 +5,13 @@ import {Component, OnInit} from '@angular/core';
   templateUrl: './accounts.component.html',
   styleUrls: ['./accounts.component.scss']
 })
+
 export class AccountsComponent implements OnInit {
-
-
   accounts: Array<string>;
 
   constructor() {
   }
+
   handleAddAccountClick() {
     console.log("handleAddAccountClick");
   }
@@ -20,11 +20,11 @@ export class AccountsComponent implements OnInit {
     this.accounts = Array(5).fill(0).map((_, i) => `Account 100USD `);
   }
 
-  deleteAccount(){
+  deleteAccount() {
     console.log("deleteAccount");
   }
 
-  editAccount(){
+  editAccount() {
     console.log("editAccount");
   }
 }

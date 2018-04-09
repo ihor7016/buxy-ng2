@@ -6,17 +6,19 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
   styleUrls: ['./button-more.component.scss']
 })
 export class ButtonMoreComponent implements OnInit {
-  constructor() { }
+  constructor() {
+  }
 
-  @Output() editClick : EventEmitter <null> = new EventEmitter();
-  @Output() deleteClick :EventEmitter <null> = new EventEmitter();
+  @Input() position: string;
+  @Output() editClick: EventEmitter<null> = new EventEmitter();
+  @Output() deleteClick: EventEmitter<null> = new EventEmitter();
 
-ngOnInit(){
+  ngOnInit() {
 
-}
+  }
 
   handleEditClick() {
-this.editClick.emit();
+    this.editClick.emit();
 
   }
 

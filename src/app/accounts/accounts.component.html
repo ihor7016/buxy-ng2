@@ -7,8 +7,10 @@
   </mat-nav-list>
   <mat-list class="accounts__list">
     <mat-list-item *ngFor="let name of accounts" class="accounts__item">
-      <mat-icon matListIcon>account_balance</mat-icon>{{name}}
-      <app-button-more class="accounts__button-more" (editClick)="editAccount()" (deleteClick)="deleteAccount()"></app-button-more>
+      <mat-icon matListIcon>account_balance</mat-icon>
+      {{name}}
+      <app-button-more [position]="'after'" class="accounts__button-more" (editClick)="editAccount()"
+        (deleteClick)="deleteAccount()"></app-button-more>
     </mat-list-item>
   </mat-list>
 </div>
