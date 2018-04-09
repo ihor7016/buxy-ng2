@@ -1,3 +1,17 @@
-<p>
-  tags works!
-</p>
+<div class="tags">
+
+  <mat-nav-list class="add-tags">
+    <mat-list-item (click)="handleAddTagsClick()">
+      <mat-icon matListIcon>add</mat-icon>
+      Add new tag
+    </mat-list-item>
+  </mat-nav-list>
+  <mat-list class="tags-menu">
+    <mat-list-item *ngFor="let name of tags" class="tags-menu-item">
+      <mat-icon matListIcon>local_offer</mat-icon>
+      {{name}}
+      <app-button-more class="tags-button-more"></app-button-more>
+    </mat-list-item>
+
+  </mat-list>
+</div>

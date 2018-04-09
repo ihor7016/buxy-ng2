@@ -6,10 +6,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./tags.component.scss']
 })
 export class TagsComponent implements OnInit {
+  tags: Array<string>;
 
-  constructor() { }
+  constructor() {
+  }
+  handleAddTagsClick() {
+    console.log("handleAddTagsClick");
+  }
 
   ngOnInit() {
+    this.tags = Array(5).fill(0).map((_, i) => `Tag`);
   }
 
 }
