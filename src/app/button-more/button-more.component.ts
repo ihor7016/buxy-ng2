@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-button-more',
@@ -8,10 +8,21 @@ import { Component, OnInit } from '@angular/core';
 export class ButtonMoreComponent implements OnInit {
   constructor() { }
 
-  ngOnInit() {
+  @Output() editClick : EventEmitter <null> = new EventEmitter();
+  @Output() deleteClick :EventEmitter <null> = new EventEmitter();
+
+ngOnInit(){
+
+}
+
+  handleEditClick() {
+this.editClick.emit();
+
   }
-  clickButtonMore() {
-    console.log("clickButtonMore");
+
+  handleDeleteClick() {
+    this.deleteClick.emit();
+
   }
 
 }

@@ -19,4 +19,12 @@ export class AccountsComponent implements OnInit {
   ngOnInit() {
     this.accounts = Array(5).fill(0).map((_, i) => `Account 100USD `);
   }
+
+  deleteAccount(){
+    console.log("deleteAccount");
+  }
+
+  editAccount(){
+    console.log("editAccount");
+  }
 }
