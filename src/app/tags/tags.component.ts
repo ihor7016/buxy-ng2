@@ -11,8 +11,8 @@ export class TagsComponent implements OnInit {
   constructor() {
   }
 
-  handleAddTagsClick() {
-    console.log("handleAddTagsClick");
+  handleAddTagClick() {
+    console.log("handleAddTagClick");
   }
 
   ngOnInit() {
