@@ -1,23 +1,21 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {AppComponent} from "../app.component";
-import {DrawerComponent} from "../drawer/drawer.component";
+import {Component, EventEmitter, Output} from '@angular/core';
+
 @Component({
   selector: 'app-toolbar',
   templateUrl: './toolbar.component.html',
   styleUrls: ['./toolbar.component.scss']
 })
-export class ToolbarComponent implements OnInit {
 
+export class ToolbarComponent {
   @Output() toggle: EventEmitter<null> = new EventEmitter();
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor() {
   }
+
   toggleSideBar() {
     this.toggle.emit();
   }
+
   clickButtonAbout() {
     console.log("clickButtonAbout");
   }

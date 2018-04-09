@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-tags',
@@ -10,6 +10,7 @@ export class TagsComponent implements OnInit {
 
   constructor() {
   }
+
   handleAddTagsClick() {
     console.log("handleAddTagsClick");
   }

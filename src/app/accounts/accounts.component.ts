@@ -6,12 +6,11 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./accounts.component.scss']
 })
 export class AccountsComponent implements OnInit {
-
-
   accounts: Array<string>;
 
   constructor() {
   }
+
   handleAddAccountClick() {
     console.log("handleAddAccountClick");
   }
