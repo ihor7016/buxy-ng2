@@ -10,7 +10,6 @@ import { ContentComponent } from './content/content.component';
 import { AccountsComponent } from './accounts/accounts.component';
 import { TagsComponent } from './tags/tags.component';
 import { ButtonMoreComponent } from './button-more/button-more.component';
-import { PopupComponent } from './popup/popup.component';
 
 
 @NgModule({
@@ -21,9 +20,7 @@ import { PopupComponent } from './popup/popup.component';
     ContentComponent,
     AccountsComponent,
     TagsComponent,
-    ButtonMoreComponent,
-    PopupComponent
-
+    ButtonMoreComponent
   ],
   imports: [
     MaterialComponentsModule,
