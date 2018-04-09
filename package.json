@@ -9,7 +9,9 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "login": "firebase login",
+    "deploy": "firebase deploy"
   },
   "private": true,
   "dependencies": {
@@ -34,6 +36,7 @@
     "@types/jasminewd2": "~2.0.2",
     "@types/node": "~6.0.60",
     "codelyzer": "^4.0.1",
+    "firebase-tools": "^3.18.2",
     "husky": "^0.14.3",
     "jasmine-core": "~2.8.0",
     "jasmine-spec-reporter": "~4.2.1",
