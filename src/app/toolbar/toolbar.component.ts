@@ -18,5 +18,8 @@ export class ToolbarComponent implements OnInit {
   toggleSideBar() {
     this.toggle.emit();
   }
+  clickButtonAbout() {
+    console.log("clickButtonAbout");
+  }
 
 }
