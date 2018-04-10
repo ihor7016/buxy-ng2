@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { MatDialog, MatDialogRef } from "@angular/material";
+import { MatDialog } from "@angular/material";
 
 import { TransactionDialogComponent } from "./../transaction-dialog/transaction-dialog.component";
 
@@ -9,7 +9,6 @@ import { TransactionDialogComponent } from "./../transaction-dialog/transaction-
   styleUrls: ["./transactions.component.scss"]
 })
 export class TransactionsComponent {
-  transactionDialog: MatDialogRef<TransactionDialogComponent>;
   accounts: any[];
   tags: string[];
   constructor(private dialog: MatDialog) {
@@ -29,11 +28,11 @@ export class TransactionsComponent {
   }
 
   handleAddTransactionClick() {
-    this.transactionDialog = this.dialog.open(TransactionDialogComponent, {
+    const addTransactionDialog = this.dialog.open(TransactionDialogComponent, {
       data: { action: "Add", accounts: this.accounts, tags: this.tags },
       minWidth: "50%"
     });
-    this.transactionDialog
+    addTransactionDialog
       .afterClosed()
       .subscribe(res => (res ? console.log(res) : null));
   }
