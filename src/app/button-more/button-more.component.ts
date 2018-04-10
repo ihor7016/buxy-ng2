@@ -1,16 +1,14 @@
-import {Component, OnInit} from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
-  selector: 'app-button-more',
-  templateUrl: './button-more.component.html',
-  styleUrls: ['./button-more.component.scss']
+  selector: "app-button-more",
+  templateUrl: "./button-more.component.html",
+  styleUrls: ["./button-more.component.scss"]
 })
 export class ButtonMoreComponent {
-  constructor() {
-  }
+  constructor() {}
 
   handleButtonMoreClick() {
     console.log("handleButtonMoreClick");
   }
-
 }
