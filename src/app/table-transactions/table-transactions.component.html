@@ -1,5 +1,5 @@
 <div class="table-transactions-container mat-elevation-z2">
-  <mat-table #table [dataSource]="dataSource">
+  <mat-table class="table-transactions-container__table" #table [dataSource]="dataSource">
     <ng-container matColumnDef="date">
       <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
       <mat-cell class="table-transactions-container__cell" *matCellDef="let element"> {{element.date}} </mat-cell>
