@@ -32,7 +32,7 @@ export class TransactionDialogComponent {
     });
   }
 
-  submit(form) {
+  submit(form: any) {
     const trans = Object.assign(form.value);
     trans.amount = Number.parseInt(trans.amount) || 0;
     trans.date = this.datePipe.transform(trans.date, "yyyy-MM-dd");
