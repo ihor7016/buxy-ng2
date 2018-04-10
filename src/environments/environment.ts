@@ -9,6 +9,6 @@ export const environment = {
     apiKey: "AIzaSyCGpm5s4Fvwr40RLpEpjI_Wa1xksPSJb9s",
     authDomain: "buxy-ng.firebaseapp.com",
     databaseURL: "https://buxy-ng.firebaseio.com",
-    storageBucket: "buxy-ng.appspot.com"
+    projectId: "buxy-ng"
   }
 };
