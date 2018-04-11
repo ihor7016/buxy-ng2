@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { AngularFireAuth } from 'angularfire2/auth';
+import {Component, OnInit} from '@angular/core';
+import {AngularFireAuth} from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
+import {AuthService} from "../services/auth.service";
 
 @Component({
   selector: 'app-auth',
@@ -8,16 +9,21 @@ import * as firebase from 'firebase/app';
   styleUrls: ['./auth.component.scss']
 })
 export class AuthComponent implements OnInit {
-  constructor(public afAuth: AngularFireAuth) {
+
+  user = null;
+
+  constructor(private authService: AuthService) {
   }
-  login() {
-    this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+
+  signInWithGoogle() {
+    this.authService.signInWithGoogle()
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => console.log(err));
   }
-  logout() {
-    this.afAuth.auth.signOut();
-  }
+
 
   ngOnInit() {
   }
-
 }
