@@ -6,7 +6,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 @Component({
   selector: "app-transaction-dialog",
   templateUrl: "./transaction-dialog.component.html",
-  styleUrls: ["../dialog/dialog.scss"],
+  styleUrls: ["../../styles/dialog.scss"],
   providers: [DatePipe]
 })
 export class TransactionDialogComponent {

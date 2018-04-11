@@ -4,7 +4,7 @@ import { CommonModule } from "@angular/common";
 import { MaterialComponentsModule } from "../material/material.module";
 
 import { TransactionsComponent } from "./transactions.component";
-import { TransactionDialogComponent } from "../transaction-dialog/transaction-dialog.component";
+import { TransactionDialogComponent } from "./transaction-dialog/transaction-dialog.component";
 
 @NgModule({
   declarations: [TransactionsComponent, TransactionDialogComponent],
