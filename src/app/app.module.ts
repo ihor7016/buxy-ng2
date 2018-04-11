@@ -7,16 +7,10 @@ import { AccountsModule } from "./accounts/accounts.module";
 import { TagsModule } from "./tags/tags.module";
 import { AppComponent } from "./app.component";
 import { DrawerComponent } from "./drawer/drawer.component";
-// import { ContentComponent } from "./content/content.component";
 import { ToolbarComponent } from "./toolbar/toolbar.component";
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    DrawerComponent,
-    // ContentComponent,
-    ToolbarComponent
-  ],
+  declarations: [AppComponent, DrawerComponent, ToolbarComponent],
   imports: [
     MaterialComponentsModule,
     BrowserModule,
