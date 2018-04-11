@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { DataSource } from "@angular/cdk/table";
 
 @Component({
   selector: "app-bar-chart",
@@ -11,7 +12,15 @@ export class BarChartComponent {
     responsive: true,
     scales: {
       xAxes: [{ barPercentage: 0.5 }],
-      yAxes: [{ ticks: { beginAtZero: true } }]
+      yAxes: [
+        {
+          ticks: {
+            beginAtZero: true,
+            fontFamily: "'Roboto', sans-serif",
+            fontStyle: "500"
+          }
+        }
+      ]
     }
   };
   public barChartType: string = "bar";
