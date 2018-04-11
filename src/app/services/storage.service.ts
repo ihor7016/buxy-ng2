@@ -17,9 +17,14 @@ export class StorageService {
     console.log("set");
     this.user = "user1";
     const id = this.db.createPushId();
-    const item = { id: id };
-    this.db.list("users").set(item.id, item);
-    this.db.list(item.id).push("accounts");
+    const item = {
+      accounts: [{ id: "accId1", name: "Cash", currency: "UAH" }],
+      tags: ["salary", "rent"],
+      transactions: {
+        transId1: { desc: "appartments rent", amount: 1500, date: "2018-04-05" }
+      }
+    };
+    this.db.list("users").set(id, item);
   }
 
   get() {
