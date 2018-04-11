@@ -3,7 +3,7 @@ import { NgModule } from "@angular/core";
 
 import { AngularFireModule } from "angularfire2";
 import { AngularFireDatabaseModule } from "angularfire2/database";
-import { environment } from "../environments/environment";
+import { firebase } from "../environments/firebase.config";
 
 import { AppComponent } from "./app.component";
 
@@ -13,7 +13,7 @@ import { StorageService } from "./services/storage.service";
   declarations: [AppComponent],
   imports: [
     BrowserModule,
-    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireModule.initializeApp(firebase),
     AngularFireDatabaseModule
   ],
   providers: [StorageService],
