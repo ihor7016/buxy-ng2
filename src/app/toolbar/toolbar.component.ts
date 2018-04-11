@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Output } from "@angular/core";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { MatSidenav } from "@angular/material";
 
 @Component({
   selector: "app-toolbar",
@@ -6,13 +7,13 @@ import { Component, EventEmitter, Output } from "@angular/core";
   styleUrls: ["./toolbar.component.scss"]
 })
 export class ToolbarComponent {
-  @Output() toggle: EventEmitter<null> = new EventEmitter();
-
-  toggleSideBar() {
-    this.toggle.emit();
-  }
+  @Input() sideNav: MatSidenav;
 
   handleAboutClick() {
     console.log("handleAboutClick");
+  }
+
+  handleMenuClick() {
+    this.sideNav.toggle();
   }
 }
