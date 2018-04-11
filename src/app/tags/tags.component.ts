@@ -8,13 +8,13 @@ import { Component, OnInit } from "@angular/core";
 export class TagsComponent implements OnInit {
   tags: Array<string>;
 
-  handleAddTagClick() {
-    console.log("handleAddTagClick");
-  }
-
   ngOnInit() {
     this.tags = Array(5)
       .fill(0)
       .map((_, i) => `Tag`);
+  }
+
+  handleAddTagClick() {
+    console.log("handleAddTagClick");
   }
 }
