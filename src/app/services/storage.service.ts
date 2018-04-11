@@ -7,15 +7,13 @@ import {
 
 @Injectable()
 export class StorageService {
-  dbRef: any;
-  user: string;
+  dbRef: AngularFireList<any[]>;
   constructor(private db: AngularFireDatabase) {
     this.dbRef = this.db.list("users");
   }
 
   setUser(user, data) {
     console.log("set");
-    this.user = "user1";
     const id = this.db.createPushId();
     const item = {
       accounts: [{ id: "accId1", name: "Cash", currency: "UAH" }],
