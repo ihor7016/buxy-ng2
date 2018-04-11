@@ -8,7 +8,11 @@ import { Component } from "@angular/core";
 export class BarChartComponent {
   public barChartOptions: any = {
     scaleShowVerticalLines: false,
-    responsive: true
+    responsive: true,
+    scales: {
+      xAxes: [{ barPercentage: 0.5 }],
+      yAxes: [{ ticks: { beginAtZero: true } }]
+    }
   };
   public barChartType: string = "bar";
   public barChartLegend: boolean = true;
