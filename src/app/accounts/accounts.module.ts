@@ -3,10 +3,10 @@ import { CommonModule } from "@angular/common";
 import { AccountsComponent } from "./accounts.component";
 
 import { MaterialComponentsModule } from "../material/material.module";
-import { ButtonMoreModule } from "../button-more/button-more.module";
+import { SharedModule } from "../shared/shared.module";
 
 @NgModule({
-  imports: [CommonModule, MaterialComponentsModule, ButtonMoreModule],
+  imports: [CommonModule, MaterialComponentsModule, SharedModule],
   declarations: [AccountsComponent],
   exports: [AccountsComponent]
 })

@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { ButtonMoreComponent } from "./button-more.component";
+import { ButtonMoreComponent } from "../button-more/button-more.component";
 import { MaterialComponentsModule } from "../material/material.module";
 
 @NgModule({
@@ -8,4 +8,4 @@ import { MaterialComponentsModule } from "../material/material.module";
   declarations: [ButtonMoreComponent],
   exports: [ButtonMoreComponent]
 })
-export class ButtonMoreModule {}
+export class SharedModule {}
