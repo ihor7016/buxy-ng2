@@ -16,7 +16,10 @@ export class StorageService {
   setUser(user, data) {
     console.log("set");
     this.user = "user1";
-    this.dbRef.push(this.user);
+    const id = this.db.createPushId();
+    const item = { id: id };
+    this.db.list("users").set(item.id, item);
+    this.db.list(item.id).push("accounts");
   }
 
   get() {
