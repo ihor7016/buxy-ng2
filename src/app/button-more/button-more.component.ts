@@ -6,8 +6,6 @@ import { Component } from "@angular/core";
   styleUrls: ["./button-more.component.scss"]
 })
 export class ButtonMoreComponent {
-  constructor() {}
-
   handleButtonMoreClick() {
     console.log("handleButtonMoreClick");
   }
