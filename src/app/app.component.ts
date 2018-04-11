@@ -10,6 +10,7 @@ import { Observable } from "rxjs/Observable";
 export class AppComponent {
   title: Observable<any>;
   constructor(private storage: StorageService) {
-    this.title = this.storage.get().valueChanges();
+    this.title = this.storage.get();
+    this.storage.setUser(null, null);
   }
 }
