@@ -1,0 +1,10 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav mode="side" #sidenav opened class="sidenav-container__md">
+    <app-accounts></app-accounts>
+    <app-tags></app-tags>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <app-toolbar [sideNav]="sidenav"></app-toolbar>
+    <div class="content"></div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
