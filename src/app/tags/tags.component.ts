@@ -3,7 +3,7 @@ import { Component, OnInit } from "@angular/core";
 @Component({
   selector: "app-tags",
   templateUrl: "./tags.component.html",
-  styleUrls: ["./tags.component.scss"]
+  styleUrls: ["../styles/drawer-menu.scss"]
 })
 export class TagsComponent implements OnInit {
   tags: Array<string>;
