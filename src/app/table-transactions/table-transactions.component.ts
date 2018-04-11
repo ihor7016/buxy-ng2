@@ -1,6 +1,14 @@
 import { Component } from "@angular/core";
 import { DataSource } from "@angular/cdk/table";
 
+export interface Element {
+  date: string;
+  amount: number;
+  description: string;
+  tag: string;
+  account: string;
+}
+
 @Component({
   selector: "app-table-transactions",
   templateUrl: "./table-transactions.component.html",
@@ -9,14 +17,6 @@ import { DataSource } from "@angular/cdk/table";
 export class TableTransactionsComponent {
   displayedColumns = ["date", "amount", "description", "tag", "account"];
   dataSource = ELEMENT_DATA;
-}
-
-export interface Element {
-  date: string;
-  amount: number;
-  description: string;
-  tag: string;
-  account: string;
 }
 
 const ELEMENT_DATA: Element[] = [
