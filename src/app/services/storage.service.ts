@@ -7,42 +7,54 @@ import {
 
 @Injectable()
 export class StorageService {
-  private basePath: string = "/appData";
-  items: AngularFireList<any[]> = null;
-  item: AngularFireObject<any> = null;
-  // dbRef: AngularFireList<any[]>;
+  private basePath: string;
   constructor(private db: AngularFireDatabase) {
-    // this.dbRef = this.db.list("users");
+    /// remove
+    this.basePath = `users/-L9pBogXuQosr-X5rcV5`;
   }
 
-  getItemsList(query = {}): AngularFireList<any[]> {
-    this.items = this.db.list(this.basePath);
-    return this.items;
+  setUserId(userId: string) {
+    if (!userId) return;
+    this.basePath = `users/${userId}`;
   }
 
-  createItem(item: any): void {
-    this.items.push(item);
+  getList(dataType: string): AngularFireList<any> {
+    return this.db.list(`${this.basePath}/${dataType}`);
   }
 
-  setUser(user, data) {
-    console.log("set");
-    const id = this.db.createPushId();
-    const item = {
-      accounts: [{ id: "accId1", name: "Cash", currency: "UAH" }],
-      tags: ["salary", "rent"],
-      transactions: {
-        transId1: { desc: "appartments rent", amount: 1500, date: "2018-04-05" }
-      }
-    };
-    this.db.list("users").set(id, item);
+  getObject(dataType: string, dataId: string): AngularFireObject<any> {
+    return this.db.object(`${this.basePath}/${dataType}/${dataId}`);
   }
 
-  get() {
-    console.log("get");
-    // return this.dbRef.snapshotChanges();
+  setObject(dataType: string, data: any) {
+    // generates Id
+    this.getList(dataType).push(data);
+    // need to return id
   }
 
-  handleError(e) {
-    console.log(e);
-  }
+  // createItem(item: any): void {
+  //   this.items.push(item);
+  // }
+
+  // setUser(user, data) {
+  //   console.log("set");
+  //   const id = this.db.createPushId();
+  //   const item = {
+  //     accounts: [{ id: "accId1", name: "Cash", currency: "UAH" }],
+  //     tags: ["salary", "rent"],
+  //     transactions: {
+  //       transId1: { desc: "appartments rent", amount: 1500, date: "2018-04-05" }
+  //     }
+  //   };
+  //   this.db.list("users").set(id, item);
+  // }
+
+  // get() {
+  //   console.log("get");
+  //   // return this.dbRef.snapshotChanges();
+  // }
+
+  // handleError(e) {
+  //   console.log(e);
+  // }
 }
