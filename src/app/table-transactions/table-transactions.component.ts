@@ -1,13 +1,7 @@
-import { Component } from "@angular/core";
+//import { Component } from "@angular/core";
 import { DataSource } from "@angular/cdk/table";
-
-export interface Element {
-  date: string;
-  amount: number;
-  description: string;
-  tag: string;
-  account: string;
-}
+import { Component, ViewChild } from "@angular/core";
+import { MatTableDataSource, MatSort } from "@angular/material";
 
 @Component({
   selector: "app-table-transactions",
@@ -16,7 +10,21 @@ export interface Element {
 })
 export class TableTransactionsComponent {
   displayedColumns = ["date", "amount", "description", "tag", "account"];
-  dataSource = ELEMENT_DATA;
+  dataSource = new MatTableDataSource(ELEMENT_DATA);
+
+  @ViewChild(MatSort) sort: MatSort;
+
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
+  }
+}
+
+export interface Element {
+  date: string;
+  amount: number;
+  description: string;
+  tag: string;
+  account: string;
 }
 
 const ELEMENT_DATA: Element[] = [
