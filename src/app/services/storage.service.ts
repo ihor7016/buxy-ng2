@@ -7,9 +7,21 @@ import {
 
 @Injectable()
 export class StorageService {
-  dbRef: AngularFireList<any[]>;
+  private basePath: string = "/appData";
+  items: AngularFireList<any[]> = null;
+  item: AngularFireObject<any> = null;
+  // dbRef: AngularFireList<any[]>;
   constructor(private db: AngularFireDatabase) {
-    this.dbRef = this.db.list("users");
+    // this.dbRef = this.db.list("users");
+  }
+
+  getItemsList(query = {}): AngularFireList<any[]> {
+    this.items = this.db.list(this.basePath);
+    return this.items;
+  }
+
+  createItem(item: any): void {
+    this.items.push(item);
   }
 
   setUser(user, data) {
@@ -27,6 +39,10 @@ export class StorageService {
 
   get() {
     console.log("get");
-    return this.dbRef.snapshotChanges();
+    // return this.dbRef.snapshotChanges();
+  }
+
+  handleError(e) {
+    console.log(e);
   }
 }
