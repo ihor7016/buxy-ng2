@@ -4,18 +4,34 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { CdkTableModule } from "@angular/cdk/table";
 import { MatTableModule } from "@angular/material/table";
 
+import { MaterialComponentsModule } from "./material/material.module";
+import { AccountsModule } from "./accounts/accounts.module";
+import { TagsModule } from "./tags/tags.module";
+import { TransactionsModule } from "./transactions/transactions.module";
+import { DrawerComponent } from "./drawer/drawer.component";
+import { ToolbarComponent } from "./toolbar/toolbar.component";
+import { AboutDialogComponent } from "./about-dialog/about-dialog.component";
 import { AppComponent } from "./app.component";
-import { TableTransactionsComponent } from "./table-transactions/table-transactions.component";
 
 @NgModule({
-  declarations: [AppComponent, TableTransactionsComponent],
+  declarations: [
+    AppComponent,
+    DrawerComponent,
+    ToolbarComponent,
+    AboutDialogComponent
+  ],
   imports: [
+    CdkTableModule,
+    MatTableModule,
     BrowserModule,
     BrowserAnimationsModule,
-    CdkTableModule,
-    MatTableModule
+    MaterialComponentsModule,
+    AccountsModule,
+    TagsModule,
+    TransactionsModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [AboutDialogComponent]
 })
 export class AppModule {}
