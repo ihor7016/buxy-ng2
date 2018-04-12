@@ -25,7 +25,6 @@ import { TableTransactionsComponent } from "./table-transactions/table-transacti
   imports: [
     CdkTableModule,
     MatTableModule,
-    AboutDialogComponent,
     BrowserModule,
     BrowserAnimationsModule,
     MaterialComponentsModule,
