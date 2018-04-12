@@ -9,5 +9,5 @@ import { version } from "../../../package.json";
 })
 export class AboutDialogComponent {
   version: any = version;
-  constructor(private matDialogRef: MatDialogRef<AboutDialogComponent>) {}
+  constructor(public matDialogRef: MatDialogRef<AboutDialogComponent>) {}
 }
