@@ -1,4 +1,4 @@
-### 1. Login in firebase:
+### 1. Login to firebase:
 
 - run command
 
