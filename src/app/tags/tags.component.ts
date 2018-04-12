@@ -9,6 +9,8 @@ import {Component, OnInit} from '@angular/core';
 export class TagsComponent implements OnInit {
   tags: Array<string>;
 
+  constructor(private dialog: MatDialog) {}
+
   ngOnInit() {
     this.tags = Array(5)
       .fill(0)
@@ -24,6 +26,12 @@ export class TagsComponent implements OnInit {
   }
 
   handleAddTagClick() {
-    console.log("handleAddTagClick");
+    const addTagDialog = this.dialog.open(TagDialogComponent, {
+      data: { action: "Add" },
+      minWidth: "50%"
+    });
+    addTagDialog
+      .afterClosed()
+      .subscribe(res => (res ? console.log(res) : null));
   }
 }

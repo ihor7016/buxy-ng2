@@ -1,4 +1,7 @@
 import { Component, OnInit } from "@angular/core";
+import { MatDialog } from "@angular/material";
+
+import { AccountDialogComponent } from "./account-dialog/account-dialog.component";
 
 @Component({
   selector: "app-accounts",
@@ -9,8 +12,16 @@ import { Component, OnInit } from "@angular/core";
 export class AccountsComponent implements OnInit {
   accounts: Array<string>;
 
+  constructor(private dialog: MatDialog) {}
+
   handleAddAccountClick() {
-    console.log("handleAddAccountClick");
+    const addAccountDialog = this.dialog.open(AccountDialogComponent, {
+      data: { action: "Add" },
+      minWidth: "50%"
+    });
+    addAccountDialog
+      .afterClosed()
+      .subscribe(res => (res ? console.log(res) : null));
   }
 
   ngOnInit() {

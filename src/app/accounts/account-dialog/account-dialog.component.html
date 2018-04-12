@@ -1,0 +1,41 @@
+<div class="dialog mat-typography">
+  <h1 mat-dialog-title>{{ data.action }} account</h1>
+  <form [formGroup]="form" (ngSubmit)="submit(form)">
+    <div mat-dialog-content>
+      <div class="dialog__row dialog__row--col">
+        <div class="dialog__col">
+          <div class="dialog__row">
+            <mat-form-field class="dialog__input">
+              <input matInput placeholder="Account" formControlName="account">
+            </mat-form-field>
+          </div>
+          <div class="dialog__row">
+            <mat-form-field class="dialog__input">
+              <mat-select placeholder="Type" formControlName="type">
+                <mat-option *ngFor="let type of types" [value]="type">{{type}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="dialog__col">
+          <div class="dialog__row">
+            <mat-form-field class="dialog__input">
+              <input matInput placeholder="Balance" formControlName="balance">
+            </mat-form-field>
+          </div>
+          <div class="dialog__row">
+            <mat-form-field class="dialog__input">
+              <mat-select placeholder="Currency" formControlName="currency">
+                <mat-option *ngFor="let currency of currencies" [value]="currency">{{currency}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div mat-dialog-actions class="dialog__row dialog__row--actions">
+      <button mat-button type="reset" color="primary" mat-dialog-close>CANCEL</button>
+      <button mat-button type="submit" color="primary">OK</button>
+    </div>
+  </form>
+</div>
