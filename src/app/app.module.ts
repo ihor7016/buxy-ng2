@@ -13,11 +13,17 @@ import { TransactionsModule } from "./transactions/transactions.module";
 import { AppComponent } from "./app.component";
 import { DrawerComponent } from "./drawer/drawer.component";
 import { ToolbarComponent } from "./toolbar/toolbar.component";
+import { AboutDialogComponent } from "./about-dialog/about-dialog.component";
 
 import { StorageService } from "./services/storage.service";
 
 @NgModule({
-  declarations: [AppComponent, DrawerComponent, ToolbarComponent],
+  declarations: [
+    AppComponent,
+    DrawerComponent,
+    ToolbarComponent,
+    AboutDialogComponent
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -29,6 +35,7 @@ import { StorageService } from "./services/storage.service";
     AngularFireDatabaseModule
   ],
   providers: [StorageService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [AboutDialogComponent]
 })
 export class AppModule {}
