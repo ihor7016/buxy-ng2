@@ -1,4 +1,4 @@
-1. Login in firebase:
+### 1. Login in firebase:
 
 - run command
 
@@ -10,7 +10,7 @@ npm run login
 
 
 
-2. Deploy project:
+### 2. Deploy project:
 
 - run command
 
