@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
-import { MatSidenav } from "@angular/material";
+import { MatSidenav, MatDialog } from "@angular/material";
+
+import { AboutDialogComponent } from "../about-dialog/about-dialog.component";
 
 @Component({
   selector: "app-toolbar",
@@ -9,8 +11,10 @@ import { MatSidenav } from "@angular/material";
 export class ToolbarComponent {
   @Input() sideNav: MatSidenav;
 
+  constructor(private dialog: MatDialog) {}
+
   handleAboutClick() {
-    console.log("handleAboutClick");
+    this.dialog.open(AboutDialogComponent, { minWidth: "50%" });
   }
 
   handleMenuClick() {
