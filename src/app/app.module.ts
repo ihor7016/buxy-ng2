@@ -12,13 +12,15 @@ import { DrawerComponent } from "./drawer/drawer.component";
 import { ToolbarComponent } from "./toolbar/toolbar.component";
 import { AboutDialogComponent } from "./about-dialog/about-dialog.component";
 import { AppComponent } from "./app.component";
+import { TableTransactionsComponent } from "./table-transactions/table-transactions.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     DrawerComponent,
     ToolbarComponent,
-    AboutDialogComponent
+    AboutDialogComponent,
+    TableTransactionsComponent
   ],
   imports: [
     CdkTableModule,
