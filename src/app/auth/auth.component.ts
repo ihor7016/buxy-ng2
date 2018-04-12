@@ -19,11 +19,15 @@ export class AuthComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) {
   }
 
+  loginSuccessful(result) {
+    console.log(result);
+    this.router.navigate(['main']);
+  }
+
   signInWithGoogle() {
     this.authService.signInWithGoogle()
       .then((res) => {
-        console.log(res);
-        this.router.navigate(['main']);
+        this.loginSuccessful(res);
       })
       .catch((err) => console.log(err));
   }
@@ -32,8 +36,7 @@ export class AuthComponent implements OnInit {
 
     this.authService.signInRegular(this.user.email, this.user.password)
       .then((res) => {
-        console.log(res);
-        this.router.navigate(['main']);
+       this. loginSuccessful(res);
       })
       .catch((err) => console.log('error: ' + err));
   }

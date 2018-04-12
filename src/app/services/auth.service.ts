@@ -1,44 +1,37 @@
-import { Injectable } from '@angular/core';
-import { Router } from "@angular/router";
+import {Injectable} from '@angular/core';
+import {Router} from '@angular/router';
 
-import { AngularFireAuth } from 'angularfire2/auth';
+import {AngularFireAuth} from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
-import { Observable } from 'rxjs/Observable';
+import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class AuthService {
-  private user: Observable<firebase.User>;
-  private userDetails: firebase.User = null;
 
   constructor(private _firebaseAuth: AngularFireAuth, private router: Router) {
-    this.user = _firebaseAuth.authState;
-
-    this.user.subscribe(
-      (user) => {
-        if (user) {
-          this.userDetails = user;
-          console.log(this.userDetails);
-        } else {
-          this.userDetails = null;
-        }
-      }
-    );
   }
 
   signInWithGoogle() {
     return this._firebaseAuth.auth.signInWithPopup(
       new firebase.auth.GoogleAuthProvider()
-    )
+    );
   }
 
   signInRegular(email, password) {
-    const credential = firebase.auth.EmailAuthProvider.credential( email, password );
+    const credential = firebase.auth.EmailAuthProvider.credential(email, password);
 
-    return this._firebaseAuth.auth.signInWithEmailAndPassword(email, password)
+    return _firebase
+      .auth
+      .setPersistence(
+        firebase
+          .auth.Auth.Persistence.SESSION).then(() =>
+    return this._firebaseAuth.signInWithEmailAndPassword(email, password);
+  )
+    ;
   }
 
   isLoggedIn() {
-    return this.userDetails != null;
+    return this._firebaseAuth.auth;
   }
 
 
