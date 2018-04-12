@@ -1,0 +1,33 @@
+.dialog {
+  &__type-label {
+    margin-right: 8px;
+    color: rgba(0, 0, 0, 0.54);
+  }
+
+  &__input {
+    width: 100%;
+  }
+
+  &__row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: row;
+    padding: 10px 0;
+
+    &--col {
+      justify-content: space-between;
+      padding: 0;
+    }
+
+    &--actions {
+      justify-content: flex-end;
+    }
+  }
+
+  &__col {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 45%;
+  }
+}

@@ -1,33 +1,27 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { NgModule } from "@angular/core";
+import { BrowserModule } from "@angular/platform-browser";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
-import { AppComponent } from './app.component';
-import { ToolbarComponent } from './toolbar/toolbar.component';
-import { DrawerComponent } from './drawer/drawer.component';
-import {MaterialComponentsModule} from './material/material.module';
-import { ContentComponent } from './content/content.component';
-import { AccountsComponent } from './accounts/accounts.component';
-import { TagsComponent } from './tags/tags.component';
-import { ButtonMoreComponent } from './button-more/button-more.component';
+import { MaterialComponentsModule } from "./material/material.module";
+import { AccountsModule } from "./accounts/accounts.module";
+import { TagsModule } from "./tags/tags.module";
+import { TransactionsModule } from "./transactions/transactions.module";
 
+import { AppComponent } from "./app.component";
+import { DrawerComponent } from "./drawer/drawer.component";
+import { ToolbarComponent } from "./toolbar/toolbar.component";
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ToolbarComponent,
-    DrawerComponent,
-    ContentComponent,
-    AccountsComponent,
-    TagsComponent,
-    ButtonMoreComponent
-  ],
+  declarations: [AppComponent, DrawerComponent, ToolbarComponent],
   imports: [
-    MaterialComponentsModule,
     BrowserModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MaterialComponentsModule,
+    AccountsModule,
+    TagsModule,
+    TransactionsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

@@ -3,7 +3,8 @@
     <app-accounts></app-accounts>
     <app-tags></app-tags>
   </mat-sidenav>
-  <mat-sidenav-content>
-    <app-content [sideBar]="sidenav"></app-content>
+  <mat-sidenav-content class="sidenav-container__content">
+    <app-toolbar [sideNav]="sidenav"></app-toolbar>
+    <app-transactions></app-transactions>
   </mat-sidenav-content>
 </mat-sidenav-container>

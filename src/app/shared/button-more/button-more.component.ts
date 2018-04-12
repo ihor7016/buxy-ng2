@@ -1,13 +1,10 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from "@angular/core";
 
 @Component({
-  selector: 'app-button-more',
-  templateUrl: './button-more.component.html',
-  styleUrls: ['./button-more.component.scss']
+  selector: "app-button-more",
+  templateUrl: "./button-more.component.html"
 })
-export class ButtonMoreComponent{
-  constructor() {
-  }
+export class ButtonMoreComponent {
 
   @Input() position: string;
   @Output() editClick: EventEmitter<null> = new EventEmitter();
@@ -22,5 +19,4 @@ export class ButtonMoreComponent{
     this.deleteClick.emit();
 
   }
-
 }
