@@ -17,6 +17,7 @@ import { AuthComponent } from "./auth/auth.component";
 import { AppRoutes } from "./app-routing.module";
 import { MainComponent } from "./main/main.component";
 
+
 @NgModule({
   declarations: [
     AppComponent,
