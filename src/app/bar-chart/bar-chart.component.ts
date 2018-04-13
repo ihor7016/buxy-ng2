@@ -23,15 +23,10 @@ export class BarChartComponent {
       ]
     }
   };
+  public barChartLabels: string[] = ["Income", "Expenses"];
   public barChartType: string = "bar";
-  public barChartLegend: boolean = true;
+  public barChartLegend: boolean = false;
 
-  public barChartData: any[] = [
-    { data: [26500], label: "Income" },
-    { data: [11800], label: "Expenses" }
-  ];
-  public barChartColors: any[] = [
-    { backgroundColor: ["#4caf50"] },
-    { backgroundColor: ["#f44336"] }
-  ];
+  public barChartData: any[] = [{ data: [26500, 11800] }];
+  public barChartColors: any[] = [{ backgroundColor: ["#4caf50", "#f44336"] }];
 }
