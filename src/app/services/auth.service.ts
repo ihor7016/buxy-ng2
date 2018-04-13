@@ -19,10 +19,10 @@ export class AuthService {
       email,
       password
     );
-    return _firebase.auth
+    return this._firebaseAuth.auth
       .setPersistence(firebase.auth.Auth.Persistence.SESSION)
       .then(() =>
-        this._firebaseAuth.signInWithEmailAndPassword(email, password)
+        this._firebaseAuth.auth.signInWithEmailAndPassword(email, password)
       );
   }
 
