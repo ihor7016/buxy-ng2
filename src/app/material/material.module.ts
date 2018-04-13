@@ -13,7 +13,8 @@ import {
   MatInputModule,
   MatDatepickerModule,
   MatNativeDateModule,
-  MatTableModule
+  MatTableModule,
+  MatSortModule
 } from "@angular/material";
 import { CdkTableModule } from "@angular/cdk/table";
 
@@ -33,7 +34,8 @@ import { CdkTableModule } from "@angular/cdk/table";
     MatDatepickerModule,
     MatNativeDateModule,
     MatTableModule,
-    CdkTableModule
+    CdkTableModule,
+    MatSortModule
   ]
 })
 export class MaterialComponentsModule {}
