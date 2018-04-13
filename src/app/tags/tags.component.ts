@@ -1,6 +1,6 @@
+import { MatDialog } from "@angular/material";
 import { Component, OnInit } from "@angular/core";
 import { TagDialogComponent } from "./tag-dialog/tag-dialog.component";
-import { MatDialog } from "@angular/material";
 
 @Component({
   selector: "app-tags",
