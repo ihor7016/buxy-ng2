@@ -12,8 +12,11 @@ import {
   MatRadioModule,
   MatInputModule,
   MatDatepickerModule,
-  MatNativeDateModule
+  MatNativeDateModule,
+  MatTableModule,
+  MatSortModule
 } from "@angular/material";
+import { CdkTableModule } from "@angular/cdk/table";
 
 @NgModule({
   exports: [
@@ -29,7 +32,10 @@ import {
     MatRadioModule,
     MatInputModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatTableModule,
+    CdkTableModule,
+    MatSortModule
   ]
 })
 export class MaterialComponentsModule {}
