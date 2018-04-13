@@ -8,6 +8,7 @@ import { AboutDialogComponent } from "../about-dialog/about-dialog.component";
   templateUrl: "./toolbar.component.html",
   styleUrls: ["./toolbar.component.scss"]
 })
+
 export class ToolbarComponent {
   @Input() sideNav: MatSidenav;
 
