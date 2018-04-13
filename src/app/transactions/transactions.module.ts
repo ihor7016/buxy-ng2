@@ -4,6 +4,7 @@ import { CommonModule } from "@angular/common";
 import { MaterialComponentsModule } from "../material/material.module";
 import { CdkTableModule } from "@angular/cdk/table";
 import { MatTableModule } from "@angular/material/table";
+import { MatSortModule } from "@angular/material/sort";
 
 import { TransactionsComponent } from "./transactions.component";
 import { TransactionDialogComponent } from "./transaction-dialog/transaction-dialog.component";
@@ -20,6 +21,7 @@ import { TableTransactionsComponent } from "../table-transactions/table-transact
     ReactiveFormsModule,
     CdkTableModule,
     MatTableModule,
+    MatSortModule,
     MaterialComponentsModule
   ],
   exports: [TransactionsComponent],
