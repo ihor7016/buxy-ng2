@@ -8,7 +8,6 @@ import { AccountDialogComponent } from "./account-dialog/account-dialog.componen
   templateUrl: "./accounts.component.html",
   styleUrls: ["../styles/drawer-menu.scss"]
 })
-
 export class AccountsComponent implements OnInit {
   accounts: Array<string>;
 

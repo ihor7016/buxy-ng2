@@ -5,6 +5,4 @@ import { Component } from "@angular/core";
   templateUrl: "./drawer.component.html",
   styleUrls: ["./drawer.component.scss"]
 })
-
 export class DrawerComponent {}
-
