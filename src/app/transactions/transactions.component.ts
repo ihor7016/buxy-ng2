@@ -11,7 +11,6 @@ import { TransactionDialogComponent } from "./transaction-dialog/transaction-dia
 export class TransactionsComponent {
   accounts: any[];
   tags: string[];
-
   constructor(private dialog: MatDialog) {
     this.accounts = [
       { name: "Cash", id: "ibf3y0kuv4" },
