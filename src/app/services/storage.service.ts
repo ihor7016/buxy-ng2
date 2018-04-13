@@ -16,7 +16,6 @@ export class StorageService {
   }
 
   getList(dataType: string): AngularFireList<any> {
-    console.log(`${this.basePath}/${dataType}`);
     return this.db.list(`${this.basePath}/${dataType}`);
   }
 
