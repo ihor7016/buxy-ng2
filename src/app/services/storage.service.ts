@@ -8,17 +8,15 @@ import {
 @Injectable()
 export class StorageService {
   private basePath: string;
-  constructor(private db: AngularFireDatabase) {
-    /// remove
-    this.basePath = `users/-L9pBogXuQosr-X5rcV5`;
-  }
+  constructor(private db: AngularFireDatabase) {}
 
-  setUserId(userId: string) {
+  setUserId(userId: string): void {
     if (!userId) return;
     this.basePath = `users/${userId}`;
   }
 
   getList(dataType: string): AngularFireList<any> {
+    console.log(`${this.basePath}/${dataType}`);
     return this.db.list(`${this.basePath}/${dataType}`);
   }
 
@@ -26,35 +24,21 @@ export class StorageService {
     return this.db.object(`${this.basePath}/${dataType}/${dataId}`);
   }
 
-  setObject(dataType: string, data: any) {
-    // generates Id
-    this.getList(dataType).push(data);
-    // need to return id
+  setObject(dataType: string, data: any): PromiseLike<Promise<void>> {
+    const dataToStore: any = Object.assign(data);
+    return this.getList(dataType)
+      .push(dataToStore)
+      .then(item => {
+        dataToStore.id = item.key;
+        return this.updateObject(dataType, dataToStore);
+      });
   }
 
-  // createItem(item: any): void {
-  //   this.items.push(item);
-  // }
+  updateObject(dataType: string, data: any): Promise<void> {
+    return this.getList(dataType).update(data.id, data);
+  }
 
-  // setUser(user, data) {
-  //   console.log("set");
-  //   const id = this.db.createPushId();
-  //   const item = {
-  //     accounts: [{ id: "accId1", name: "Cash", currency: "UAH" }],
-  //     tags: ["salary", "rent"],
-  //     transactions: {
-  //       transId1: { desc: "appartments rent", amount: 1500, date: "2018-04-05" }
-  //     }
-  //   };
-  //   this.db.list("users").set(id, item);
-  // }
-
-  // get() {
-  //   console.log("get");
-  //   // return this.dbRef.snapshotChanges();
-  // }
-
-  // handleError(e) {
-  //   console.log(e);
-  // }
+  deleteObject(dataType: string, dataId: string): Promise<void> {
+    return this.getList(dataType).remove(dataId);
+  }
 }

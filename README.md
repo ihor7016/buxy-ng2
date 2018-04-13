@@ -1,4 +1,5 @@
 # buxy-ngx
+https://buxy-ng.firebaseapp.com/
 
 ## Deploying
 ### 1. Login to firebase:

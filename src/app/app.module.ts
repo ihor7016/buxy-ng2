@@ -15,8 +15,6 @@ import { DrawerComponent } from "./drawer/drawer.component";
 import { ToolbarComponent } from "./toolbar/toolbar.component";
 import { AboutDialogComponent } from "./about-dialog/about-dialog.component";
 
-import { StorageService } from "./services/storage.service";
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,7 +32,7 @@ import { StorageService } from "./services/storage.service";
     AngularFireModule.initializeApp(firebase),
     AngularFireDatabaseModule
   ],
-  providers: [StorageService],
+  providers: [],
   bootstrap: [AppComponent],
   entryComponents: [AboutDialogComponent]
 })

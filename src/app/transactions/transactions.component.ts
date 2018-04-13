@@ -3,8 +3,6 @@ import { MatDialog } from "@angular/material";
 
 import { TransactionDialogComponent } from "./transaction-dialog/transaction-dialog.component";
 
-import { StorageService } from "../services/storage.service";
-
 @Component({
   selector: "app-transactions",
   templateUrl: "./transactions.component.html",
@@ -13,18 +11,8 @@ import { StorageService } from "../services/storage.service";
 export class TransactionsComponent {
   accounts: any[];
   tags: string[];
-  data: any;
-  constructor(private dialog: MatDialog, private storage: StorageService) {
-    /// *******************
 
-    const acc = { name: "Cash", balance: 200, type: "cash", currency: "UAH" };
-    this.data = this.storage
-      .getObject("transactions", "transId1")
-      .valueChanges();
-
-    this.storage.setObject("accounts", acc);
-
-    /// ******************
+  constructor(private dialog: MatDialog) {
     this.accounts = [
       { name: "Cash", id: "ibf3y0kuv4" },
       { name: "BoaBank", id: "w2dvndxoz7n" },
