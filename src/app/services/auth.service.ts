@@ -27,7 +27,7 @@ export class AuthService {
           .auth.Auth.Persistence.SESSION).then(() =>
     return this._firebaseAuth.signInWithEmailAndPassword(email, password);
   )
-    ;
+;
   }
 
   isLoggedIn() {
