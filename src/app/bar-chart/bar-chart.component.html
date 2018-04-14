@@ -1,0 +1,6 @@
+<div class="bar-chart mat-elevation-z2">
+  <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+    [colors]="barChartColors" [legend]="barChartLegend" [chartType]="barChartType"
+    (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+  </canvas>
+</div>
