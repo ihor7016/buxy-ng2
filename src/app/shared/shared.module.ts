@@ -8,6 +8,7 @@ import { AboutDialogComponent } from "./about-dialog/about-dialog.component";
 @NgModule({
   imports: [CommonModule, MaterialComponentsModule],
   declarations: [ButtonMoreComponent, AboutDialogComponent],
-  exports: [ButtonMoreComponent, AboutDialogComponent]
+  exports: [ButtonMoreComponent, AboutDialogComponent],
+  entryComponents: [AboutDialogComponent]
 })
 export class SharedModule {}
