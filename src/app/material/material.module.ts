@@ -17,7 +17,6 @@ import {
   MatSortModule
 } from "@angular/material";
 import { CdkTableModule } from "@angular/cdk/table";
-import { ChartsModule } from "ng2-charts";
 
 @NgModule({
   exports: [
@@ -36,8 +35,7 @@ import { ChartsModule } from "ng2-charts";
     MatNativeDateModule,
     MatTableModule,
     CdkTableModule,
-    MatSortModule,
-    ChartsModule
+    MatSortModule
   ]
 })
 export class MaterialComponentsModule {}
