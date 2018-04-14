@@ -4,7 +4,7 @@ import { DataSource } from "@angular/cdk/table";
 @Component({
   selector: "app-bar-chart",
   templateUrl: "./bar-chart.component.html",
-  styleUrls: ["./charts.scss"]
+  styleUrls: ["../../styles/charts.scss"]
 })
 export class BarChartComponent {
   public barChartOptions: any = {
