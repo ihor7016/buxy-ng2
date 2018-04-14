@@ -1,0 +1,14 @@
+.auth-conainer {
+  background-size: cover;
+  &__main {
+    position: relative;
+    margin: 0 auto;
+    width: 500px;
+  }
+  &__form-password {
+    width: 100%;
+  }
+  &__button-goole {
+    margin-top: 15px;
+  }
+}

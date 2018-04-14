@@ -1,7 +1,6 @@
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-
 import { MaterialComponentsModule } from "./material/material.module";
 import { AccountsModule } from "./accounts/accounts.module";
 import { TagsModule } from "./tags/tags.module";
@@ -16,7 +15,7 @@ import { AuthModule } from "./auth/auth.module";
 import { AuthComponent } from "./auth/auth.component";
 import { AppRoutes } from "./app-routing.module";
 import { MainComponent } from "./main/main.component";
-
+import { ToolbarUserComponent } from "./toolbar/toolbar-user/toolbar-user.component";
 
 @NgModule({
   declarations: [
@@ -24,6 +23,7 @@ import { MainComponent } from "./main/main.component";
     MainComponent,
     DrawerComponent,
     ToolbarComponent,
+    ToolbarUserComponent,
     AboutDialogComponent
   ],
   imports: [

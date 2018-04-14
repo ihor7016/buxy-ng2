@@ -1,34 +1,31 @@
-<div>
-  <div>
-    <div>
-      <div>
-        <div>
-          <form>
-            <h3 align="center">Login Form</h3>
-            <div class="form-group">
-              <label>Email address</label>
-              <input type="email" [(ngModel)]="user.email" name="email" placeholder="Email" required>
-            </div>
-            <div>
-              <label>Password</label> <input type="password" class="form-control"
-                [(ngModel)]="user.password" name="password" placeholder="Password"
-                required>
-            </div>
-            <div>
-              <button type="buton" class="btn btn-primary btn-block" (click)="signInWithEmail()"
-                style="margin-bottom: 20px">
-                Login with Email
-              </button>
-            </div>
-            <div>
-              <button type="button" (click)="signInWithGoogle()">
-                <i class="fa fa-google" aria-hidden="true"></i>
-                Login with Google
-              </button>
-            </div>
-          </form>
+<div class="auth-conainer" fxLayout="column" fxLayoutAlign="center center">
+  <div class="auth-conainer__main mat-elevation-z12">
+    <mat-card>
+      <mat-card-title>User login</mat-card-title>
+      <mat-card-content class="auth-conainer__card-content">
+        <form class="auth-conainer__form" fxLayout="column" fxLayoutAlign="start stretch"
+          [formGroup]="userForm" (ngSubmit)="login()">
+          <mat-form-field class="auth-conainer__form-password">
+            <input type="email" class="auth-conainer__input" placeholder="Please enter your email"
+              formControlName="email" required matInput>
+          </mat-form-field>
+          <div *ngIf="formErrors.email" class="is-danger">
+            {{ formErrors.email }}
+          </div>
+          <mat-form-field class="auth-conainer__form-password">
+            <input type="password" class="input" placeholder="please enter your password" formControlName="password"
+              required matInput>
+          </mat-form-field>
+          <div *ngIf="formErrors.password" class="is-danger">
+            {{ formErrors.password }}
+          </div>
+          <button mat-raised-button color="primary" type="submit" [disabled]="!userForm.valid">log in</button>
+        </form>
+
+        <div class="auth-conaine__button-goole">
+          <button mat-raised-button (click)="signInWithGoogle()">Google account login</button>
         </div>
-      </div>
-    </div>
+      </mat-card-content>
+    </mat-card>
   </div>
 </div>
