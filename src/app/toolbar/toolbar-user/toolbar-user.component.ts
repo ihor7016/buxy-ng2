@@ -1,39 +1,18 @@
-import { Component, OnInit, ElementRef, HostListener } from "@angular/core";
-import { Router } from "@angular/router";
+import { Component } from "@angular/core";
 import { AuthService } from "../../services/auth.service";
 
 @Component({
-  selector: "stbui-toolbar-user",
+  selector: "app-toolbar-user",
   templateUrl: "./toolbar-user.component.html",
   styleUrls: ["./toolbar-user.component.scss"]
 })
-export class ToolbarUserComponent implements OnInit {
-  isOpen: boolean = false;
-  currentUser: AuthService = null;
+export class ToolbarUserComponent {
+  isOpen = false;
+  currentUser: AuthService;
 
-  @HostListener("document:click", ["$event", "$event.target"])
-  onClick(event: MouseEvent, targetElement: HTMLElement) {
-    if (!targetElement) {
-      return;
-    }
-
-    const clickedInside = this._elementRef.nativeElement.contains(
-      targetElement
-    );
-    if (!clickedInside) {
-      this.isOpen = false;
-    }
-  }
-
-  constructor(
-    private _elementRef: ElementRef,
-    private router: Router,
-    private auth: AuthService
-  ) {
+  constructor(private auth: AuthService) {
     this.currentUser = this.auth;
   }
-
-  ngOnInit() {}
 
   toggleDropdown() {
     this.isOpen = !this.isOpen;

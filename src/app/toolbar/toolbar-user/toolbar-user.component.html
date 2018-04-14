@@ -1,19 +1,18 @@
 <div class="toolbar-user-container">
-  <button mat-button (click)="toggleDropdown()" class="toolbar-user-btn" [class.open]="isOpen">
-  <span fxLayout="row" fxLayoutAlign="start center">
-    <img class="avatar" [src]="currentUser.currentUser?.photoURL">
-    <span class="name" fxHide fxShow.gt-sm>{{currentUser.currentUser.displayName}}</span>
-    <mat-icon class="icon" fxHide fxShow.gt-sm>keyboard_arrow_down</mat-icon>
+  <button mat-button (click)="toggleDropdown()" class="toolbar-user-container__btn"
+    [class.toolbar-user-container__open]="isOpen">
+  <span class="toolbar-user-container__info">
+    <img class="toolbar-user-container__avatar" [src]="currentUser.currentUser?.photoURL || 'assets/noavatar.png'">
+    <span class="toolbar-user-container__name">{{currentUser.currentUser?.displayName || currentUser.currentUser?.email}}</span>
+    <mat-icon class="toolbar-user-container__icon" [class.toolbar-user-container__icon-open]="isOpen">keyboard_arrow_down</mat-icon>
   </span>
   </button>
-
-  <div class="dropdown mat-elevation-z1" [class.open]="isOpen">
-    <div class="content">
-      <div class="list">
-        <div class="item" fxLayout="row" fxLayoutAlign="start center" (click)="logout()"
-          mat-ripple>
-          <mat-icon class="icon">exit_to_app</mat-icon>
-          <span class="title">Sign out</span>
+  <div class="toolbar-user-container__dropdown mat-elevation-z1" [class.toolbar-user-container__dropdown-open]="isOpen">
+    <div class="toolbar-user-container__content">
+      <div class="toolbar-user-container__content-list">
+        <div class="toolbar-user-container__content-item" (click)="logout()" mat-ripple>
+          <mat-icon class="toolbar-user-container__content-icon">exit_to_app</mat-icon>
+          <button mat-button class="toolbar-user-container__content-title">Sign out</button>
         </div>
       </div>
     </div>
