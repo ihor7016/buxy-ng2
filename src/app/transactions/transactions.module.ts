@@ -6,8 +6,8 @@ import { ChartsModule } from "ng2-charts";
 
 import { TransactionsComponent } from "./transactions.component";
 import { TransactionDialogComponent } from "./transaction-dialog/transaction-dialog.component";
-import { TableTransactionsComponent } from "../table-transactions/table-transactions.component";
 import { BarChartComponent } from "./bar-chart/bar-chart.component";
+import { TableTransactionsComponent } from "./table-transactions/table-transactions.component";
 
 @NgModule({
   declarations: [
