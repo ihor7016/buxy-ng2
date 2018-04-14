@@ -5,35 +5,20 @@ import { AngularFireModule } from "angularfire2";
 import { AngularFireDatabaseModule } from "angularfire2/database";
 import { firebase } from "../environments/firebase.config";
 
-import { MaterialComponentsModule } from "./material/material.module";
-import { AccountsModule } from "./accounts/accounts.module";
-import { TagsModule } from "./tags/tags.module";
-import { TransactionsModule } from "./transactions/transactions.module";
+import { LayoutModule } from "./layout/layout.module";
 
 import { AppComponent } from "./app.component";
-import { DrawerComponent } from "./drawer/drawer.component";
-import { ToolbarComponent } from "./toolbar/toolbar.component";
-import { AboutDialogComponent } from "./about-dialog/about-dialog.component";
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    DrawerComponent,
-    ToolbarComponent,
-    AboutDialogComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    MaterialComponentsModule,
-    AccountsModule,
-    TagsModule,
-    TransactionsModule,
+    LayoutModule,
     AngularFireModule.initializeApp(firebase),
     AngularFireDatabaseModule
   ],
   providers: [],
-  bootstrap: [AppComponent],
-  entryComponents: [AboutDialogComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule {}

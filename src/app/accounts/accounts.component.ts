@@ -28,4 +28,12 @@ export class AccountsComponent implements OnInit {
       .fill(0)
       .map((_, i) => `Account 100USD `);
   }
+
+  deleteAccount() {
+    console.log("deleteAccount");
+  }
+
+  editAccount() {
+    console.log("editAccount");
+  }
 }

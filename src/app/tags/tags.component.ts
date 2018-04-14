@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material";
-
 import { TagDialogComponent } from "./tag-dialog/tag-dialog.component";
 
 @Component({
@@ -17,6 +16,14 @@ export class TagsComponent implements OnInit {
     this.tags = Array(5)
       .fill(0)
       .map((_, i) => `Tag`);
+  }
+
+  deleteTag() {
+    console.log("deleteTag");
+  }
+
+  editTag() {
+    console.log("editTag");
   }
 
   handleAddTagClick() {
