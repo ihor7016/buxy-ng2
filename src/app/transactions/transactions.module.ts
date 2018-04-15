@@ -6,6 +6,7 @@ import { MaterialComponentsModule } from "../material/material.module";
 import { TransactionsComponent } from "./transactions.component";
 import { TransactionDialogComponent } from "./transaction-dialog/transaction-dialog.component";
 import { TableTransactionsComponent } from "./table-transactions/table-transactions.component";
+import { SharedModule } from "../shared/shared.module";
 
 @NgModule({
   declarations: [
@@ -13,7 +14,12 @@ import { TableTransactionsComponent } from "./table-transactions/table-transacti
     TransactionDialogComponent,
     TableTransactionsComponent
   ],
-  imports: [CommonModule, ReactiveFormsModule, MaterialComponentsModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MaterialComponentsModule,
+    SharedModule
+  ],
   exports: [TransactionsComponent],
   entryComponents: [TransactionDialogComponent]
 })

@@ -23,6 +23,14 @@ export class TableTransactionsComponent {
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
   }
+
+  editTransaction() {
+    console.log("editTransaction");
+  }
+
+  deleteTransaction() {
+    console.log("deleteTransaction");
+  }
 }
 
 const ELEMENT_DATA: Element[] = [
