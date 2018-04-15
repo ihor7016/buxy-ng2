@@ -13,6 +13,12 @@ export class AccountsComponent implements OnInit {
 
   constructor(private dialog: MatDialog) {}
 
+  ngOnInit() {
+    this.accounts = Array(5)
+      .fill(0)
+      .map((_, i) => `Account 100USD `);
+  }
+
   handleAddAccountClick() {
     const addAccountDialog = this.dialog.open(AccountDialogComponent, {
       data: { action: "Add" },
@@ -23,14 +29,8 @@ export class AccountsComponent implements OnInit {
       .subscribe(res => (res ? console.log(res) : null));
   }
 
-  ngOnInit() {
-    this.accounts = Array(5)
-      .fill(0)
-      .map((_, i) => `Account 100USD `);
-  }
-
-  deleteAccount() {
-    console.log("deleteAccount");
+  deleteAccount(data) {
+    console.log(`delete ${data}`);
   }
 
   editAccount() {
