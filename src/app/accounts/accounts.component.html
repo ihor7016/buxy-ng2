@@ -6,11 +6,12 @@
     </mat-list-item>
   </mat-nav-list>
   <mat-list class="accounts__menu drawer-menu">
-    <mat-list-item *ngFor="let name of accounts" class="accounts__item drawer-menu__item">
+    <mat-list-item *ngFor="let account of accounts" class="accounts__item drawer-menu__item">
       <mat-icon matListIcon>account_balance</mat-icon>
-      {{name}}
-      <app-button-more [position]="'after'" class="accounts__button-more drawer-menu__button-more"
-        (editClick)="editAccount()" (deleteClick)="deleteAccount()"></app-button-more>
+      {{account}}
+      <app-button-more [position]="'after'" [data]="{type: 'account', name: account}" class="accounts__button-more drawer-menu__button-more"
+        (editClick)="editAccount()" (deleteClick)="deleteAccount(account)">
+      </app-button-more>
     </mat-list-item>
   </mat-list>
 </div>

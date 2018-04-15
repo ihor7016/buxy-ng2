@@ -6,11 +6,11 @@
     </mat-list-item>
   </mat-nav-list>
   <mat-list class="tags__menu drawer-menu">
-    <mat-list-item *ngFor="let name of tags" class="drawer-menu__item">
+    <mat-list-item *ngFor="let tag of tags" class="drawer-menu__item">
       <mat-icon matListIcon>local_offer</mat-icon>
-      {{name}}
-      <app-button-more [position]="'after'" class="tags__button-more drawer-menu__button-more"
-        (editClick)="editTag()" (deleteClick)="deleteTag()"></app-button-more>
+      {{tag}}
+      <app-button-more [position]="'after'" [data]="{type: 'tag', name: tag}" class="tags__button-more drawer-menu__button-more"
+        (editClick)="editTag()" (deleteClick)="deleteTag(tag)"></app-button-more>
     </mat-list-item>
   </mat-list>
 </div>
