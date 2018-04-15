@@ -9,4 +9,7 @@ export class PieChartComponent {
   public pieChartLabels: string[] = ["Medical care", "Rent", "Leisure"];
   public pieChartData: number[] = [300, 4500, 400];
   public pieChartType: string = "pie";
+  public barChartColors: any[] = [
+    { backgroundColor: ["#4caf50", "#9c27b0", "#f44336"] }
+  ];
 }
