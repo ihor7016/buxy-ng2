@@ -5,7 +5,7 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { MaterialComponentsModule } from "../material/material.module";
 import { SharedModule } from "../shared/shared.module";
 
-import { AccountsComponent } from "./accounts.component";
+import { AccountsComponent } from "./accounts/accounts.component";
 import { AccountDialogComponent } from "./account-dialog/account-dialog.component";
 
 @NgModule({
