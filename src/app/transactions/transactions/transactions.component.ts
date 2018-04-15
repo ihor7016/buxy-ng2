@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { MatDialog } from "@angular/material";
 
-import { TransactionDialogComponent } from "./transaction-dialog/transaction-dialog.component";
+import { TransactionDialogComponent } from "../transaction-dialog/transaction-dialog.component";
 
 @Component({
   selector: "app-transactions",

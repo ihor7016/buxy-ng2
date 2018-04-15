@@ -1,12 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material";
 
-import { AccountDialogComponent } from "./account-dialog/account-dialog.component";
+import { AccountDialogComponent } from "../account-dialog/account-dialog.component";
 
 @Component({
   selector: "app-accounts",
   templateUrl: "./accounts.component.html",
-  styleUrls: ["../styles/drawer-menu.scss"]
+  styleUrls: ["../../styles/drawer-menu.scss"]
 })
 export class AccountsComponent implements OnInit {
   accounts: Array<string>;

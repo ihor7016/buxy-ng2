@@ -3,7 +3,7 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
 import { MaterialComponentsModule } from "../material/material.module";
 
-import { TransactionsComponent } from "./transactions.component";
+import { TransactionsComponent } from "./transactions/transactions.component";
 import { TransactionDialogComponent } from "./transaction-dialog/transaction-dialog.component";
 import { TableTransactionsComponent } from "./table-transactions/table-transactions.component";
 

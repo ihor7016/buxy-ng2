@@ -1,11 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material";
-import { TagDialogComponent } from "./tag-dialog/tag-dialog.component";
+import { TagDialogComponent } from "../tag-dialog/tag-dialog.component";
 
 @Component({
   selector: "app-tags",
   templateUrl: "./tags.component.html",
-  styleUrls: ["../styles/drawer-menu.scss"]
+  styleUrls: ["../../styles/drawer-menu.scss"]
 })
 export class TagsComponent implements OnInit {
   tags: Array<string>;
