@@ -3,7 +3,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AngularFireModule } from "angularfire2";
 import { AngularFireDatabaseModule } from "angularfire2/database";
-import { firebase } from "../environments/firebase.config";
+import { firebaseConfig } from "../environments/firebase.config";
 
 import { LayoutModule } from "./layout/layout.module";
 
@@ -15,7 +15,7 @@ import { AppComponent } from "./app.component";
     BrowserModule,
     BrowserAnimationsModule,
     LayoutModule,
-    AngularFireModule.initializeApp(firebase),
+    AngularFireModule.initializeApp(firebaseConfig),
     AngularFireDatabaseModule
   ],
   providers: [],

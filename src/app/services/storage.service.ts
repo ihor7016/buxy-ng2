@@ -19,25 +19,25 @@ export class StorageService {
     return this.db.list(`${this.basePath}/${dataType}`);
   }
 
-  getObject(dataType: string, dataId: string): AngularFireObject<any> {
+  getData(dataType: string, dataId: string): AngularFireObject<any> {
     return this.db.object(`${this.basePath}/${dataType}/${dataId}`);
   }
 
-  setObject(dataType: string, data: any): PromiseLike<Promise<void>> {
+  setData(dataType: string, data: any): PromiseLike<Promise<void>> {
     const dataToStore: any = Object.assign(data);
     return this.getList(dataType)
       .push(dataToStore)
       .then(item => {
         dataToStore.id = item.key;
-        return this.updateObject(dataType, dataToStore);
+        return this.updateData(dataType, dataToStore);
       });
   }
 
-  updateObject(dataType: string, data: any): Promise<void> {
+  updateData(dataType: string, data: any): Promise<void> {
     return this.getList(dataType).update(data.id, data);
   }
 
-  deleteObject(dataType: string, dataId: string): Promise<void> {
+  deleteData(dataType: string, dataId: string): Promise<void> {
     return this.getList(dataType).remove(dataId);
   }
 }
