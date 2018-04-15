@@ -1,5 +1,5 @@
 import { Component, ViewChild } from "@angular/core";
-import { MatTableDataSource, MatSort } from "@angular/material";
+import { MatSort, MatTableDataSource } from "@angular/material";
 
 export interface Element {
   date: string;
