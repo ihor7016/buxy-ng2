@@ -1,6 +1,7 @@
 .chart {
-  display: block;
-  height: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
   margin-bottom: 30px;
   padding: 20px;
   background-color: #fafafa;
