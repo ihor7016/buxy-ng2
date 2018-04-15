@@ -1,5 +1,4 @@
 import { Component } from "@angular/core";
-import { DataSource } from "@angular/cdk/table";
 
 @Component({
   selector: "app-bar-chart",
