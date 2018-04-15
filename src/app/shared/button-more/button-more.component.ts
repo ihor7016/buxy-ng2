@@ -9,7 +9,7 @@ import { ConfirmDialogComponent } from "../confirm-dialog/confirm-dialog.compone
 })
 export class ButtonMoreComponent {
   @Input() position: string;
-  @Input() data: { type: string; name: any };
+  @Input() data: { type: string; name: string };
   @Output() editClick: EventEmitter<null> = new EventEmitter();
   @Output() deleteClick: EventEmitter<null> = new EventEmitter();
   constructor(private dialog: MatDialog) {}
