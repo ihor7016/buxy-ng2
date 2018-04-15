@@ -1,11 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material";
-import { TagDialogComponent } from "./tag-dialog/tag-dialog.component";
+
+import { TagDialogComponent } from "../tag-dialog/tag-dialog.component";
 
 @Component({
   selector: "app-tags",
   templateUrl: "./tags.component.html",
-  styleUrls: ["../styles/drawer-menu.scss"]
+  styleUrls: ["../../styles/drawer-menu.scss"]
 })
 export class TagsComponent implements OnInit {
   tags: Array<string>;
@@ -18,14 +19,6 @@ export class TagsComponent implements OnInit {
       .map((_, i) => `Tag`);
   }
 
-  deleteTag() {
-    console.log("deleteTag");
-  }
-
-  editTag() {
-    console.log("editTag");
-  }
-
   handleAddTagClick() {
     const addTagDialog = this.dialog.open(TagDialogComponent, {
       data: { action: "Add" },
@@ -34,5 +27,13 @@ export class TagsComponent implements OnInit {
     addTagDialog
       .afterClosed()
       .subscribe(res => (res ? console.log(res) : null));
+  }
+
+  deleteTag(data) {
+    console.log(`delete ${data}`);
+  }
+
+  editTag() {
+    console.log("editTag");
   }
 }
