@@ -1,0 +1,15 @@
+<mat-nav-list class="drawer-menu">
+  <mat-list-item (click)="handleAddAccountClick()">
+    <mat-icon matListIcon>add</mat-icon>
+    Add new account
+  </mat-list-item>
+</mat-nav-list>
+<mat-list class="drawer-menu">
+  <mat-list-item *ngFor="let account of accounts" class="drawer-menu__item">
+    <mat-icon matListIcon>account_balance</mat-icon>
+    {{account}}
+    <app-button-more [position]="'after'" [data]="{type: 'account', name: account}" class="drawer-menu__button-more"
+      (editClick)="editAccount()" (deleteClick)="deleteAccount(account)">
+    </app-button-more>
+  </mat-list-item>
+</mat-list>
