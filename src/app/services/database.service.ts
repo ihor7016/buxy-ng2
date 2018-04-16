@@ -7,7 +7,7 @@ import {
 import { Observable } from "rxjs/Observable";
 
 @Injectable()
-export class StorageService {
+export class DatabaseService {
   private basePath: string;
   constructor(private db: AngularFireDatabase) {
     this.basePath = `users/defaultUserId`;
