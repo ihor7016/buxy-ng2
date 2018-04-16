@@ -22,7 +22,7 @@ import { SharedModule } from "../shared/shared.module";
     ReactiveFormsModule,
     MaterialComponentsModule,
     ChartsModule,
-     SharedModule
+    SharedModule
   ],
   exports: [TransactionsComponent],
   entryComponents: [TransactionDialogComponent]

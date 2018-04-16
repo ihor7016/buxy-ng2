@@ -29,8 +29,8 @@
         Account
       </mat-header-cell>
       <mat-cell *matCellDef="let element" class="table-transactions__cell"> {{element.account}}
-        <app-button-more [position]="'before'" class="table-transactions__button-more" (editClick)="editTransaction()"
-          (deleteClick)="deleteTransaction()"></app-button-more>
+        <app-button-more [position]="'before'" class="table-transactions__button-more" [data]="{type: 'transaction', name: element.account}"
+          (editClick)="handleEditTransaction()" (deleteClick)="handleDeleteTransaction()"></app-button-more>
       </mat-cell>
     </ng-container>
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
