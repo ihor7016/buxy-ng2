@@ -1,5 +1,5 @@
 import { Component, Inject } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup } from "@angular/forms";
 import { DatePipe } from "@angular/common";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 
@@ -25,7 +25,7 @@ export class TransactionDialogComponent {
     this.form = this.formBuilder.group({
       type: "-",
       desc: "",
-      amount: ["", Validators.pattern(/^[0-9]+$/)],
+      amount: "",
       date: new Date(),
       tagId: "",
       accountId: ""
