@@ -12,7 +12,7 @@
       <div class="dialog__row">
         <mat-form-field class="dialog__input">
           <input matInput placeholder="Description" formControlName="desc" required>
-          <mat-error *ngIf="form.controls.desc.hasError('required')">Please enter description</mat-error>
+          <mat-error *ngIf="form.controls.desc.invalid">Please enter description</mat-error>
         </mat-form-field>
       </div>
       <div class="dialog__row dialog__row--col">
@@ -29,7 +29,7 @@
               <mat-select placeholder="Tag" formControlName="tagId" required>
                 <mat-option *ngFor="let tag of data.tags" [value]="tag">{{tag}}</mat-option>
               </mat-select>
-              <mat-error *ngIf="form.controls.tagId.hasError('required')">Please choose a tag</mat-error>
+              <mat-error *ngIf="form.controls.tagId.invalid">Please choose a tag</mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -40,7 +40,7 @@
                 required>
               <mat-datepicker-toggle matSuffix [for]="date"></mat-datepicker-toggle>
               <mat-datepicker #date></mat-datepicker>
-              <mat-error *ngIf="form.controls.date.hasError('required')">Please choose date</mat-error>
+              <mat-error *ngIf="form.controls.date.invalid">Please choose date</mat-error>
             </mat-form-field>
           </div>
           <div class="dialog__row">
@@ -48,7 +48,7 @@
               <mat-select placeholder="Account" formControlName="accountId" required>
                 <mat-option *ngFor="let account of data.accounts" [value]="account.id">{{account.name}}</mat-option>
               </mat-select>
-              <mat-error *ngIf="form.controls.accountId.hasError('required')">Please choose an account</mat-error>
+              <mat-error *ngIf="form.controls.accountId.invalid">Please choose an account</mat-error>
             </mat-form-field>
           </div>
         </div>
