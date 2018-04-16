@@ -8,13 +8,13 @@ import { AngularFireAuthModule } from "angularfire2/auth";
 import { AuthService } from "../services/auth.service";
 import { AuthComponent } from "./auth.component";
 import { AuthGuard } from "../services/auth-guard.service";
-import { firebaseConfig } from "../../firebaseConfig";
 import { MaterialComponentsModule } from "../material/material.module";
+import { config } from "../../../firebase.config";
 
 @NgModule({
   imports: [
     CommonModule,
-    AngularFireModule.initializeApp(firebaseConfig.firebase),
+    AngularFireModule.initializeApp(config),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     FormsModule,
