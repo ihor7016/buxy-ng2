@@ -1,6 +1,5 @@
 import { Component } from "@angular/core";
 import { MatDialog } from "@angular/material";
-
 import { TransactionDialogComponent } from "../transaction-dialog/transaction-dialog.component";
 
 @Component({
@@ -11,6 +10,7 @@ import { TransactionDialogComponent } from "../transaction-dialog/transaction-di
 export class TransactionsComponent {
   accounts: any[];
   tags: string[];
+
   constructor(private dialog: MatDialog) {
     this.accounts = [
       { name: "Cash", id: "ibf3y0kuv4" },
@@ -25,6 +25,14 @@ export class TransactionsComponent {
       "Entertainment",
       "Building"
     ];
+  }
+
+  editTransaction() {
+    console.log("editTransaction");
+  }
+
+  deleteTransaction() {
+    console.log("deleteTransaction");
   }
 
   handleAddTransactionClick() {
