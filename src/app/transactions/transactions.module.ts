@@ -6,6 +6,7 @@ import { ChartsModule } from "ng2-charts";
 
 import { TransactionsComponent } from "./transactions.component";
 import { TransactionDialogComponent } from "./transaction-dialog/transaction-dialog.component";
+import { BarChartComponent } from "./bar-chart/bar-chart.component";
 import { TableTransactionsComponent } from "./table-transactions/table-transactions.component";
 import { PieChartComponent } from "./pie-chart/pie-chart.component";
 
@@ -14,7 +15,8 @@ import { PieChartComponent } from "./pie-chart/pie-chart.component";
     TransactionsComponent,
     TransactionDialogComponent,
     TableTransactionsComponent,
-    PieChartComponent
+    PieChartComponent,
+    BarChartComponent
   ],
   imports: [
     CommonModule,

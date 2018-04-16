@@ -6,4 +6,12 @@
     right: 12px;
     bottom: 12px;
   }
+
+  &__charts {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    box-sizing: border-box;
+    flex-wrap: wrap;
+  }
 }
