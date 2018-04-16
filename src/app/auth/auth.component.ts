@@ -89,8 +89,22 @@ export class AuthComponent implements OnInit {
       .catch(error => console.log("Mailbox login error：", error));
   }
 
+  signUp() {
+    this.auth
+      .emailSignUp(
+        this.userForm.value["email"],
+        this.userForm.value["password"]
+      )
+      .then(() => this.afterSignIn())
+      .catch(error => console.log("Mailbox login error：", error));
+  }
+
   login() {
     this.signInWithEmail();
+  }
+
+  register() {
+    this.signUp();
   }
 
   private afterSignIn() {

@@ -20,11 +20,9 @@
             {{ formErrors.password }}
           </div>
           <button mat-raised-button color="primary" type="submit" [disabled]="!userForm.valid">log in</button>
-        </form>
-
-        <div class="auth-conaine__button-goole">
+          <button mat-raised-button color="primary" [disabled]="!userForm.valid" (click)="register()">Register</button>
           <button mat-raised-button (click)="signInWithGoogle()">Google account login</button>
-        </div>
+        </form>
       </mat-card-content>
     </mat-card>
   </div>
