@@ -5,43 +5,50 @@
       <div class="dialog__row">
         <label class="dialog__type-label">Type of transaction: </label>
         <mat-radio-group formControlName="type">
-          <mat-radio-button value="-">Expense</mat-radio-button>
-          <mat-radio-button value="+">Income</mat-radio-button>
+          <mat-radio-button class="dialog__type-radio" value="-">Expense</mat-radio-button>
+          <mat-radio-button class="dialog__type-radio" value="+">Income</mat-radio-button>
         </mat-radio-group>
       </div>
       <div class="dialog__row">
         <mat-form-field class="dialog__input">
-          <input matInput placeholder="Description" formControlName="desc">
+          <input matInput placeholder="Description" formControlName="desc" required>
+          <mat-error *ngIf="form.controls.desc.invalid">Please enter description</mat-error>
         </mat-form-field>
       </div>
       <div class="dialog__row dialog__row--col">
         <div class="dialog__col">
           <div class="dialog__row">
             <mat-form-field class="dialog__input">
-              <input matInput placeholder="Amount" formControlName="amount">
+              <input matInput placeholder="Amount" formControlName="amount" pattern="^[0-9]+$"
+                required>
+              <mat-error *ngIf="form.controls.amount.invalid">Please enter amount (number)</mat-error>
             </mat-form-field>
           </div>
           <div class="dialog__row">
             <mat-form-field class="dialog__input">
-              <mat-select placeholder="Tag" formControlName="tag">
+              <mat-select placeholder="Tag" formControlName="tagId" required>
                 <mat-option *ngFor="let tag of data.tags" [value]="tag">{{tag}}</mat-option>
               </mat-select>
+              <mat-error *ngIf="form.controls.tagId.invalid">Please choose a tag</mat-error>
             </mat-form-field>
           </div>
         </div>
         <div class="dialog__col">
           <div class="dialog__row">
             <mat-form-field class="dialog__input">
-              <input matInput [matDatepicker]="date" placeholder="Date of transaction" formControlName="date">
+              <input matInput [matDatepicker]="date" placeholder="Date of transaction" formControlName="date"
+                required>
               <mat-datepicker-toggle matSuffix [for]="date"></mat-datepicker-toggle>
               <mat-datepicker #date></mat-datepicker>
+              <mat-error *ngIf="form.controls.date.invalid">Please choose date</mat-error>
             </mat-form-field>
           </div>
           <div class="dialog__row">
             <mat-form-field class="dialog__input">
-              <mat-select placeholder="Account" formControlName="accountId">
+              <mat-select placeholder="Account" formControlName="accountId" required>
                 <mat-option *ngFor="let account of data.accounts" [value]="account.id">{{account.name}}</mat-option>
               </mat-select>
+              <mat-error *ngIf="form.controls.accountId.invalid">Please choose an account</mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -49,7 +56,7 @@
     </div>
     <div mat-dialog-actions class="dialog__row dialog__row--actions">
       <button mat-button type="reset" color="primary" mat-dialog-close>CANCEL</button>
-      <button mat-button type="submit" color="primary">OK</button>
+      <button mat-button type="submit" color="primary" [disabled]="!form.valid">OK</button>
     </div>
   </form>
 </div>
