@@ -9,6 +9,7 @@ import { TransactionDialogComponent } from "./transaction-dialog/transaction-dia
 import { BarChartComponent } from "./bar-chart/bar-chart.component";
 import { PieChartComponent } from "./pie-chart/pie-chart.component";
 import { TableTransactionsComponent } from "./table-transactions/table-transactions.component";
+import { SharedModule } from "../shared/shared.module";
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { TableTransactionsComponent } from "./table-transactions/table-transacti
     CommonModule,
     ReactiveFormsModule,
     MaterialComponentsModule,
-    ChartsModule
+    ChartsModule,
+    SharedModule
   ],
   exports: [TransactionsComponent],
   entryComponents: [TransactionDialogComponent]

@@ -1,4 +1,4 @@
-import { Component, ViewChild } from "@angular/core";
+import { Component, EventEmitter, Output, ViewChild } from "@angular/core";
 import { MatTableDataSource, MatSort } from "@angular/material";
 
 export interface Element {
@@ -18,10 +18,20 @@ export class TableTransactionsComponent {
   displayedColumns = ["date", "amount", "description", "tag", "account"];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
 
+  @Output() editClick: EventEmitter<null> = new EventEmitter();
+  @Output() deleteClick: EventEmitter<null> = new EventEmitter();
   @ViewChild(MatSort) sort: MatSort;
 
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
+  }
+
+  handleEditTransaction() {
+    this.editClick.emit();
+  }
+
+  handleDeleteTransaction() {
+    this.deleteClick.emit();
   }
 }
 

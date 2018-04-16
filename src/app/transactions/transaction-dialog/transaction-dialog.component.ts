@@ -27,7 +27,7 @@ export class TransactionDialogComponent {
       desc: "",
       amount: "",
       date: new Date(),
-      tag: "",
+      tagId: "",
       accountId: ""
     });
   }
