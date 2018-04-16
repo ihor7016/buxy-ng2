@@ -9,11 +9,8 @@ import { Observable } from "rxjs/Observable";
 @Injectable()
 export class StorageService {
   private basePath: string;
-  constructor(private db: AngularFireDatabase) {}
-
-  setUserId(userId: string): void {
-    if (!userId) return;
-    this.basePath = `users/${userId}`;
+  constructor(private db: AngularFireDatabase) {
+    this.basePath = `users/defaultUserId`;
   }
 
   getList(dataType: string): Observable<{}[]> {
