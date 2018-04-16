@@ -30,10 +30,10 @@ export class TransactionDialogComponent {
     this.form = this.formBuilder.group({
       type: "-",
       desc: ["", Validators.required],
-      amount: "",
-      date: new Date(),
-      tagId: "",
-      accountId: ""
+      amount: ["", [Validators.required, Validators.pattern(/^[0-9]+$/)]],
+      date: [new Date(), Validators.required],
+      tagId: ["", Validators.required],
+      accountId: ["", Validators.required]
     });
   }
 

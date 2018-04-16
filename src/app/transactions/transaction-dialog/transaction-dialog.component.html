@@ -20,7 +20,7 @@
           <div class="dialog__row">
             <mat-form-field class="dialog__input">
               <input matInput placeholder="Amount" formControlName="amount" required>
-              <!-- <mat-error *ngIf="amount.invalid">getErrorMessage</mat-error> -->
+              <mat-error *ngIf="form.controls.amount.invalid">Please enter amount (number)</mat-error>
             </mat-form-field>
           </div>
           <div class="dialog__row">
@@ -39,7 +39,7 @@
                 required>
               <mat-datepicker-toggle matSuffix [for]="date"></mat-datepicker-toggle>
               <mat-datepicker #date></mat-datepicker>
-              <!-- <mat-error *ngIf="date.hasError('required')">Please choose date</mat-error> -->
+              <mat-error *ngIf="form.controls.date.hasError('required')">Please choose date</mat-error>
             </mat-form-field>
           </div>
           <div class="dialog__row">
@@ -47,7 +47,7 @@
               <mat-select placeholder="Account" formControlName="accountId" required>
                 <mat-option *ngFor="let account of data.accounts" [value]="account.id">{{account.name}}</mat-option>
               </mat-select>
-              <!-- <mat-error *ngIf="accountId.hasError('required')">Please choose an account</mat-error> -->
+              <mat-error *ngIf="form.controls.accountId.hasError('required')">Please choose an account</mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -55,7 +55,7 @@
     </div>
     <div mat-dialog-actions class="dialog__row dialog__row--actions">
       <button mat-button type="reset" color="primary" mat-dialog-close>CANCEL</button>
-      <button mat-button type="submit" color="primary">OK</button>
+      <button mat-button type="submit" color="primary" [disabled]="!form.valid">OK</button>
     </div>
   </form>
 </div>
