@@ -1,0 +1,12 @@
+<div class="dialog mat-typography">
+  <h1 mat-dialog-title>Delete {{ data.type }}</h1>
+  <div mat-dialog-content>
+    <div class="dialog__row">
+      <p>Are you sure you want to delete {{ data.type }} "{{ data.name }}"?</p>
+    </div>
+  </div>
+  <div mat-dialog-actions class="dialog__row dialog__row--actions">
+    <button mat-button type="button" color="primary" tabindex="-1" mat-dialog-close>CANCEL</button>
+    <button mat-button type="button" color="primary" tabindex="-1" (click)="submit()">OK</button>
+  </div>
+</div>

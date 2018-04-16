@@ -1,4 +1,7 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { MatDialog } from "@angular/material";
+
+import { ConfirmDialogComponent } from "../confirm-dialog/confirm-dialog.component";
 
 @Component({
   selector: "app-button-more",
@@ -6,14 +9,22 @@ import { Component, EventEmitter, Input, Output } from "@angular/core";
 })
 export class ButtonMoreComponent {
   @Input() position: string;
+  @Input() data: { type: string; name: string };
   @Output() editClick: EventEmitter<null> = new EventEmitter();
   @Output() deleteClick: EventEmitter<null> = new EventEmitter();
+  constructor(private dialog: MatDialog) {}
 
   handleEditClick() {
     this.editClick.emit();
   }
 
   handleDeleteClick() {
-    this.deleteClick.emit();
+    const confirmDialog = this.dialog.open(ConfirmDialogComponent, {
+      data: this.data,
+      minWidth: "50%"
+    });
+    confirmDialog
+      .afterClosed()
+      .subscribe(res => (res ? this.deleteClick.emit() : null));
   }
 }

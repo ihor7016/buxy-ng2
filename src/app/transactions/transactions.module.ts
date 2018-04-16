@@ -2,9 +2,11 @@ import { NgModule } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
 import { MaterialComponentsModule } from "../material/material.module";
+import { ChartsModule } from "ng2-charts";
 
-import { TransactionsComponent } from "./transactions.component";
+import { TransactionsComponent } from "./transactions/transactions.component";
 import { TransactionDialogComponent } from "./transaction-dialog/transaction-dialog.component";
+import { BarChartComponent } from "./bar-chart/bar-chart.component";
 import { TableTransactionsComponent } from "./table-transactions/table-transactions.component";
 import { SharedModule } from "../shared/shared.module";
 
@@ -12,13 +14,15 @@ import { SharedModule } from "../shared/shared.module";
   declarations: [
     TransactionsComponent,
     TransactionDialogComponent,
-    TableTransactionsComponent
+    TableTransactionsComponent,
+    BarChartComponent
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     MaterialComponentsModule,
-    SharedModule
+    ChartsModule,
+     SharedModule
   ],
   exports: [TransactionsComponent],
   entryComponents: [TransactionDialogComponent]
