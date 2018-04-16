@@ -1,5 +1,5 @@
 import { NgModule } from "@angular/core";
-import { ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
 import { MaterialComponentsModule } from "../material/material.module";
 import { ChartsModule } from "ng2-charts";
@@ -18,6 +18,7 @@ import { TableTransactionsComponent } from "./table-transactions/table-transacti
   ],
   imports: [
     CommonModule,
+    FormsModule,
     ReactiveFormsModule,
     MaterialComponentsModule,
     ChartsModule
