@@ -7,16 +7,16 @@ import { ChartsModule } from "ng2-charts";
 import { TransactionsComponent } from "./transactions/transactions.component";
 import { TransactionDialogComponent } from "./transaction-dialog/transaction-dialog.component";
 import { BarChartComponent } from "./bar-chart/bar-chart.component";
-import { TableTransactionsComponent } from "./table-transactions/table-transactions.component";
 import { PieChartComponent } from "./pie-chart/pie-chart.component";
+import { TableTransactionsComponent } from "./table-transactions/table-transactions.component";
 
 @NgModule({
   declarations: [
     TransactionsComponent,
     TransactionDialogComponent,
     TableTransactionsComponent,
-    PieChartComponent,
-    BarChartComponent
+    BarChartComponent,
+    PieChartComponent
   ],
   imports: [
     CommonModule,

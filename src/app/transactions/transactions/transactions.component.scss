@@ -12,6 +12,11 @@
     flex-direction: row;
     justify-content: space-between;
     box-sizing: border-box;
-    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+
+  &__chart {
+    width: calc(50% - 30px);
+    padding: 10px;
   }
 }
