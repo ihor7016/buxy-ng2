@@ -17,8 +17,7 @@
               required matInput>
           </mat-form-field>
           <div *ngIf="formErrors.password" class="is-danger">
-            {{ formErrors.password }}
-          </div>
+            {{ formErrors.password }}</div>
           <button mat-raised-button color="primary" type="submit" [disabled]="!userForm.valid">log in</button>
           <button mat-raised-button color="primary" [disabled]="!userForm.valid" (click)="register()">Register</button>
           <button mat-raised-button (click)="signInWithGoogle()">Google account login</button>
