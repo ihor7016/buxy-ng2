@@ -1,4 +1,4 @@
-export class Account {
+export interface Account {
   id: string;
   name: string;
   balance: number;

@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material";
 
 import { AccountDialogComponent } from "../account-dialog/account-dialog.component";
-import { Account } from "../../models/account";
+import { Account } from "../../interfaces/account";
 
 @Component({
   selector: "app-accounts",
