@@ -6,28 +6,34 @@
         <div class="dialog__col">
           <div class="dialog__row">
             <mat-form-field class="dialog__input">
-              <input matInput placeholder="Account" formControlName="account">
+              <input matInput placeholder="Account" formControlName="account" required>
+              <mat-error *ngIf="form.controls.account.hasError('required')">Please enter account name</mat-error>
+              <mat-error *ngIf="form.controls.account.hasError('forbiddenName')">The name already exists</mat-error>
             </mat-form-field>
           </div>
           <div class="dialog__row">
             <mat-form-field class="dialog__input">
-              <mat-select placeholder="Type" formControlName="type">
+              <mat-select placeholder="Type" formControlName="type" required>
                 <mat-option *ngFor="let type of types" [value]="type">{{type}}</mat-option>
               </mat-select>
+              <mat-error *ngIf="form.controls.type.invalid">Please choose a type</mat-error>
             </mat-form-field>
           </div>
         </div>
         <div class="dialog__col">
           <div class="dialog__row">
             <mat-form-field class="dialog__input">
-              <input matInput placeholder="Balance" formControlName="balance">
+              <input matInput placeholder="Balance" formControlName="balance" pattern="^[0-9]+$"
+                required>
+              <mat-error *ngIf="form.controls.balance.invalid">Please enter balance (number)</mat-error>
             </mat-form-field>
           </div>
           <div class="dialog__row">
             <mat-form-field class="dialog__input">
-              <mat-select placeholder="Currency" formControlName="currency">
+              <mat-select placeholder="Currency" formControlName="currency" required>
                 <mat-option *ngFor="let currency of currencies" [value]="currency">{{currency}}</mat-option>
               </mat-select>
+              <mat-error *ngIf="form.controls.currency.invalid">Please choose a currency</mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -35,7 +41,7 @@
     </div>
     <div mat-dialog-actions class="dialog__row dialog__row--actions">
       <button mat-button type="reset" color="primary" mat-dialog-close>CANCEL</button>
-      <button mat-button type="submit" color="primary">OK</button>
+      <button mat-button type="submit" color="primary" [disabled]="!form.valid">OK</button>
     </div>
   </form>
 </div>
