@@ -8,7 +8,7 @@
             <mat-form-field class="dialog__input">
               <input matInput placeholder="Account" formControlName="account" required>
               <mat-error *ngIf="form.controls.account.hasError('required')">Please enter account name</mat-error>
-              <mat-error *ngIf="form.controls.account.hasError('forbiddenName')">The name already exists</mat-error>
+              <mat-error *ngIf="form.controls.account.hasError('existingName')">The name already exists</mat-error>
             </mat-form-field>
           </div>
           <div class="dialog__row">

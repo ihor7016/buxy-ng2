@@ -48,11 +48,11 @@ export class AccountDialogComponent {
   }
 
   uniqueNameValidator(control: FormControl) {
-    const forbidden = this.data.accounts.reduce((res, acc) => {
+    const existing = this.data.accounts.reduce((res, acc) => {
       return res
         ? true
         : control.value.toLowerCase() === acc.name.toLowerCase();
     }, false);
-    return forbidden ? { forbiddenName: { value: control.value } } : null;
+    return existing ? { existingName: { value: control.value } } : null;
   }
 }
