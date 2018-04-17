@@ -1,23 +1,32 @@
-<div class="auth-conainer" fxLayout="column" fxLayoutAlign="center center">
+<div class="auth-conainer">
   <div class="auth-conainer__main mat-elevation-z12">
     <mat-card>
       <mat-card-title>User login</mat-card-title>
       <mat-card-content class="auth-conainer__card-content">
-        <form class="auth-conainer__form" fxLayout="column" fxLayoutAlign="start stretch"
-          [formGroup]="userForm" (ngSubmit)="login()">
+        <form [formGroup]="userForm" class="auth-conainer__form" fxLayout="column" fxLayoutAlign="start stretch"
+          (ngSubmit)="login()">
           <mat-form-field class="auth-conainer__form-password">
             <input type="email" class="auth-conainer__input" placeholder="Please enter your email"
               formControlName="email" required matInput>
+
+            <div *ngIf="email.errors && (email.dirty || email.touched)">
+              <mat-error *ngIf="email.errors.required">Email is required</mat-error>
+              <mat-error *ngIf="password.errors.pattern">The email address must contain at least the @ character</mat-error>
+            </div>
           </mat-form-field>
-          <div *ngIf="formErrors.email" class="is-danger">
-            {{ formErrors.email }}
-          </div>
+
+
           <mat-form-field class="auth-conainer__form-password">
             <input type="password" class="input" placeholder="please enter your password" formControlName="password"
               required matInput>
+
+            <div class="form-control-feedback" *ngIf="password.errors && (password.dirty || password.touched)">
+              <mat-error *ngIf="password.errors.required">Password is required</mat-error>
+              <mat-error *ngIf="password.errors.minlength">Password must be 8 characters long, we need another {{password.errors.minlength.requiredLength
+                - password.errors.minlength.actualLength}} characters </mat-error>
+            </div>
           </mat-form-field>
-          <div *ngIf="formErrors.password" class="is-danger">
-            {{ formErrors.password }}</div>
+
           <button mat-raised-button color="primary" type="submit" [disabled]="!userForm.valid">log in</button>
           <button mat-raised-button color="primary" [disabled]="!userForm.valid" (click)="register()">Register</button>
           <button mat-raised-button (click)="signInWithGoogle()">Google account login</button>

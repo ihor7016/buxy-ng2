@@ -1,5 +1,9 @@
 .auth-conainer {
-  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
   &__main {
     position: relative;
     margin: 0 auto;
