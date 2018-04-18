@@ -1,11 +1,10 @@
-<div class="auth">
+<div class="auth dialog">
   <div class="auth__dialog mat-typography">
-    <h1 mat-dialog-title>User login</h1>
-
+    <h1 mat-dialog-title>Login to Your Account</h1>
     <div mat-dialog-content>
       <form [formGroup]="userForm" class="auth__form" fxLayout="column" fxLayoutAlign="start stretch">
         <mat-form-field class="auth__form-password">
-          <input type="email" class="auth__input" placeholder="Please enter your email" formControlName="email"
+          <input type="email" class="auth__input" placeholder="Email" formControlName="email"
             required matInput>
           <div *ngIf="email.errors && (email.dirty || email.touched)">
             <mat-error *ngIf="email.errors.required">Email is required</mat-error>
@@ -14,8 +13,8 @@
           </div>
         </mat-form-field>
         <mat-form-field class="auth__form-password">
-          <input type="password" class="auth__input" placeholder="please enter your password"
-            formControlName="password" required matInput>
+          <input type="password" class="auth__input" placeholder="Password" formControlName="password"
+            required matInput>
           <div *ngIf="password.errors && (password.dirty || password.touched)">
             <mat-error *ngIf="password.errors.required">Password is required</mat-error>
             <mat-error *ngIf="password.errors.minlength">Password must be 8 characters long, we need another {{password.errors.minlength.requiredLength
@@ -25,9 +24,22 @@
         </mat-form-field>
         <mat-error>{{error}}
         </mat-error>
-        <button mat-raised-button color="primary" (click)="login()" [disabled]="!userForm.valid">log in</button>
-        <button mat-raised-button color="primary" [disabled]="!userForm.valid" (click)="register()">Register</button>
-        <button mat-raised-button (click)="signInWithGoogle()">Google account login</button>
+        <div class="dialog__actions">
+          <div mat-dialog-actions>
+            <button mat-button type="reset" color="primary" mat-dialog-close (click)="login()"
+              [disabled]="!userForm.valid">Login
+            </button>
+            <button mat-button type="submit" color="primary" [disabled]="!userForm.valid" (click)="register()">
+              Register
+            </button>
+          </div>
+          <div mat-dialog-actions>
+            <button mat-button color="primary" (click)="signInWithGoogle()">
+              <img src="assets/search.png" class="auth__icon">
+              Login with Google
+            </button>
+          </div>
+        </div>
       </form>
     </div>
   </div>
