@@ -48,16 +48,21 @@ export class AccountDialogComponent {
   }
 
   uniqueNameValidator(control: FormControl) {
-    let existing = true;
-    let val = control.value;
-    if (this.data.current) {
-      existing = !(this.data.current.name.toLowerCase() === val.toLowerCase());
-    }
-    if (existing) {
-      existing = this.data.accounts.reduce((res, acc) => {
-        return res ? true : acc.name.toLowerCase() === val.toLowerCase();
-      }, false);
-    }
-    return existing ? { existingName: { value: val } } : null;
+    const existing = !this.isCurrent(control.value)
+      ? this.exists(control.value)
+      : false;
+    return existing ? { existingName: { value: control.value } } : null;
+  }
+
+  isCurrent(name) {
+    return this.data.current
+      ? name.toLowerCase() === this.data.current.name.toLowerCase()
+      : false;
+  }
+
+  exists(name) {
+    return this.data.accounts.reduce((res, acc) => {
+      return res ? true : acc.name.toLowerCase() === name.toLowerCase();
+    }, false);
   }
 }

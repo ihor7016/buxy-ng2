@@ -25,7 +25,8 @@
             <mat-form-field class="dialog__input">
               <input matInput placeholder="Balance" formControlName="balance" pattern="^[0-9]+$"
                 required>
-              <mat-error *ngIf="form.controls.balance.invalid">Please enter balance (number)</mat-error>
+              <mat-error *ngIf="form.controls.balance.hasError('required')">Please enter balance</mat-error>
+              <mat-error *ngIf="form.controls.balance.hasError('pattern')">Balance should be a number</mat-error>
             </mat-form-field>
           </div>
           <div class="dialog__row">
