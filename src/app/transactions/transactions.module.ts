@@ -11,6 +11,8 @@ import { PieChartComponent } from "./pie-chart/pie-chart.component";
 import { TableTransactionsComponent } from "./table-transactions/table-transactions.component";
 import { SharedModule } from "../shared/shared.module";
 
+import { StorageService } from "../services/storage.service";
+
 @NgModule({
   declarations: [
     TransactionsComponent,
@@ -27,6 +29,7 @@ import { SharedModule } from "../shared/shared.module";
     SharedModule
   ],
   exports: [TransactionsComponent],
-  entryComponents: [TransactionDialogComponent]
+  entryComponents: [TransactionDialogComponent],
+  providers: [StorageService]
 })
 export class TransactionsModule {}

@@ -8,35 +8,33 @@ import { Observable } from "rxjs/Observable";
 
 @Injectable()
 export class DatabaseService {
-  private basePath: string;
+  // private basePath: string;
   constructor(private db: AngularFireDatabase) {
-    this.basePath = `users/defaultUserId`;
+    // this.basePath = `users/defaultUserId`;
   }
 
-  getList(dataType: string): Observable<{}[]> {
-    return this.db.list(`${this.basePath}/${dataType}`).valueChanges();
+  getList(path: string): Observable<{}[]> {
+    return this.db.list(path).valueChanges();
   }
 
-  getData(dataType: string, dataId: string): Observable<{}> {
-    return this.db
-      .object(`${this.basePath}/${dataType}/${dataId}`)
-      .valueChanges();
+  getData(path: string): Observable<{}> {
+    return this.db.object(path).valueChanges();
   }
 
-  setData(dataType: string, data: any): PromiseLike<Promise<void>> {
+  setData(path: string, data: any): PromiseLike<Promise<void>> {
     const dataToStore: any = Object.assign(data);
     return this.db
-      .list(`${this.basePath}/${dataType}`)
+      .list(path)
       .push(dataToStore)
       .then(item => (dataToStore.id = item.key))
-      .then(() => this.updateData(dataType, dataToStore));
+      .then(() => this.updateData(path, dataToStore.id, dataToStore));
   }
 
-  updateData(dataType: string, data: any): Promise<void> {
-    return this.db.list(`${this.basePath}/${dataType}`).update(data.id, data);
+  updateData(path: string, dataId: string, data: any): Promise<void> {
+    return this.db.list(`${path}`).update(dataId, data);
   }
 
-  deleteData(dataType: string, dataId: string): Promise<void> {
-    return this.db.list(`${this.basePath}/${dataType}`).remove(dataId);
+  deleteData(path: string, dataId: string): Promise<void> {
+    return this.db.list(path).remove(dataId);
   }
 }
