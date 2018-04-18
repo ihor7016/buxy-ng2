@@ -8,7 +8,7 @@ import { TransactionsModule } from "../transactions/transactions.module";
 
 import { DrawerComponent } from "./drawer/drawer.component";
 import { ToolbarComponent } from "./toolbar/toolbar.component";
-import { ToolbarUserComponent } from "./toolbar/toolbar-user/toolbar-user.component";
+import { ToolbarUserComponent } from "./toolbar/user-button/user-button.component";
 
 @NgModule({
   imports: [

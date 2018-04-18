@@ -2,9 +2,9 @@ import { Component } from "@angular/core";
 import { AuthService } from "../../../services/auth.service";
 
 @Component({
-  selector: "app-toolbar-user",
-  templateUrl: "./toolbar-user.component.html",
-  styleUrls: ["./toolbar-user.component.scss"]
+  selector: "app-user-button",
+  templateUrl: "./user-button.component.html",
+  styleUrls: ["./user-button.component.scss"]
 })
 export class ToolbarUserComponent {
   isOpen = false;

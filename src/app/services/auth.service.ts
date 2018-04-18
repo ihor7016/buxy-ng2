@@ -33,7 +33,6 @@ export class AuthService {
   emailSignUp(email: string, password: string) {
     return this._firebaseAuth.auth
       .createUserWithEmailAndPassword(email, password)
-      .then(user => {})
       .catch(error => console.log(error));
   }
 

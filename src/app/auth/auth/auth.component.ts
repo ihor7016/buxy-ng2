@@ -12,6 +12,7 @@ export class AuthComponent implements OnInit {
   userForm: FormGroup;
   email: FormControl;
   password: FormControl;
+  error: string;
 
   constructor(private router: Router, private auth: AuthService) {}
 
@@ -36,10 +37,20 @@ export class AuthComponent implements OnInit {
       email: this.email,
       password: this.password
     });
+    this.userForm.valueChanges.subscribe(str => {
+      this.error = "";
+    });
   }
 
   signInWithGoogle() {
-    this.auth.signInWithGoogle().then(() => this.afterSignIn());
+    this.error = "";
+    this.auth
+      .signInWithGoogle()
+      .then(() => this.afterSignIn())
+      .catch(error => {
+        console.log(error);
+        this.error = error;
+      });
   }
 
   signInWithEmail() {
@@ -49,7 +60,9 @@ export class AuthComponent implements OnInit {
         this.userForm.value["password"]
       )
       .then(() => this.afterSignIn())
-      .catch(error => console.log("Mailbox login error：", error));
+      .catch(error => {
+        this.error = error;
+      });
   }
 
   signUp() {
@@ -59,7 +72,9 @@ export class AuthComponent implements OnInit {
         this.userForm.value["password"]
       )
       .then(() => this.afterSignIn())
-      .catch(error => console.log("Mailbox login error：", error));
+      .catch(error => {
+        this.error = error;
+      });
   }
 
   login() {
