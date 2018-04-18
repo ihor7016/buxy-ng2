@@ -1,14 +1,6 @@
 import { Component, EventEmitter, Output, ViewChild } from "@angular/core";
 import { MatTableDataSource, MatSort } from "@angular/material";
 
-export interface Element {
-  date: string;
-  amount: number;
-  description: string;
-  tag: string;
-  account: string;
-}
-
 @Component({
   selector: "app-table-transactions",
   templateUrl: "./table-transactions.component.html",
@@ -35,26 +27,44 @@ export class TableTransactionsComponent {
   }
 }
 
-const ELEMENT_DATA: Element[] = [
+const ELEMENT_DATA: any[] = [
   {
     date: "19.03.2018",
+    type: "-",
     amount: 200,
     description: "tennis",
-    tag: "hobby",
-    account: "KredoBank, debitcard"
+    id: "id1",
+    tag: { name: "hobby" },
+    account: {
+      name: "KredoBank",
+      type: "debitcard",
+      currency: "$"
+    }
   },
   {
     date: "22.03.2018",
+    type: "-",
     amount: 5000,
     description: "rent payment",
-    tag: "rent",
-    account: "PravexBank, creditcard"
+    id: "id2",
+    tag: { name: "rent" },
+    account: {
+      name: "PravexBank",
+      type: "creditcard",
+      currency: "€"
+    }
   },
   {
     date: "02.04.2018",
+    type: "-",
     amount: 300,
     description: "fishing",
-    tag: "hobby",
-    account: "KredoBank, debitcard"
+    id: "id3",
+    tag: { name: "hobby" },
+    account: {
+      name: "KredoBank",
+      type: "debitcard",
+      currency: "₴"
+    }
   }
 ];
