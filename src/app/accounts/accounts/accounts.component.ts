@@ -31,8 +31,7 @@ export class AccountsComponent implements OnInit {
     const addAccountDialog = this.dialog.open(AccountDialogComponent, {
       data: {
         action: "Add",
-        accounts: this.accounts,
-        dataToEdit: this.accounts[0]
+        accounts: this.accounts
       },
       minWidth: "50%"
     });
