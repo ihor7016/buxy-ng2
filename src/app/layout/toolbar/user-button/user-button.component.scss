@@ -56,7 +56,8 @@
     color: #000;
     flex-direction: row;
     display: flex;
-    place-content: center flex-start;
+    align-content: center;
+    justify-content: flex-start;
     align-items: center;
   }
   &__content-title {
