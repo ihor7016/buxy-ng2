@@ -26,8 +26,7 @@
         </mat-error>
         <div class="dialog__actions">
           <div mat-dialog-actions>
-            <button mat-button type="reset" color="primary" mat-dialog-close (click)="login()"
-              [disabled]="!userForm.valid">Login
+            <button mat-button type="reset" color="primary" (click)="login()" [disabled]="!userForm.valid">Login
             </button>
             <button mat-button type="submit" color="primary" [disabled]="!userForm.valid" (click)="register()">
               Register
