@@ -1,5 +1,5 @@
 import { Component, Inject } from "@angular/core";
-import { FormBuilder, FormGroup, FormControl } from "@angular/forms";
+import { FormBuilder, FormGroup, AbstractControl } from "@angular/forms";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 
 @Component({
@@ -39,6 +39,10 @@ export class AccountDialogComponent {
       type: "",
       currency: ""
     });
+    this.addEventValidation([
+      this.form.controls.account,
+      this.form.controls.balance
+    ]);
   }
 
   submit(form: any) {
@@ -47,7 +51,13 @@ export class AccountDialogComponent {
     this.matDialogRef.close(acc);
   }
 
-  uniqueNameValidator(control: FormControl) {
+  addEventValidation(fields: AbstractControl[]) {
+    fields.forEach(field =>
+      field.valueChanges.subscribe(() => field.markAsTouched())
+    );
+  }
+
+  uniqueNameValidator(control: AbstractControl) {
     const existing = !this.isCurrent(control.value)
       ? this.exists(control.value)
       : false;
@@ -62,7 +72,7 @@ export class AccountDialogComponent {
 
   exists(name) {
     return this.data.accounts.reduce((res, acc) => {
-      return res ? true : acc.name.toLowerCase() === name.toLowerCase();
+      return res || acc.name.toLowerCase() === name.toLowerCase();
     }, false);
   }
 }
