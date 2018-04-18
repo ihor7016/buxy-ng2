@@ -1,6 +1,13 @@
 import { Component, Inject } from "@angular/core";
 import { FormBuilder, FormGroup, AbstractControl } from "@angular/forms";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
+import { Account } from "../../interfaces/account";
+
+interface AccountDialogData {
+  action: string;
+  accounts: Account[];
+  dataToEdit?: Account;
+}
 
 @Component({
   selector: "app-account-dialog",
@@ -27,7 +34,7 @@ export class AccountDialogComponent {
   constructor(
     private formBuilder: FormBuilder,
     private matDialogRef: MatDialogRef<AccountDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: AccountDialogData
   ) {
     this.createForm();
   }
@@ -58,21 +65,25 @@ export class AccountDialogComponent {
   }
 
   uniqueNameValidator(control: AbstractControl) {
-    const existing = !this.isCurrent(control.value)
-      ? this.exists(control.value)
-      : false;
-    return existing ? { existingName: { value: control.value } } : null;
+    if (
+      !this.isDataToEdit(control.value) &&
+      this.isExistingName(control.value)
+    ) {
+      return { existingName: { value: control.value } };
+    }
   }
 
-  isCurrent(name) {
-    return this.data.current
-      ? name.toLowerCase() === this.data.current.name.toLowerCase()
-      : false;
+  isDataToEdit(value: string) {
+    return (
+      this.data.dataToEdit &&
+      value.toLowerCase() === this.data.dataToEdit.name.toLowerCase()
+    );
   }
 
-  exists(name) {
-    return this.data.accounts.reduce((res, acc) => {
-      return res || acc.name.toLowerCase() === name.toLowerCase();
-    }, false);
+  isExistingName(value: string) {
+    const index = this.data.accounts.findIndex(
+      account => account.name.toLowerCase() === value.toLowerCase()
+    );
+    return index >= 0;
   }
 }

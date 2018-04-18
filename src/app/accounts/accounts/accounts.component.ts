@@ -29,7 +29,11 @@ export class AccountsComponent implements OnInit {
 
   handleAddAccountClick() {
     const addAccountDialog = this.dialog.open(AccountDialogComponent, {
-      data: { action: "Add", accounts: this.accounts },
+      data: {
+        action: "Add",
+        accounts: this.accounts,
+        dataToEdit: this.accounts[0]
+      },
       minWidth: "50%"
     });
     addAccountDialog
