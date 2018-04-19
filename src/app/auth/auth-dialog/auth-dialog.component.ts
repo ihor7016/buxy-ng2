@@ -1,20 +1,26 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material";
+import { AuthService } from "../../services/auth.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-auth-dialog",
   templateUrl: "./auth-dialog.component.html",
   styleUrls: ["./auth-dialog.component.scss", "../../styles/dialog.scss"]
 })
-export class AuthDialogComponent {
+export class AuthDialogComponent implements OnInit {
   userForm: FormGroup;
   email: FormControl;
   password: FormControl;
   error: string;
 
-  constructor(private matDialogRef: MatDialogRef<AuthDialogComponent>) {
-    matDialogRef.disableClose = true;
+  constructor(
+    private matDialogRef: MatDialogRef<AuthDialogComponent>,
+    private router: Router,
+    private auth: AuthService
+  ) {
+    // matDialogRef.disableClose = true;
   }
 
   ngOnInit() {
@@ -43,50 +49,50 @@ export class AuthDialogComponent {
     });
   }
 
-  // signInWithGoogle() {
-  //   this.error = "";
-  //   this.auth
-  //     .signInWithGoogle()
-  //     .then(() => this.afterSignIn())
-  //     .catch(error => {
-  //       console.log(error);
-  //       this.error = error;
-  //     });
-  // }
+  signInWithGoogle() {
+    this.error = "";
+    this.auth
+      .signInWithGoogle()
+      .then(() => this.afterSignIn())
+      .catch(error => {
+        console.log(error);
+        this.error = error;
+      });
+  }
 
-  // signInWithEmail() {
-  //   this.auth
-  //     .signInRegular(
-  //       this.userForm.value["email"],
-  //       this.userForm.value["password"]
-  //     )
-  //     .then(() => this.afterSignIn())
-  //     .catch(error => {
-  //       this.error = error;
-  //     });
-  // }
+  signInWithEmail() {
+    this.auth
+      .signInRegular(
+        this.userForm.value["email"],
+        this.userForm.value["password"]
+      )
+      .then(() => this.afterSignIn())
+      .catch(error => {
+        this.error = error;
+      });
+  }
 
-  // signUp() {
-  //   this.auth
-  //     .emailSignUp(
-  //       this.userForm.value["email"],
-  //       this.userForm.value["password"]
-  //     )
-  //     .then(() => this.afterSignIn())
-  //     .catch(error => {
-  //       this.error = error;
-  //     });
-  // }
+  signUp() {
+    this.auth
+      .emailSignUp(
+        this.userForm.value["email"],
+        this.userForm.value["password"]
+      )
+      .then(() => this.afterSignIn())
+      .catch(error => {
+        this.error = error;
+      });
+  }
 
-  // login() {
-  //   this.signInWithEmail();
-  // }
+  login() {
+    this.signInWithEmail();
+  }
 
-  // register() {
-  //   this.signUp();
-  // }
+  register() {
+    this.signUp();
+  }
 
-  // private afterSignIn() {
-  //   this.router.navigate(["main"]);
-  // }
+  private afterSignIn() {
+    this.router.navigate(["main"]);
+  }
 }

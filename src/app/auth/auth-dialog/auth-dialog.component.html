@@ -1,7 +1,7 @@
 <div class="auth-dialog  mat-typography">
   <h1 mat-dialog-title>Login to Your Account</h1>
-  <div mat-dialog-content>
-    <form [formGroup]="userForm" class="auth-dialog__form" fxLayout="column" fxLayoutAlign="start stretch">
+  <form [formGroup]="userForm" class="auth-dialog__form" fxLayout="column" fxLayoutAlign="start stretch">
+    <div mat-dialog-content>
       <mat-form-field class="auth-dialog__form-password">
         <input type="email" class="auth-dialog__input" placeholder="Email" formControlName="email"
           required matInput>
@@ -23,21 +23,21 @@
       </mat-form-field>
       <mat-error>{{error}}
       </mat-error>
-      <div class="dialog__actions">
-        <div mat-dialog-actions>
-          <button mat-button type="reset" color="primary" (click)="login()" [disabled]="!userForm.valid">Login
+    </div>
+    <div class="dialog__actions">
+      <div mat-dialog-actions>
+        <button mat-button type="reset" color="primary" (click)="login()" [disabled]="!userForm.valid">Login
           </button>
-          <button mat-button type="submit" color="primary" [disabled]="!userForm.valid" (click)="register()">
+        <button mat-button type="submit" color="primary" [disabled]="!userForm.valid" (click)="register()">
             Register
           </button>
-        </div>
-        <div mat-dialog-actions>
-          <button mat-button color="primary" (click)="signInWithGoogle()">
+      </div>
+      <div mat-dialog-actions>
+        <button mat-button color="primary" (click)="signInWithGoogle()">
             <img src="assets/google.png" class="auth-dialog__icon">
             Login with Google
           </button>
-        </div>
       </div>
-    </form>
-  </div>
+    </div>
+  </form>
 </div>
