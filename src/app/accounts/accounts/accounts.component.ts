@@ -21,9 +21,16 @@ export class AccountsComponent implements OnInit {
         name: "Privat",
         balance: 500,
         type: "savings",
-        currency: "EUR"
+        currency: "€"
       },
-      { id: "id2", name: "Cash", balance: 2000, type: "cash", currency: "UAH" }
+      { id: "id2", name: "Cash", balance: 2000, type: "cash", currency: "₴" },
+      {
+        id: "id3",
+        name: "BoaBank",
+        balance: 5000,
+        type: "credit",
+        currency: "$"
+      }
     ];
   }
 

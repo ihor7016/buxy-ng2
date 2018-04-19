@@ -1,4 +1,5 @@
 import { Component, Inject } from "@angular/core";
+
 import { FormBuilder, FormGroup, AbstractControl } from "@angular/forms";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { Account } from "../../interfaces/account";
@@ -29,7 +30,20 @@ export class AccountDialogComponent {
     "insurance",
     "other"
   ];
-  currencies: string[] = ["UAH", "USD", "EUR"];
+  currencies: {}[] = [
+    {
+      code: "UAH",
+      symbol: "₴"
+    },
+    {
+      code: "USD",
+      symbol: "$"
+    },
+    {
+      code: "EUR",
+      symbol: "€"
+    }
+  ];
 
   constructor(
     private formBuilder: FormBuilder,
