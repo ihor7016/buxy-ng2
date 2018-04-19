@@ -13,7 +13,9 @@ export class AuthDialogComponent {
   password: FormControl;
   error: string;
 
-  constructor(private matDialogRef: MatDialogRef<AuthDialogComponent>) {}
+  constructor(private matDialogRef: MatDialogRef<AuthDialogComponent>) {
+    matDialogRef.disableClose = true;
+  }
 
   ngOnInit() {
     this.createFormControls();
