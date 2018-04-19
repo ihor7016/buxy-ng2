@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material";
 
 import { TagDialogComponent } from "../tag-dialog/tag-dialog.component";
+import { Tag } from "../../interfaces/tag";
 
 @Component({
   selector: "app-tags",
@@ -9,19 +10,30 @@ import { TagDialogComponent } from "../tag-dialog/tag-dialog.component";
   styleUrls: ["../../styles/drawer-menu.scss"]
 })
 export class TagsComponent implements OnInit {
-  tags: Array<string>;
+  tags: Tag[];
 
   constructor(private dialog: MatDialog) {}
 
   ngOnInit() {
-    this.tags = Array(5)
-      .fill(0)
-      .map((_, i) => `Tag`);
+    this.tags = [
+      {
+        id: "id1",
+        name: "Transport"
+      },
+      {
+        id: "id2",
+        name: "Rent"
+      },
+      {
+        id: "id3",
+        name: "Restaurant"
+      }
+    ];
   }
 
   handleAddTagClick() {
     const addTagDialog = this.dialog.open(TagDialogComponent, {
-      data: { action: "Add" },
+      data: { action: "Add", tags: this.tags },
       minWidth: "50%"
     });
     addTagDialog
