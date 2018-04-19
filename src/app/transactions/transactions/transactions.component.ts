@@ -36,11 +36,15 @@ export class TransactionsComponent {
   }
 
   getList() {
-    this._getList = this.storage.getList("accounts");
+    this.storage
+      .getList("accounts")
+      .subscribe(value => (this._getList = value));
   }
 
   getObject() {
-    this._getObject = this.storage.getData("accounts", "-LACFMj8hJwpsOygBfJL");
+    this.storage
+      .getData("accounts", "--LAU6ucZkDWaPAzRFB7P")
+      .subscribe(value => (this._getObject = JSON.stringify(value)));
   }
 
   setObject() {
@@ -62,25 +66,24 @@ export class TransactionsComponent {
       accountId: "-LACFMj8hJwpsOygBfJL"
     };
     const tag = { name: "transport" };
-    this._setObject = this.storage.setData("account", accs[0]);
+    this._setObject = this.storage.setData("accounts", accs[0]).subscribe();
   }
 
   updateObject() {
     const acc = {
-      id: "-LACFMj8hJwpsOygBfJL",
-      name: "Private",
-      balance: 1900,
-      type: "savings",
-      currency: "USD"
+      id: "--LAU6ucZkDWaPAzRFB7P",
+      name: "Cash",
+      balance: 2000,
+      type: "cash",
+      currency: "UAH"
     };
-    this._updateObject = this.storage.updateData("accounts", acc);
+    this._updateObject = this.storage.updateData("accounts", acc).subscribe();
   }
 
   deleteObject() {
-    this._deleteObject = this.storage.deleteData(
-      "accounts",
-      "-LACFMj8hJwpsOygBfJL"
-    );
+    this._deleteObject = this.storage
+      .deleteData("accounts", "-LAUJRsVPe08oEvraFKx")
+      .subscribe();
   }
 
   editTransaction() {

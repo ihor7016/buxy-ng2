@@ -7,11 +7,19 @@ import {
 import { Observable } from "rxjs/Observable";
 import { fromPromise } from "rxjs/observable/fromPromise";
 
+import { AuthService } from "./auth.service";
+
 @Injectable()
 export class DatabaseService {
   private basePath: string;
-  constructor(private db: AngularFireDatabase) {
-    this.basePath = `users/defaultUserId`;
+  constructor(private db: AngularFireDatabase, private auth: AuthService) {
+    this.auth.authState.subscribe(user => {
+      if (user) {
+        this.basePath = `users/${user.uid}`;
+      } else {
+        this.basePath = `users/defaultUser`;
+      }
+    });
   }
 
   getList(dataType: string): Observable<{}[]> {
@@ -24,14 +32,12 @@ export class DatabaseService {
       .valueChanges();
   }
 
-  setData(dataType: string, data: any): Observable<any> {
-    const dataToStore: any = Object.assign(data);
+  setData(dataType: string, data: any): Observable<Observable<void>> {
+    const dataToStore = Object.assign(data);
     const ref = this.db.list(`${this.basePath}/${dataType}`).push(dataToStore);
-    console.log(ref);
-    return fromPromise(ref).map(item => console.log(item.key));
-
-    // .then(item => (dataToStore.id = item.key))
-    // .then(() => this.updateData(dataType, dataToStore));
+    return fromPromise(ref)
+      .map(item => (dataToStore.id = item.key))
+      .map(() => this.updateData(dataType, dataToStore));
   }
 
   updateData(dataType: string, data: any): Observable<void> {
