@@ -22,6 +22,8 @@ export class AuthComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.dialog.open(AuthDialogComponent);
+    this.dialog.open(AuthDialogComponent, {
+      width: "500px"
+    });
   }
 }
