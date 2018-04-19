@@ -2,8 +2,6 @@ import { Component } from "@angular/core";
 import { MatDialog } from "@angular/material";
 import { TransactionDialogComponent } from "../transaction-dialog/transaction-dialog.component";
 
-import { DatabaseService } from "../../services/database.service";
-
 @Component({
   selector: "app-transactions",
   templateUrl: "./transactions.component.html",
