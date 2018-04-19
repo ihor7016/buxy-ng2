@@ -5,21 +5,18 @@
       <mat-form-field class="auth-dialog__form-password">
         <input type="email" class="auth-dialog__input" placeholder="Email" formControlName="email"
           required matInput>
-        <div *ngIf="email.errors && (email.dirty || email.touched)">
-          <mat-error *ngIf="email.errors.required">Email is required</mat-error>
-          <mat-error *ngIf="password.errors.pattern">The email address must contain at least the @ character
-          </mat-error>
-        </div>
+
+        <mat-error *ngIf="userForm.controls.email.hasError('required')">Email is required</mat-error>
+        <mat-error *ngIf="userForm.controls.email.hasError('pattern')">The email address must contain at least the @ character
+        </mat-error>
       </mat-form-field>
       <mat-form-field class="auth-dialog__form-password">
-        <input type="password" class="auth-dialog__input" placeholder="Password" formControlName="password"
-          required matInput>
-        <div *ngIf="password.errors && (password.dirty || password.touched)">
-          <mat-error *ngIf="password.errors.required">Password is required</mat-error>
-          <mat-error *ngIf="password.errors.minlength">Password must be 8 characters long, we need another {{password.errors.minlength.requiredLength
-            - password.errors.minlength.actualLength}} characters
-          </mat-error>
-        </div>
+        <input matInput type="password" class="auth-dialog__input" placeholder="Password"
+          formControlName="password" required>
+        <mat-error *ngIf="userForm.controls.password.hasError('required')">Password is required</mat-error>
+        <mat-error *ngIf="userForm.controls.password.hasError('minlength')">Password must be 8 characters long, we need another {{password.errors.minlength.requiredLength
+          - password.errors.minlength.actualLength}} characters
+        </mat-error>
       </mat-form-field>
       <mat-error>{{error}}
       </mat-error>
