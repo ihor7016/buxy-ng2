@@ -13,8 +13,10 @@ export class AuthComponent implements OnInit {
   constructor(private dialog: MatDialog) {}
 
   ngOnInit() {
-    this.dialog.open(AuthDialogComponent, {
-      width: "500px"
-    });
+    setTimeout(() => {
+      this.dialog.open(AuthDialogComponent, {
+        width: "500px"
+      });
+    }, 500);
   }
 }
