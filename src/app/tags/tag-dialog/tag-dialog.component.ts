@@ -58,7 +58,7 @@ export class TagDialogComponent implements OnInit {
 
   isExistingName(value: string) {
     const index = this.data.tags.findIndex(
-      account => account.name.toLowerCase() === value.toLowerCase()
+      tag => tag.name.toLowerCase() === value.toLowerCase()
     );
     return index >= 0;
   }
