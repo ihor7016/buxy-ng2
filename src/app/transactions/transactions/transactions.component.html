@@ -1,25 +1,17 @@
 <div class="transactions">
-  <button (click)="getList()">
-    get accouts</button>
+  <button (click)="getList()">getList</button>
   <li *ngFor="let item of _getList">
     {{ item | json}}
   </li>
   <br/>
-  <button (click)="getObject()">
-    get acc object</button>
-  <span>{{_getObject }}</span>
+  <button (click)="getObject()">getData</button>
+  <span>{{ _getData }}</span>
   <br/>
-  <button (click)="setObject()">
-    set acc obj</button>
-  <span>{{_setObject }}</span>
+  <button (click)="setObject()">set</button>
   <br/>
-  <button (click)="updateObject()">
-    update acc obj</button>
-  <span>{{_updateObject }}</span>
+  <button (click)="updateObject()">update</button>
   <br/>
-  <button (click)="deleteObject()">
-    del acc obj</button>
-  <span>{{_deleteObject }}</span>
+  <button (click)="deleteObject()">delete</button>
   <div class="transactions__charts">
     <app-pie-chart class="transactions__chart mat-elevation-z2"></app-pie-chart>
     <app-bar-chart class="transactions__chart mat-elevation-z2"></app-bar-chart>

@@ -14,11 +14,8 @@ export class TransactionsComponent {
   tags: string[];
 
   _getList;
-  _getObject;
-  _setObject;
-  _updateObject;
-  _deleteObject;
-  _getNewObject;
+  _getData;
+
   constructor(private dialog: MatDialog, private storage: DatabaseService) {
     this.accounts = [
       { name: "Cash", id: "ibf3y0kuv4" },
@@ -44,7 +41,7 @@ export class TransactionsComponent {
   getObject() {
     this.storage
       .getData("accounts", "--LAU6ucZkDWaPAzRFB7P")
-      .subscribe(value => (this._getObject = JSON.stringify(value)));
+      .subscribe(value => (this._getData = JSON.stringify(value)));
   }
 
   setObject() {
@@ -66,7 +63,7 @@ export class TransactionsComponent {
       accountId: "-LACFMj8hJwpsOygBfJL"
     };
     const tag = { name: "transport" };
-    this._setObject = this.storage.setData("accounts", accs[0]).subscribe();
+    this.storage.setData("accounts", accs[0]).subscribe();
   }
 
   updateObject() {
@@ -77,13 +74,11 @@ export class TransactionsComponent {
       type: "cash",
       currency: "UAH"
     };
-    this._updateObject = this.storage.updateData("accounts", acc).subscribe();
+    this.storage.updateData("accounts", acc).subscribe();
   }
 
   deleteObject() {
-    this._deleteObject = this.storage
-      .deleteData("accounts", "-LAUJRsVPe08oEvraFKx")
-      .subscribe();
+    this.storage.deleteData("accounts", "--LAU6ucZkDWaPAzRFB7P").subscribe();
   }
 
   editTransaction() {
