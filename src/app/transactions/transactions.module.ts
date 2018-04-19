@@ -11,8 +11,6 @@ import { BarChartComponent } from "./bar-chart/bar-chart.component";
 import { PieChartComponent } from "./pie-chart/pie-chart.component";
 import { TableTransactionsComponent } from "./table-transactions/table-transactions.component";
 
-import { DatabaseService } from "../services/database.service";
-
 @NgModule({
   declarations: [
     TransactionsComponent,
@@ -29,7 +27,6 @@ import { DatabaseService } from "../services/database.service";
     SharedModule
   ],
   exports: [TransactionsComponent],
-  providers: [DatabaseService],
   entryComponents: [TransactionDialogComponent]
 })
 export class TransactionsModule {}
