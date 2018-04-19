@@ -20,7 +20,7 @@ export class AuthDialogComponent implements OnInit {
     private router: Router,
     private auth: AuthService
   ) {
-    // matDialogRef.disableClose = true;
+    matDialogRef.disableClose = true;
   }
 
   ngOnInit() {
@@ -93,6 +93,7 @@ export class AuthDialogComponent implements OnInit {
   }
 
   private afterSignIn() {
+    this.matDialogRef.close();
     this.router.navigate(["main"]);
   }
 }
