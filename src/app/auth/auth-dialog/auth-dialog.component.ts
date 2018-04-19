@@ -55,7 +55,6 @@ export class AuthDialogComponent implements OnInit {
       .signInWithGoogle()
       .then(() => this.afterSignIn())
       .catch(error => {
-        console.log(error);
         this.error = error;
       });
   }
