@@ -24,10 +24,11 @@ export class DatabaseService {
       .valueChanges();
   }
 
-  setData(dataType: string, data: any) {
+  setData(dataType: string, data: any): Observable<any> {
     const dataToStore: any = Object.assign(data);
     const ref = this.db.list(`${this.basePath}/${dataType}`).push(dataToStore);
     console.log(ref);
+    return fromPromise(ref).map(item => console.log(item.key));
 
     // .then(item => (dataToStore.id = item.key))
     // .then(() => this.updateData(dataType, dataToStore));

@@ -1,4 +1,25 @@
 <div class="transactions">
+  <button (click)="getList()">
+    get accouts</button>
+  <li *ngFor="let item of _getList | async">
+    {{ item | json }}
+  </li>
+  <br/>
+  <button (click)="getObject()">
+    get acc object</button>
+  <span>{{_getObject | async | json}}</span>
+  <br/>
+  <button (click)="setObject()">
+    set acc obj</button>
+  <span>{{_setObject | async | json}}</span>
+  <br/>
+  <button (click)="updateObject()">
+    update acc obj</button>
+  <span>{{_updateObject | async | json}}</span>
+  <br/>
+  <button (click)="deleteObject()">
+    del acc obj</button>
+  <span>{{_deleteObject | async | json}}</span>
   <div class="transactions__charts">
     <app-pie-chart class="transactions__chart mat-elevation-z2"></app-pie-chart>
     <app-bar-chart class="transactions__chart mat-elevation-z2"></app-bar-chart>
