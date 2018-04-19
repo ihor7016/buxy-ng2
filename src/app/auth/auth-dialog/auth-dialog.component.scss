@@ -1,20 +1,12 @@
 .auth-dialog {
   &__dialog {
     background-color: white;
-    width: 500px;
     padding: 16px 16px 0 16px;
-  }
-  &__main {
-    position: relative;
-    margin: 0 auto;
-    width: 500px;
   }
   &__form-password {
     width: 100%;
   }
-  &__button-goole {
-    margin-top: 15px;
-  }
+
   &__icon {
     width: 16px;
     height: 16px;
