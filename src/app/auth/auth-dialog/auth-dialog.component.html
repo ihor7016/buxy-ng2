@@ -1,37 +1,39 @@
-<div class="auth-dialog  mat-typography">
+<div class="dialog mat-typography">
   <h1 mat-dialog-title>Login to Your Account</h1>
-  <form [formGroup]="userForm" class="auth-dialog__form" fxLayout="column" fxLayoutAlign="start stretch">
+  <form [formGroup]="userForm">
     <div mat-dialog-content>
-      <mat-form-field class="auth-dialog__form-password">
-        <input type="email" class="auth-dialog__input" placeholder="Email" formControlName="email"
-          required matInput>
-
-        <mat-error *ngIf="userForm.controls.email.hasError('required')">Email is required</mat-error>
-        <mat-error *ngIf="userForm.controls.email.hasError('pattern')">The email address must contain at least the @ character
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field class="auth-dialog__form-password">
-        <input matInput type="password" class="auth-dialog__input" placeholder="Password"
-          formControlName="password" required>
-        <mat-error *ngIf="userForm.controls.password.hasError('required')">Password is required</mat-error>
-        <mat-error *ngIf="userForm.controls.password.hasError('minlength')">Password must be 8 characters long, we need another {{password.errors.minlength.requiredLength
-          - password.errors.minlength.actualLength}} characters
-        </mat-error>
-      </mat-form-field>
-      <mat-error>{{error}}
-      </mat-error>
+      <div class="dialog__row">
+        <mat-form-field class="dialog__input">
+          <input type="email" placeholder="Email" formControlName="email" required matInput>
+          <mat-error *ngIf="userForm.controls.email.hasError('required')">Email is required</mat-error>
+          <mat-error *ngIf="userForm.controls.email.hasError('pattern')">The email address must contain at least the @ character
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="dialog__row">
+        <mat-form-field class="dialog__input">
+          <input matInput type="password" placeholder="Password" formControlName="password"
+            required>
+          <mat-error *ngIf="userForm.controls.password.hasError('required')">Password is required</mat-error>
+          <mat-error *ngIf="userForm.controls.password.hasError('minlength')">Password must be 8 characters long, we need another {{password.errors.minlength.requiredLength
+            - password.errors.minlength.actualLength}} characters
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <mat-error>{{error}}</mat-error>
     </div>
     <div class="dialog__actions">
       <div mat-dialog-actions>
-        <button mat-button type="reset" color="primary" (click)="login()" [disabled]="!userForm.valid">Login
+        <button mat-button type="reset" color="primary" (click)="login()" [disabled]="!userForm.valid">
+          Login
         </button>
-        <button mat-button type="submit" color="primary" [disabled]="!userForm.valid" (click)="register()">
+        <button mat-button type="submit" color="primary" (click)="register()" [disabled]="!userForm.valid">
           Register
         </button>
       </div>
       <div mat-dialog-actions>
         <button mat-button color="primary" (click)="signInWithGoogle()">
-          <img src="assets/google.png" class="auth-dialog__icon">
+          <img src="assets/google.png" class="dialog__icon">
           Login with Google
         </button>
       </div>

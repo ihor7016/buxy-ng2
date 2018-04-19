@@ -7,7 +7,7 @@ import { Router } from "@angular/router";
 @Component({
   selector: "app-auth-dialog",
   templateUrl: "./auth-dialog.component.html",
-  styleUrls: ["./auth-dialog.component.scss", "../../styles/dialog.scss"]
+  styleUrls: ["../../styles/dialog.scss"]
 })
 export class AuthDialogComponent implements OnInit {
   userForm: FormGroup;
