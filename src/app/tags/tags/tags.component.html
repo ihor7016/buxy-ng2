@@ -7,8 +7,8 @@
 <mat-list class="drawer-menu">
   <mat-list-item *ngFor="let tag of tags" class="drawer-menu__item">
     <mat-icon matListIcon>local_offer</mat-icon>
-    {{tag}}
-    <app-button-more [position]="'after'" [data]="{type: 'tag', name: tag}" class="drawer-menu__button-more"
+    {{tag.name}}
+    <app-button-more [position]="'after'" [data]="{type: 'tag', name: tag.name}" class="drawer-menu__button-more"
       (editClick)="editTag()" (deleteClick)="deleteTag(tag)"></app-button-more>
   </mat-list-item>
 </mat-list>
