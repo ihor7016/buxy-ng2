@@ -1,4 +1,4 @@
-import { Component, Inject } from "@angular/core";
+import { Component, Inject, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, AbstractControl } from "@angular/forms";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { Account } from "../../interfaces/account";
@@ -14,7 +14,7 @@ interface AccountDialogData {
   templateUrl: "./account-dialog.component.html",
   styleUrls: ["../../styles/dialog.scss"]
 })
-export class AccountDialogComponent {
+export class AccountDialogComponent implements OnInit {
   form: FormGroup;
   types: string[] = [
     "checking",
@@ -29,13 +29,28 @@ export class AccountDialogComponent {
     "insurance",
     "other"
   ];
-  currencies: string[] = ["UAH", "USD", "EUR"];
+  currencies: {}[] = [
+    {
+      code: "UAH",
+      symbol: "₴"
+    },
+    {
+      code: "USD",
+      symbol: "$"
+    },
+    {
+      code: "EUR",
+      symbol: "€"
+    }
+  ];
 
   constructor(
     private formBuilder: FormBuilder,
     private matDialogRef: MatDialogRef<AccountDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: AccountDialogData
-  ) {
+  ) {}
+
+  ngOnInit() {
     this.createForm();
   }
 

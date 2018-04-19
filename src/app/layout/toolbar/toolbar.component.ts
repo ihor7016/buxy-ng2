@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, Output } from "@angular/core";
-import { MatSidenav, MatDialog } from "@angular/material";
+import { Component, Input } from "@angular/core";
+import { MatDialog, MatSidenav } from "@angular/material";
 
 import { AboutDialogComponent } from "../../shared/about-dialog/about-dialog.component";
 

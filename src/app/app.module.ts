@@ -1,11 +1,9 @@
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { AngularFireModule } from "angularfire2";
-import { AngularFireDatabaseModule } from "angularfire2/database";
-import { config } from "../../firebase.config";
-
 import { LayoutModule } from "./layout/layout.module";
+import { AuthModule } from "./auth/auth.module";
+import { AppRoutes } from "./app-routing.module";
 
 import { AppComponent } from "./app/app.component";
 
@@ -14,9 +12,9 @@ import { AppComponent } from "./app/app.component";
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    LayoutModule,
-    AngularFireModule.initializeApp(config),
-    AngularFireDatabaseModule
+    AppRoutes,
+    AuthModule,
+    LayoutModule
   ],
   providers: [],
   bootstrap: [AppComponent]
