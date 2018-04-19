@@ -24,16 +24,16 @@
     <div class="dialog__actions">
       <div mat-dialog-actions>
         <button mat-button type="reset" color="primary" (click)="login()" [disabled]="!userForm.valid">Login
-          </button>
+        </button>
         <button mat-button type="submit" color="primary" [disabled]="!userForm.valid" (click)="register()">
-            Register
-          </button>
+          Register
+        </button>
       </div>
       <div mat-dialog-actions>
         <button mat-button color="primary" (click)="signInWithGoogle()">
-            <img src="assets/google.png" class="auth-dialog__icon">
-            Login with Google
-          </button>
+          <img src="assets/google.png" class="auth-dialog__icon">
+          Login with Google
+        </button>
       </div>
     </div>
   </form>

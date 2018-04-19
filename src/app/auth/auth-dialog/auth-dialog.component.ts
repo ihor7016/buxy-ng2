@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material";
+import { MatDialogRef } from "@angular/material";
 import { AuthService } from "../../services/auth.service";
 import { Router } from "@angular/router";
 
@@ -44,7 +44,7 @@ export class AuthDialogComponent implements OnInit {
       email: this.email,
       password: this.password
     });
-    this.userForm.valueChanges.subscribe(str => {
+    this.userForm.valueChanges.subscribe(() => {
       this.error = "";
     });
   }

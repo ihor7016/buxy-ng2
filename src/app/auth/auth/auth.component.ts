@@ -10,16 +10,7 @@ import { AuthDialogComponent } from "../auth-dialog/auth-dialog.component";
   templateUrl: "./auth.component.html"
 })
 export class AuthComponent implements OnInit {
-  userForm: FormGroup;
-  email: FormControl;
-  password: FormControl;
-  error: string;
-
-  constructor(
-    private router: Router,
-    private auth: AuthService,
-    private dialog: MatDialog
-  ) {}
+  constructor(private dialog: MatDialog) {}
 
   ngOnInit() {
     this.dialog.open(AuthDialogComponent, {
