@@ -5,6 +5,7 @@ import {
   AngularFireList
 } from "angularfire2/database";
 import { Observable } from "rxjs/Observable";
+import { fromPromise } from "rxjs/observable/fromPromise";
 
 @Injectable()
 export class DatabaseService {
@@ -23,20 +24,24 @@ export class DatabaseService {
       .valueChanges();
   }
 
-  setData(dataType: string, data: any): PromiseLike<Promise<void>> {
+  setData(dataType: string, data: any) {
     const dataToStore: any = Object.assign(data);
-    return this.db
-      .list(`${this.basePath}/${dataType}`)
-      .push(dataToStore)
-      .then(item => (dataToStore.id = item.key))
-      .then(() => this.updateData(dataType, dataToStore));
+    const ref = this.db.list(`${this.basePath}/${dataType}`).push(dataToStore);
+    console.log(ref);
+
+    // .then(item => (dataToStore.id = item.key))
+    // .then(() => this.updateData(dataType, dataToStore));
   }
 
-  updateData(dataType: string, data: any): Promise<void> {
-    return this.db.list(`${this.basePath}/${dataType}`).update(data.id, data);
+  updateData(dataType: string, data: any): Observable<void> {
+    return fromPromise(
+      this.db.list(`${this.basePath}/${dataType}`).update(data.id, data)
+    );
   }
 
-  deleteData(dataType: string, dataId: string): Promise<void> {
-    return this.db.list(`${this.basePath}/${dataType}`).remove(dataId);
+  deleteData(dataType: string, dataId: string): Observable<void> {
+    return fromPromise(
+      this.db.list(`${this.basePath}/${dataType}`).remove(dataId)
+    );
   }
 }
