@@ -29,7 +29,20 @@ export class AccountDialogComponent {
     "insurance",
     "other"
   ];
-  currencies: string[] = ["UAH", "USD", "EUR"];
+  currencies: {}[] = [
+    {
+      code: "UAH",
+      symbol: "₴"
+    },
+    {
+      code: "USD",
+      symbol: "$"
+    },
+    {
+      code: "EUR",
+      symbol: "€"
+    }
+  ];
 
   constructor(
     private formBuilder: FormBuilder,
