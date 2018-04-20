@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material";
 import { TransactionDialogComponent } from "../transaction-dialog/transaction-dialog.component";
+import { Observable } from "rxjs/Observable";
 
 import { TransactionsService } from "../../services/transactions.service";
 
@@ -14,15 +15,17 @@ import { Tag } from "../../interfaces/tag";
   styleUrls: ["./transactions.component.scss"]
 })
 export class TransactionsComponent implements OnInit {
+  transactions: Transaction[];
   accounts: Account[];
   tags: Tag[];
-  transactions: Transaction[];
+  transactionsStream: Observable<Transaction[]>;
 
   constructor(
     private dialog: MatDialog,
     private transDB: TransactionsService
   ) {}
   ngOnInit() {
+    this.transactionsStream = this.transDB.getList();
     this.transDB.getList().subscribe(list => (this.transactions = list));
     this.accounts = [
       {

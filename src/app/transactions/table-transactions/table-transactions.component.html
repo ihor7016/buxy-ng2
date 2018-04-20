@@ -10,27 +10,27 @@
       <mat-header-cell class="table-transactions__header-cell" *matHeaderCellDef mat-sort-header>
         Amount
       </mat-header-cell>
-      <mat-cell *matCellDef="let element">{{element.type}} {{element.account.currency}}{{element.amount}}</mat-cell>
+      <mat-cell *matCellDef="let element">{{element.type}} {{element.amount}}</mat-cell>
     </ng-container>
     <ng-container matColumnDef="description">
       <mat-header-cell class="table-transactions__header-cell" *matHeaderCellDef mat-sort-header>
         Description
       </mat-header-cell>
-      <mat-cell *matCellDef="let element">{{element.description}}</mat-cell>
+      <mat-cell *matCellDef="let element">{{element.desc}}</mat-cell>
     </ng-container>
     <ng-container matColumnDef="tag">
       <mat-header-cell class="table-transactions__header-cell" *matHeaderCellDef mat-sort-header>
         Tag
       </mat-header-cell>
-      <mat-cell *matCellDef="let element">{{element.tag.name}}</mat-cell>
+      <mat-cell *matCellDef="let element">{{element.tagId}}</mat-cell>
     </ng-container>
     <ng-container matColumnDef="account">
       <mat-header-cell class="table-transactions__header-cell" *matHeaderCellDef mat-sort-header>
         Account
       </mat-header-cell>
       <mat-cell *matCellDef="let element" class="table-transactions__cell">
-        {{element.account.name}}, {{element.account.type}}
-        <app-button-more [position]="'before'" class="table-transactions__button-more" [data]="{type: 'transaction', name: element.description}"
+        {{element.accountId}}
+        <app-button-more [position]="'before'" class="table-transactions__button-more" [data]="{type: 'transaction', name: element.desc}"
           (editClick)="handleEditTransaction()" (deleteClick)="handleDeleteTransaction()"></app-button-more>
       </mat-cell>
     </ng-container>

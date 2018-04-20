@@ -21,7 +21,17 @@ export class DatabaseService {
     });
   }
 
+  // getPath() {
+  //   return this.auth.authState.subscribe(user => {
+  //     if (user) {
+  //       console.log(user);
+  //       this.basePath = `users/${user.uid}`;
+  //     }
+  //   });
+  // }
+
   getList(dataType: string): Observable<{}[]> {
+    console.log(`${this.basePath}/${dataType}`);
     return this.db.list(`${this.basePath}/${dataType}`).valueChanges();
   }
 
