@@ -28,7 +28,7 @@
           <div class="dialog__row">
             <mat-form-field class="dialog__input">
               <mat-select placeholder="Tag" formControlName="tagId" required>
-                <mat-option *ngFor="let tag of data.tags" [value]="tag">{{tag}}</mat-option>
+                <mat-option *ngFor="let tag of data.tags" [value]="tag.id">{{tag.name}}</mat-option>
               </mat-select>
               <mat-error *ngIf="form.controls.tagId.invalid">Please choose a tag</mat-error>
             </mat-form-field>

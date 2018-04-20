@@ -1,29 +1,50 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material";
 import { TransactionDialogComponent } from "../transaction-dialog/transaction-dialog.component";
+
+import { TransactionsService } from "../../services/transactions.service";
+
+import { Transaction } from "../../interfaces/transaction";
+import { Account } from "../../interfaces/account";
+import { Tag } from "../../interfaces/tag";
 
 @Component({
   selector: "app-transactions",
   templateUrl: "./transactions.component.html",
   styleUrls: ["./transactions.component.scss"]
 })
-export class TransactionsComponent {
-  accounts: any[];
-  tags: string[];
+export class TransactionsComponent implements OnInit {
+  accounts: Account[];
+  tags: Tag[];
+  transactions: Transaction[];
 
-  constructor(private dialog: MatDialog) {
+  constructor(
+    private dialog: MatDialog,
+    private transDB: TransactionsService
+  ) {}
+  ngOnInit() {
+    this.transDB.getList().subscribe(list => (this.transactions = list));
     this.accounts = [
-      { name: "Cash", id: "ibf3y0kuv4" },
-      { name: "BoaBank", id: "w2dvndxoz7n" },
-      { name: "Private", id: "tfcmw2vqfgk" }
+      {
+        id: "id1",
+        name: "Privat",
+        balance: 500,
+        type: "savings",
+        currency: "€"
+      },
+      { id: "id2", name: "Cash", balance: 2000, type: "cash", currency: "₴" },
+      {
+        id: "id3",
+        name: "BoaBank",
+        balance: 5000,
+        type: "credit",
+        currency: "$"
+      }
     ];
     this.tags = [
-      "Rent",
-      "Restaurant",
-      "Salary",
-      "Groceries",
-      "Entertainment",
-      "Building"
+      { id: "id1", name: "Transport" },
+      { id: "id2", name: "Rent" },
+      { id: "id3", name: "Restaurant" }
     ];
   }
 
@@ -40,8 +61,10 @@ export class TransactionsComponent {
       data: { action: "Add", accounts: this.accounts, tags: this.tags },
       minWidth: "50%"
     });
-    addTransactionDialog
-      .afterClosed()
-      .subscribe(res => (res ? console.log(res) : null));
+    addTransactionDialog.afterClosed().subscribe(data => {
+      if (data) {
+        this.transDB.setData(data);
+      }
+    });
   }
 }

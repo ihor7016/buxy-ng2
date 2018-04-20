@@ -9,12 +9,14 @@ export class TransactionsService {
   private dataType: string = "transactions";
   constructor(private db: DatabaseService) {}
 
-  getList(): Observable<{}[]> {
-    return this.db.getList(this.dataType);
+  getList(): Observable<Transaction[]> {
+    return this.db.getList(this.dataType).map((list: Transaction[]) => list);
   }
 
-  getData(dataId: string): Observable<{}> {
-    return this.db.getData(this.dataType, dataId);
+  getData(dataId: string): Observable<Transaction> {
+    return this.db
+      .getData(this.dataType, dataId)
+      .map((data: Transaction) => data);
   }
 
   setData(data: Transaction): Observable<void> {

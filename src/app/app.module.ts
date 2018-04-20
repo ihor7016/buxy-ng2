@@ -7,6 +7,8 @@ import { AppRoutes } from "./app-routing.module";
 
 import { AppComponent } from "./app/app.component";
 
+import { DatabaseService } from "./services/database.service";
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -16,7 +18,7 @@ import { AppComponent } from "./app/app.component";
     AuthModule,
     LayoutModule
   ],
-  providers: [],
+  providers: [DatabaseService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
