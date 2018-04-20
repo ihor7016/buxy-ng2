@@ -1,8 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { MatDialog } from "@angular/material";
-import { AuthService } from "../../services/auth.service";
 import { AuthDialogComponent } from "../auth-dialog/auth-dialog.component";
 
 @Component({
@@ -13,8 +10,8 @@ export class AuthComponent implements OnInit {
   constructor(private dialog: MatDialog) {}
 
   ngOnInit() {
-    this.dialog.open(AuthDialogComponent, {
-      width: "500px"
-    });
+    setTimeout(() => {
+      this.dialog.open(AuthDialogComponent);
+    }, 0);
   }
 }
