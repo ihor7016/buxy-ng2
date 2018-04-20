@@ -1,4 +1,17 @@
 <div class="transactions">
+  <button (click)="getList()">getList</button>
+  <li *ngFor="let item of _getList">
+    {{ item | json}}
+  </li>
+  <br/>
+  <button (click)="getObject()">getData</button>
+  <span>{{ _getData }}</span>
+  <br/>
+  <button (click)="setObject()">set</button>
+  <br/>
+  <button (click)="updateObject()">update</button>
+  <br/>
+  <button (click)="deleteObject()">delete</button>
   <div class="transactions__charts">
     <app-pie-chart class="transactions__chart mat-elevation-z2"></app-pie-chart>
     <app-bar-chart class="transactions__chart mat-elevation-z2"></app-bar-chart>
