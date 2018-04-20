@@ -6,6 +6,7 @@ import {
 } from "angularfire2/database";
 import { Observable } from "rxjs/Observable";
 import { fromPromise } from "rxjs/observable/fromPromise";
+import "rxjs/add/operator/mergeMap";
 
 import { AuthService } from "./auth.service";
 
@@ -13,13 +14,9 @@ import { AuthService } from "./auth.service";
 export class DatabaseService {
   private basePath: string;
   constructor(private db: AngularFireDatabase, private auth: AuthService) {
-    this.auth.authState.subscribe(user => {
-      if (user) {
-        this.basePath = `users/${user.uid}`;
-      } else {
-        this.basePath = `users/defaultUser`;
-      }
-    });
+    this.auth.authState.subscribe(
+      user => (this.basePath = `users/${user.uid}`)
+    );
   }
 
   getList(dataType: string): Observable<{}[]> {
@@ -32,12 +29,12 @@ export class DatabaseService {
       .valueChanges();
   }
 
-  setData(dataType: string, data: any): Observable<Observable<void>> {
+  setData(dataType: string, data: any): Observable<void> {
     const dataToStore = Object.assign(data);
     const ref = this.db.list(`${this.basePath}/${dataType}`).push(dataToStore);
     return fromPromise(ref)
       .map(item => (dataToStore.id = item.key))
-      .map(() => this.updateData(dataType, dataToStore));
+      .mergeMap(() => this.updateData(dataType, dataToStore));
   }
 
   updateData(dataType: string, data: any): Observable<void> {
