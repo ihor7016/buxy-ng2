@@ -44,4 +44,8 @@ export class AuthService {
   logout() {
     this._firebaseAuth.auth.signOut().then(res => this.router.navigate(["/"]));
   }
+
+  get authState() {
+    return this._firebaseAuth.authState;
+  }
 }
