@@ -1,8 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { MatDialog } from "@angular/material";
-import { AuthService } from "../../services/auth.service";
 import { AuthDialogComponent } from "../auth-dialog/auth-dialog.component";
 
 @Component({
@@ -14,9 +11,7 @@ export class AuthComponent implements OnInit {
 
   ngOnInit() {
     setTimeout(() => {
-      this.dialog.open(AuthDialogComponent, {
-        width: "500px"
-      });
-    }, 500);
+      this.dialog.open(AuthDialogComponent);
+    }, 0);
   }
 }
