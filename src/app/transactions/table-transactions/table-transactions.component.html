@@ -22,14 +22,14 @@
       <mat-header-cell class="table-transactions__header-cell" *matHeaderCellDef mat-sort-header>
         Tag
       </mat-header-cell>
-      <mat-cell *matCellDef="let element">{{element.tagId}}</mat-cell>
+      <mat-cell *matCellDef="let element">{{element.tag.name}}</mat-cell>
     </ng-container>
     <ng-container matColumnDef="account">
       <mat-header-cell class="table-transactions__header-cell" *matHeaderCellDef mat-sort-header>
         Account
       </mat-header-cell>
       <mat-cell *matCellDef="let element" class="table-transactions__cell">
-        {{element.accountId}}
+        {{element.account.name}}
         <app-button-more [position]="'before'" class="table-transactions__button-more" [data]="{type: 'transaction', name: element.desc}"
           (editClick)="handleEditTransaction()" (deleteClick)="handleDeleteTransaction()"></app-button-more>
       </mat-cell>
