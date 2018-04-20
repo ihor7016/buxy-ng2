@@ -14,9 +14,11 @@ import { AuthService } from "./auth.service";
 export class DatabaseService {
   private basePath: string;
   constructor(private db: AngularFireDatabase, private auth: AuthService) {
-    this.auth.authState.subscribe(
-      user => (this.basePath = `users/${user.uid}`)
-    );
+    this.auth.authState.subscribe(user => {
+      if (user) {
+        this.basePath = `users/${user.uid}`;
+      }
+    });
   }
 
   getList(dataType: string): Observable<{}[]> {
