@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { AfterContentInit, Component, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material";
 
 import { AccountDialogComponent } from "../account-dialog/account-dialog.component";
@@ -10,11 +10,22 @@ import { DatabaseService } from "../../services/database.service";
   templateUrl: "./accounts.component.html",
   styleUrls: ["../../styles/drawer-menu.scss"]
 })
-export class AccountsComponent {
+export class AccountsComponent implements AfterContentInit {
   accounts: Account[];
 
   constructor(private dialog: MatDialog, private database: DatabaseService) {
     this.accounts = [];
+  }
+
+  ngAfterContentInit() {
+    this.database.getList("accounts").subscribe(
+      result => {
+        this.accounts = result as Account[];
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   handleAddAccountClick() {
