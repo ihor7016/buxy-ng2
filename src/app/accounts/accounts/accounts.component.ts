@@ -3,35 +3,18 @@ import { MatDialog } from "@angular/material";
 
 import { AccountDialogComponent } from "../account-dialog/account-dialog.component";
 import { Account } from "../../interfaces/account";
+import { DatabaseService } from "../../services/database.service";
 
 @Component({
   selector: "app-accounts",
   templateUrl: "./accounts.component.html",
   styleUrls: ["../../styles/drawer-menu.scss"]
 })
-export class AccountsComponent implements OnInit {
+export class AccountsComponent {
   accounts: Account[];
 
-  constructor(private dialog: MatDialog) {}
-
-  ngOnInit() {
-    this.accounts = [
-      {
-        id: "id1",
-        name: "Privat",
-        balance: 500,
-        type: "savings",
-        currency: "€"
-      },
-      { id: "id2", name: "Cash", balance: 2000, type: "cash", currency: "₴" },
-      {
-        id: "id3",
-        name: "BoaBank",
-        balance: 5000,
-        type: "credit",
-        currency: "$"
-      }
-    ];
+  constructor(private dialog: MatDialog, private database: DatabaseService) {
+    this.accounts = [];
   }
 
   handleAddAccountClick() {
@@ -44,7 +27,15 @@ export class AccountsComponent implements OnInit {
     });
     addAccountDialog
       .afterClosed()
-      .subscribe(res => (res ? console.log(res) : null));
+      .flatMap(res => {
+        return this.database.setData("accounts", res);
+      })
+      .flatMap(() => {
+        return this.database.getList("accounts");
+      })
+      .subscribe(result => {
+        this.accounts = result as Account[];
+      });
   }
 
   deleteAccount(data) {
