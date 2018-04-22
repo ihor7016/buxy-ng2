@@ -3,7 +3,7 @@ import { MatDialog } from "@angular/material";
 
 import { TagDialogComponent } from "../tag-dialog/tag-dialog.component";
 import { Tag } from "../../interfaces/tag";
-import { DatabaseService } from "../../services/database.service";
+import { TagsService } from "../../services/tags.service";
 
 @Component({
   selector: "app-tags",
@@ -13,12 +13,12 @@ import { DatabaseService } from "../../services/database.service";
 export class TagsComponent implements AfterContentInit {
   tags: Tag[];
 
-  constructor(private dialog: MatDialog, private database: DatabaseService) {
+  constructor(private dialog: MatDialog, private database: TagsService) {
     this.tags = [];
   }
 
   ngAfterContentInit() {
-    this.database.getList("tags").subscribe(
+    this.database.getAll().subscribe(
       result => {
         this.tags = result as Tag[];
       },
@@ -36,20 +36,14 @@ export class TagsComponent implements AfterContentInit {
     addTagDialog
       .afterClosed()
       .flatMap(res => {
-        return this.database.setData("tags", res);
+        return this.database.set(res);
       })
       .flatMap(() => {
-        return this.database.getList("tags");
+        return this.database.getAll();
       })
-      .subscribe(
-        result => {
-          this.tags = result as Tag[];
-          console.log(result);
-        },
-        error => {
-          console.log(error);
-        }
-      );
+      .subscribe(result => {
+        this.tags = result as Tag[];
+      });
   }
 
   deleteTag(data) {
