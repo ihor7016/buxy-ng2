@@ -1,4 +1,4 @@
-import { AfterContentInit, Component } from "@angular/core";
+import { AfterContentInit, Component, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material";
 
 import { AccountDialogComponent } from "../account-dialog/account-dialog.component";
@@ -20,7 +20,7 @@ export class AccountsComponent implements AfterContentInit {
   ngAfterContentInit() {
     this.database.getAll().subscribe(
       result => {
-        this.accounts = result as Account[];
+        this.accounts = (result as Account[]).reverse();
       },
       error => {
         console.log(error);
@@ -45,7 +45,7 @@ export class AccountsComponent implements AfterContentInit {
         return this.database.getAll();
       })
       .subscribe(result => {
-        this.accounts = result as Account[];
+        this.accounts = (result as Account[]).reverse();
       });
   }
 
