@@ -4,10 +4,9 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { LayoutModule } from "./layout/layout.module";
 import { AuthModule } from "./auth/auth.module";
 import { AppRoutes } from "./app-routing.module";
+import { StorageModule } from "./services/storage.module";
 
 import { AppComponent } from "./app/app.component";
-
-import { DatabaseService } from "./services/database.service";
 
 @NgModule({
   declarations: [AppComponent],
@@ -16,9 +15,10 @@ import { DatabaseService } from "./services/database.service";
     BrowserAnimationsModule,
     AppRoutes,
     AuthModule,
-    LayoutModule
+    LayoutModule,
+    StorageModule
   ],
-  providers: [DatabaseService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

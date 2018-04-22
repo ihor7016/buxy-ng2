@@ -70,15 +70,3 @@ export class TransactionsComponent implements AfterContentInit {
     });
   }
 }
-
-export const ACC = [
-  { name: "Privat", balance: 500, type: "savings", currency: "€" },
-  { name: "Cash", balance: 2000, type: "cash", currency: "₴" },
-  { name: "BoaBank", balance: 5000, type: "credit", currency: "$" }
-];
-
-export const TAG = [
-  { name: "Transport" },
-  { name: "Rent" },
-  { name: "Restaurant" }
-];
