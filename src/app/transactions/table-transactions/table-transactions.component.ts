@@ -35,10 +35,6 @@ export class TableTransactionsComponent implements OnInit {
     });
   }
 
-  // ngAfterViewInit() {
-  //   this.dataSource.sort = this.sort;
-  // }
-
   handleEditTransaction() {
     this.editClick.emit();
   }

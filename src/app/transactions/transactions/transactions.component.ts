@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, AfterContentInit } from "@angular/core";
 import { MatDialog } from "@angular/material";
 import { TransactionDialogComponent } from "../transaction-dialog/transaction-dialog.component";
 import { Observable } from "rxjs/Observable";
@@ -10,44 +10,25 @@ import { Transaction } from "../../interfaces/transaction";
 import { Account } from "../../interfaces/account";
 import { Tag } from "../../interfaces/tag";
 
-import "rxjs/add/operator/mergeMap";
-import "rxjs/add/observable/from";
-
 @Component({
   selector: "app-transactions",
   templateUrl: "./transactions.component.html",
   styleUrls: ["./transactions.component.scss"]
 })
-export class TransactionsComponent implements OnInit {
-  transactions: Transaction[];
+export class TransactionsComponent implements AfterContentInit {
   accounts: Account[];
   tags: Tag[];
-  transactionsStream: Observable<any>;
+  contentData: Observable<any>;
 
   constructor(
     private dialog: MatDialog,
     private transDB: TransactionsService,
     private db: DatabaseService
   ) {}
-  ngOnInit() {
-    this.transactionsStream = this.transDB
+  ngAfterContentInit() {
+    this.contentData = this.transDB
       .getList()
-      .mergeMap(list => {
-        let tableData: any = list;
-        return Observable.from(list).mergeMap(item => {
-          console.dir(item);
-          return (tableData.account = this.db.getData(
-            "accounts",
-            item.accountId
-          ));
-        });
-        // item.tag = this.db.getData("tags", item.tagId).subscribe();
-      })
-      .map(list => {
-        console.log(list);
-        return list;
-      });
-    this.transDB.getList().subscribe(list => (this.transactions = list));
+      .map(list => this.convertList(list));
     this.db
       .getList("accounts")
       .subscribe((list: Account[]) => (this.accounts = list));
@@ -62,9 +43,24 @@ export class TransactionsComponent implements OnInit {
     console.log("deleteTransaction");
   }
 
+  convertList(list) {
+    return list.map(data => {
+      let newData = Object.assign(data);
+      this.db
+        .getData("accounts", data.accountId)
+        .subscribe(acc => (newData.account = acc));
+      this.db.getData("tags", data.tagId).subscribe(tag => (newData.tag = tag));
+      return newData;
+    });
+  }
+
   handleAddTransactionClick() {
     const addTransactionDialog = this.dialog.open(TransactionDialogComponent, {
-      data: { action: "Add", accounts: this.accounts, tags: this.tags },
+      data: {
+        action: "Add",
+        accounts: this.accounts,
+        tags: this.tags
+      },
       minWidth: "50%"
     });
     addTransactionDialog.afterClosed().subscribe(data => {

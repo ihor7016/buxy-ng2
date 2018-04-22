@@ -5,59 +5,49 @@ import {
   AngularFireList
 } from "angularfire2/database";
 import { Observable } from "rxjs/Observable";
-import { fromPromise } from "rxjs/observable/fromPromise";
 import "rxjs/add/operator/mergeMap";
 
 import { AuthService } from "./auth.service";
 
 @Injectable()
 export class DatabaseService {
-  private basePath: string;
-  constructor(private db: AngularFireDatabase, private auth: AuthService) {
-    this.auth.authState.subscribe(user => {
-      if (user) {
-        this.basePath = `users/${user.uid}`;
-      }
-    });
+  constructor(private db: AngularFireDatabase, private auth: AuthService) {}
+
+  private getPath() {
+    return this.auth.authState.map(user => `users/${user.uid}`);
   }
 
-  // getPath() {
-  //   return this.auth.authState.subscribe(user => {
-  //     if (user) {
-  //       console.log(user);
-  //       this.basePath = `users/${user.uid}`;
-  //     }
-  //   });
-  // }
-
   getList(dataType: string): Observable<{}[]> {
-    console.log(`${this.basePath}/${dataType}`);
-    return this.db.list(`${this.basePath}/${dataType}`).valueChanges();
+    return this.getPath().mergeMap(path =>
+      this.db.list(`${path}/${dataType}`).valueChanges()
+    );
   }
 
   getData(dataType: string, dataId: string): Observable<{}> {
-    return this.db
-      .object(`${this.basePath}/${dataType}/${dataId}`)
-      .valueChanges();
+    return this.getPath().mergeMap(path =>
+      this.db.object(`${path}/${dataType}/${dataId}`).valueChanges()
+    );
   }
 
   setData(dataType: string, data: any): Observable<void> {
     const dataToStore = Object.assign(data);
-    const ref = this.db.list(`${this.basePath}/${dataType}`).push(dataToStore);
-    return fromPromise(ref)
+    const ref = this.getPath().mergeMap(path =>
+      this.db.list(`${path}/${dataType}`).push(dataToStore)
+    );
+    return ref
       .map(item => (dataToStore.id = item.key))
       .mergeMap(() => this.updateData(dataType, dataToStore));
   }
 
   updateData(dataType: string, data: any): Observable<void> {
-    return fromPromise(
-      this.db.list(`${this.basePath}/${dataType}`).update(data.id, data)
+    return this.getPath().mergeMap(path =>
+      this.db.list(`${path}/${dataType}`).update(data.id, data)
     );
   }
 
   deleteData(dataType: string, dataId: string): Observable<void> {
-    return fromPromise(
-      this.db.list(`${this.basePath}/${dataType}`).remove(dataId)
+    return this.getPath().mergeMap(path =>
+      this.db.list(`${path}/${dataType}`).remove(dataId)
     );
   }
 }

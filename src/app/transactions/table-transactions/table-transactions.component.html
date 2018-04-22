@@ -1,4 +1,4 @@
-<div class="table-transactions mat-elevation-z2">
+<div class="table-transactions mat-elevation-z2" *ngIf="dataSource">
   <mat-table class="table-transactions__table" #table [dataSource]="dataSource" matSort>
     <ng-container matColumnDef="date">
       <mat-header-cell class="table-transactions__header-cell" *matHeaderCellDef mat-sort-header>
@@ -10,7 +10,9 @@
       <mat-header-cell class="table-transactions__header-cell" *matHeaderCellDef mat-sort-header>
         Amount
       </mat-header-cell>
-      <mat-cell *matCellDef="let element">{{element.type}} {{element.amount}}</mat-cell>
+      <mat-cell *matCellDef="let element">
+        {{element.type}}
+        <span *ngIf="element.account">{{element.account.currency}}</span>{{element.amount}}</mat-cell>
     </ng-container>
     <ng-container matColumnDef="description">
       <mat-header-cell class="table-transactions__header-cell" *matHeaderCellDef mat-sort-header>
@@ -22,14 +24,16 @@
       <mat-header-cell class="table-transactions__header-cell" *matHeaderCellDef mat-sort-header>
         Tag
       </mat-header-cell>
-      <mat-cell *matCellDef="let element">{{element.tag.name}}</mat-cell>
+      <mat-cell *matCellDef="let element">
+        <span *ngIf="element.tag">{{element.tag.name}}</span>
+      </mat-cell>
     </ng-container>
     <ng-container matColumnDef="account">
       <mat-header-cell class="table-transactions__header-cell" *matHeaderCellDef mat-sort-header>
         Account
       </mat-header-cell>
       <mat-cell *matCellDef="let element" class="table-transactions__cell">
-        {{element.account.name}}
+        <span *ngIf="element.account">{{element.account.name}}, {{element.account.type}}</span>
         <app-button-more [position]="'before'" class="table-transactions__button-more" [data]="{type: 'transaction', name: element.desc}"
           (editClick)="handleEditTransaction()" (deleteClick)="handleDeleteTransaction()"></app-button-more>
       </mat-cell>
