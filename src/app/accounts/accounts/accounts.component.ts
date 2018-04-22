@@ -1,9 +1,9 @@
-import { AfterContentInit, Component, OnInit } from "@angular/core";
+import { AfterContentInit, Component } from "@angular/core";
 import { MatDialog } from "@angular/material";
 
 import { AccountDialogComponent } from "../account-dialog/account-dialog.component";
 import { Account } from "../../interfaces/account";
-import { DatabaseService } from "../../services/database.service";
+import { AccountsService } from "../../services/accounts.service";
 
 @Component({
   selector: "app-accounts",
@@ -13,12 +13,12 @@ import { DatabaseService } from "../../services/database.service";
 export class AccountsComponent implements AfterContentInit {
   accounts: Account[];
 
-  constructor(private dialog: MatDialog, private database: DatabaseService) {
+  constructor(private dialog: MatDialog, private database: AccountsService) {
     this.accounts = [];
   }
 
   ngAfterContentInit() {
-    this.database.getList("accounts").subscribe(
+    this.database.getAll().subscribe(
       result => {
         this.accounts = result as Account[];
       },
@@ -39,10 +39,10 @@ export class AccountsComponent implements AfterContentInit {
     addAccountDialog
       .afterClosed()
       .flatMap(res => {
-        return this.database.setData("accounts", res);
+        return this.database.set(res);
       })
       .flatMap(() => {
-        return this.database.getList("accounts");
+        return this.database.getAll();
       })
       .subscribe(result => {
         this.accounts = result as Account[];
