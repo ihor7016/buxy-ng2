@@ -29,10 +29,10 @@ export class TagDialogComponent implements OnInit {
 
   createForm() {
     this.form = this.formBuilder.group({
-      tag: ["", this.uniqueNameValidator.bind(this)]
+      name: ["", this.uniqueNameValidator.bind(this)]
     });
-    this.form.controls.tag.valueChanges.subscribe(() =>
-      this.form.controls.tag.markAsTouched()
+    this.form.controls.name.valueChanges.subscribe(() =>
+      this.form.controls.name.markAsTouched()
     );
   }
 

@@ -1,34 +1,31 @@
-import { Component, OnInit } from "@angular/core";
+import { AfterContentInit, Component } from "@angular/core";
 import { MatDialog } from "@angular/material";
 
 import { TagDialogComponent } from "../tag-dialog/tag-dialog.component";
 import { Tag } from "../../interfaces/tag";
+import { DatabaseService } from "../../services/database.service";
 
 @Component({
   selector: "app-tags",
   templateUrl: "./tags.component.html",
   styleUrls: ["../../styles/drawer-menu.scss"]
 })
-export class TagsComponent implements OnInit {
+export class TagsComponent implements AfterContentInit {
   tags: Tag[];
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog, private database: DatabaseService) {
+    this.tags = [];
+  }
 
-  ngOnInit() {
-    this.tags = [
-      {
-        id: "id1",
-        name: "Transport"
+  ngAfterContentInit() {
+    this.database.getList("tags").subscribe(
+      result => {
+        this.tags = result as Tag[];
       },
-      {
-        id: "id2",
-        name: "Rent"
-      },
-      {
-        id: "id3",
-        name: "Restaurant"
+      error => {
+        console.log(error);
       }
-    ];
+    );
   }
 
   handleAddTagClick() {
@@ -38,7 +35,21 @@ export class TagsComponent implements OnInit {
     });
     addTagDialog
       .afterClosed()
-      .subscribe(res => (res ? console.log(res) : null));
+      .flatMap(res => {
+        return this.database.setData("tags", res);
+      })
+      .flatMap(() => {
+        return this.database.getList("tags");
+      })
+      .subscribe(
+        result => {
+          this.tags = result as Tag[];
+          console.log(result);
+        },
+        error => {
+          console.log(error);
+        }
+      );
   }
 
   deleteTag(data) {
