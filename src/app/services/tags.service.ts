@@ -6,8 +6,8 @@ import { Tag } from "../interfaces/tag";
 export class TagsService {
   constructor(private db: DatabaseService) {}
 
-  getAll(): Observable<{}[]> {
-    return this.db.getList("tags");
+  getAll(): Observable<Tag[]> {
+    return this.db.getList<Tag>("tags");
   }
 
   set(tag: Tag): Observable<void> {

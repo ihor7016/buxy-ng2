@@ -21,8 +21,8 @@ export class DatabaseService {
     });
   }
 
-  getList(dataType: string): Observable<{}[]> {
-    return this.db.list(`${this.basePath}/${dataType}`).valueChanges();
+  getList(dataType: string): Observable<T[]> {
+    return this.db.list<T>(`${this.basePath}/${dataType}`).valueChanges();
   }
 
   getData(dataType: string, dataId: string): Observable<{}> {
