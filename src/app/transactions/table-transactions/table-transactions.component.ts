@@ -7,10 +7,8 @@ import {
   OnInit
 } from "@angular/core";
 import { MatTableDataSource, MatSort } from "@angular/material";
-import { Observable } from "@firebase/util";
-
-import { Account } from "../../interfaces/account";
-import { Tag } from "../../interfaces/tag";
+import { Observable } from "rxjs/Observable";
+import { Subscription } from "rxjs/Subscription";
 
 interface ContentData {
   id: string;
@@ -20,8 +18,8 @@ interface ContentData {
   amount: number;
   accountId: string;
   tagId: string;
-  account: Observable<Account>;
-  tag: Observable<Tag>;
+  account: Subscription;
+  tag: Subscription;
 }
 
 @Component({

@@ -31,7 +31,7 @@ export class TransactionsComponent implements AfterContentInit {
     this.contentData = this.transDB
       .getList()
       .map(list => list.reverse())
-      .map(list => this.convertList(list));
+      .map(list => list.map(data => this.convertData(data)));
   }
 
   editTransaction() {
@@ -42,15 +42,13 @@ export class TransactionsComponent implements AfterContentInit {
     console.log("deleteTransaction");
   }
 
-  convertList(list) {
-    return list.map(data => {
-      let newData = Object.assign(data);
-      this.db
-        .getData("accounts", data.accountId)
-        .subscribe(acc => (newData.account = acc));
-      this.db.getData("tags", data.tagId).subscribe(tag => (newData.tag = tag));
-      return newData;
-    });
+  convertData(data) {
+    let newData = Object.assign(data);
+    this.db
+      .getData("accounts", data.accountId)
+      .subscribe(acc => (newData.account = acc));
+    this.db.getData("tags", data.tagId).subscribe(tag => (newData.tag = tag));
+    return newData;
   }
 
   handleAddTransactionClick() {
@@ -71,7 +69,7 @@ export class TransactionsComponent implements AfterContentInit {
     this.dialogSelects.unsubscribe();
     addTransactionDialog.afterClosed().subscribe(data => {
       if (data) {
-        this.transDB.setData(data).subscribe();
+        return this.transDB.setData(data).subscribe();
       }
     });
   }
