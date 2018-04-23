@@ -8,17 +8,12 @@ import "rxjs/add/observable/combineLatest";
 import { TransactionsService } from "../../services/transactions.service";
 import { DatabaseService } from "../../services/database.service";
 
-import { Account } from "../../interfaces/account";
-import { Tag } from "../../interfaces/tag";
-
 @Component({
   selector: "app-transactions",
   templateUrl: "./transactions.component.html",
   styleUrls: ["./transactions.component.scss"]
 })
 export class TransactionsComponent implements AfterContentInit {
-  accounts: Account[];
-  tags: Tag[];
   contentData: Observable<any>;
   dialogSelects: Subscription;
 
