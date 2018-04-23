@@ -12,6 +12,10 @@ const appRoutes: Routes = [
     path: "main",
     canActivate: [AuthGuard],
     component: DrawerComponent
+  },
+  {
+    path: "**",
+    redirectTo: ""
   }
 ];
 
