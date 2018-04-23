@@ -9,7 +9,20 @@ import {
 import { MatTableDataSource, MatSort } from "@angular/material";
 import { Observable } from "@firebase/util";
 
-import { Transaction } from "../../interfaces/transaction";
+import { Account } from "../../interfaces/account";
+import { Tag } from "../../interfaces/tag";
+
+interface ContentData {
+  id: string;
+  desc: string;
+  date: string;
+  type: string;
+  amount: number;
+  accountId: string;
+  tagId: string;
+  account: Observable<Account>;
+  tag: Observable<Tag>;
+}
 
 @Component({
   selector: "app-table-transactions",
@@ -18,10 +31,10 @@ import { Transaction } from "../../interfaces/transaction";
 })
 export class TableTransactionsComponent implements OnInit {
   displayedColumns = ["date", "amount", "description", "tag", "account"];
-  private ELEMENT_DATA: Transaction[] = [];
+  private ELEMENT_DATA: ContentData[] = [];
   public dataSource;
 
-  @Input() data: Observable<Transaction[]>;
+  @Input() data: Observable<ContentData[]>;
   @Output() editClick: EventEmitter<null> = new EventEmitter();
   @Output() deleteClick: EventEmitter<null> = new EventEmitter();
   @ViewChild(MatSort) sort: MatSort;
