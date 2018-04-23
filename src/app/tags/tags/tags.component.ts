@@ -20,7 +20,7 @@ export class TagsComponent implements AfterContentInit {
   ngAfterContentInit() {
     this.database.getAll().subscribe(
       result => {
-        this.tags = result as Tag[];
+        this.tags = (result as Tag[]).reverse();
       },
       error => {
         console.log(error);
@@ -42,7 +42,7 @@ export class TagsComponent implements AfterContentInit {
         return this.database.getAll();
       })
       .subscribe(result => {
-        this.tags = result as Tag[];
+        this.tags = (result as Tag[]).reverse();
       });
   }
 
