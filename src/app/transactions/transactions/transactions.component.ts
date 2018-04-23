@@ -8,7 +8,6 @@ import "rxjs/add/observable/combineLatest";
 import { TransactionsService } from "../../services/transactions.service";
 import { DatabaseService } from "../../services/database.service";
 
-import { Transaction } from "../../interfaces/transaction";
 import { Account } from "../../interfaces/account";
 import { Tag } from "../../interfaces/tag";
 
