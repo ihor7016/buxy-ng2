@@ -38,7 +38,7 @@ export class TransactionsComponent implements AfterContentInit {
   }
 
   convertData(data) {
-    let newData = Object.assign(data);
+    let newData = Object.assign({}, data);
     this.db
       .getData("accounts", data.accountId)
       .subscribe(acc => (newData.account = acc));
