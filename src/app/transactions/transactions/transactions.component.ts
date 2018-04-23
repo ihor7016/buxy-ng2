@@ -2,6 +2,8 @@ import { Component, AfterContentInit } from "@angular/core";
 import { MatDialog } from "@angular/material";
 import { TransactionDialogComponent } from "../transaction-dialog/transaction-dialog.component";
 import { Observable } from "rxjs/Observable";
+import { Subscription } from "rxjs/Subscription";
+import "rxjs/add/observable/combineLatest";
 
 import { TransactionsService } from "../../services/transactions.service";
 import { DatabaseService } from "../../services/database.service";
@@ -19,6 +21,7 @@ export class TransactionsComponent implements AfterContentInit {
   accounts: Account[];
   tags: Tag[];
   contentData: Observable<any>;
+  dialogSelects: Subscription;
 
   constructor(
     private dialog: MatDialog,
@@ -28,11 +31,8 @@ export class TransactionsComponent implements AfterContentInit {
   ngAfterContentInit() {
     this.contentData = this.transDB
       .getList()
+      .map(list => list.reverse())
       .map(list => this.convertList(list));
-    this.db
-      .getList("accounts")
-      .subscribe((list: Account[]) => (this.accounts = list));
-    this.db.getList("tags").subscribe((list: Tag[]) => (this.tags = list));
   }
 
   editTransaction() {
@@ -55,18 +55,38 @@ export class TransactionsComponent implements AfterContentInit {
   }
 
   handleAddTransactionClick() {
+    this.dialogSelects = this.getDialogSelects().subscribe(data =>
+      this.openAddTransactionDialog(data)
+    );
+  }
+
+  openAddTransactionDialog(data) {
     const addTransactionDialog = this.dialog.open(TransactionDialogComponent, {
       data: {
         action: "Add",
-        accounts: this.accounts,
-        tags: this.tags
+        accounts: data.accounts,
+        tags: data.tags
       },
       minWidth: "50%"
     });
+    this.dialogSelects.unsubscribe();
     addTransactionDialog.afterClosed().subscribe(data => {
       if (data) {
         this.transDB.setData(data).subscribe();
       }
     });
+  }
+
+  getDialogSelects() {
+    return Observable.combineLatest(
+      this.db.getList("accounts"),
+      this.db.getList("tags"),
+      (accounts, tags) => {
+        return {
+          accounts: accounts,
+          tags: tags
+        };
+      }
+    );
   }
 }

@@ -32,7 +32,7 @@ interface ContentData {
 export class TableTransactionsComponent implements OnInit {
   displayedColumns = ["date", "amount", "description", "tag", "account"];
   private ELEMENT_DATA: ContentData[] = [];
-  public dataSource;
+  public dataSource: MatTableDataSource<ContentData>;
 
   @Input() data: Observable<ContentData[]>;
   @Output() editClick: EventEmitter<null> = new EventEmitter();
