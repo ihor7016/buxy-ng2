@@ -7,8 +7,8 @@ import { DatabaseService } from "./database.service";
 export class AccountsService {
   constructor(private db: DatabaseService) {}
 
-  getAll(): Observable<{}[]> {
-    return this.db.getList("accounts");
+  getAll(): Observable<Account[]> {
+    return this.db.getList<Account>("accounts");
   }
 
   set(account: Account): Observable<void> {
