@@ -8,7 +8,6 @@ import {
 } from "@angular/core";
 import { MatTableDataSource, MatSort } from "@angular/material";
 import { Observable } from "rxjs/Observable";
-import { Subscription } from "rxjs/Subscription";
 
 import { Account } from "../../interfaces/account";
 import { Tag } from "../../interfaces/tag";
