@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 
 @Injectable()
 export class CurrencyUahService {
-  convert(curr: string, amount: number) {
+  convert(curr: string, amount: number): number {
     if (curr === "$") {
       return amount * 27;
     }

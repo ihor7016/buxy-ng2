@@ -1,7 +1,7 @@
 <div class="transactions">
   <div class="transactions__charts">
     <app-pie-chart class="transactions__chart mat-elevation-z2"></app-pie-chart>
-    <app-bar-chart class="transactions__chart mat-elevation-z2"></app-bar-chart>
+    <app-bar-chart [data]="data" class="transactions__chart mat-elevation-z2"></app-bar-chart>
   </div>
   <app-table-transactions [data]="contentData" (editClick)="editTransaction()" (deleteClick)="deleteTransaction()"></app-table-transactions>
   <button mat-fab (click)="handleAddTransactionClick()" class="transactions__add-dialog-activation">

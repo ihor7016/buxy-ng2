@@ -53,7 +53,10 @@ export class TransactionDialogComponent implements OnInit {
       type: val.type,
       desc: val.desc,
       amount: Number.parseInt(val.amount),
-      amountUah: this.converter.convert(val.account.currency, val.amount),
+      amountUah: this.converter.convert(
+        val.account.currency,
+        Number.parseInt(val.amount)
+      ),
       tagId: val.tag.id,
       accountId: val.account.id
     };
