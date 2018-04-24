@@ -10,6 +10,9 @@ import { MatTableDataSource, MatSort } from "@angular/material";
 import { Observable } from "rxjs/Observable";
 import { Subscription } from "rxjs/Subscription";
 
+import { Account } from "../../interfaces/account";
+import { Tag } from "../../interfaces/tag";
+
 interface ContentData {
   id: string;
   desc: string;
@@ -18,8 +21,8 @@ interface ContentData {
   amount: number;
   accountId: string;
   tagId: string;
-  account: Subscription;
-  tag: Subscription;
+  account: Account;
+  tag: Tag;
 }
 
 @Component({
