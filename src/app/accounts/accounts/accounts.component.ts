@@ -20,7 +20,7 @@ export class AccountsComponent implements AfterContentInit {
   ngAfterContentInit() {
     this.database.getAll().subscribe(
       result => {
-        this.accounts = (result as Account[]).reverse();
+        this.accounts = result.reverse();
       },
       error => {
         console.log(error);
@@ -41,12 +41,7 @@ export class AccountsComponent implements AfterContentInit {
       .flatMap(res => {
         return this.database.set(res);
       })
-      .flatMap(() => {
-        return this.database.getAll();
-      })
-      .subscribe(result => {
-        this.accounts = (result as Account[]).reverse();
-      });
+      .subscribe(result => {});
   }
 
   deleteAccount(data) {
