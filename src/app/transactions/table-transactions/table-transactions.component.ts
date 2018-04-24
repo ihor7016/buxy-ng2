@@ -18,6 +18,7 @@ interface ContentData {
   date: string;
   type: string;
   amount: number;
+  amountUah: number;
   accountId: string;
   tagId: string;
   account: Account;
