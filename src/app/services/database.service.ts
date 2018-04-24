@@ -25,10 +25,11 @@ export class DatabaseService {
     return this.db.list<T>(`${this.basePath}/${dataType}`).valueChanges();
   }
 
-  getData(dataType: string, dataId: string): Observable<{}> {
+  getData<T>(dataType: string, dataId: string): Observable<T> {
     return this.db
       .object(`${this.basePath}/${dataType}/${dataId}`)
-      .valueChanges();
+      .valueChanges()
+      .map(obj => obj as T);
   }
 
   setData(dataType: string, data: any): Observable<void> {
