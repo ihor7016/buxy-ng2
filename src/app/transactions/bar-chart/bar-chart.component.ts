@@ -3,6 +3,11 @@ import { Observable } from "rxjs/Observable";
 import { Subscription } from "rxjs/Subscription";
 import { Transaction } from "../../interfaces/transaction";
 
+interface BarChartData {
+  income: number;
+  expense: number;
+}
+
 @Component({
   selector: "app-bar-chart",
   templateUrl: "./bar-chart.component.html"
@@ -36,20 +41,18 @@ export class BarChartComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.dataStream = this.data
       .map(list =>
-        list.reduce((acc: any, data) => this.calculate(acc, data), {
+        list.reduce((acc, data) => this.calculate(acc, data), {
           income: 0,
           expense: 0
         })
       )
-      .subscribe(data => {
-        console.log(data);
-        this.barChartData = [{ data: [data.income, data.expense] }];
-      });
+      .subscribe(
+        data => (this.barChartData = [{ data: [data.income, data.expense] }])
+      );
   }
 
-  calculate(acc, data) {
+  calculate(acc: BarChartData, data: Transaction): BarChartData {
     let res = Object.assign({}, acc);
-    console.log(data);
     if (data.type === "-") {
       res.expense += data.amountUah;
     } else {
