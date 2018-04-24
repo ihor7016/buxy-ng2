@@ -18,7 +18,7 @@ export class AccountsComponent implements AfterContentInit {
   }
 
   ngAfterContentInit() {
-    this.database.getAll().subscribe(
+    this.database.getList().subscribe(
       result => {
         this.accounts = result.reverse();
       },
@@ -39,7 +39,7 @@ export class AccountsComponent implements AfterContentInit {
     addAccountDialog
       .afterClosed()
       .flatMap(res => {
-        return this.database.set(res);
+        return this.database.setData(res);
       })
       .subscribe();
   }
