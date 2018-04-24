@@ -6,11 +6,11 @@ export abstract class AbstractService<T> {
   abstract getDataType(): string;
 
   getList(): Observable<T[]> {
-    return this.db.getList(this.getDataType());
+    return this.db.getList<T>(this.getDataType());
   }
 
   getData(dataId: string): Observable<T> {
-    return this.db.getData(this.getDataType(), dataId);
+    return this.db.getData<T>(this.getDataType(), dataId);
   }
 
   setData(data: T): Observable<void> {
