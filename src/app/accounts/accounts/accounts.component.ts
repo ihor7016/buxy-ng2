@@ -37,7 +37,7 @@ export class AccountsComponent implements AfterContentInit {
       minWidth: "50%"
     });
     addAccountDialog.afterClosed().subscribe(res => {
-      return this.database.setData(res);
+      this.database.setData(res).subscribe();
     });
   }
 
