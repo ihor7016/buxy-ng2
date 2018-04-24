@@ -41,7 +41,7 @@ export class AccountsComponent implements AfterContentInit {
       .flatMap(res => {
         return this.database.set(res);
       })
-      .subscribe(result => {});
+      .subscribe();
   }
 
   deleteAccount(data) {
