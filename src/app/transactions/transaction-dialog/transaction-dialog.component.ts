@@ -4,6 +4,8 @@ import { DatePipe } from "@angular/common";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material";
 import { Transaction } from "../../interfaces/transaction";
 
+import { CurrencyUahService } from "../../services/currency-uah.service";
+
 interface TransactionDialogData {
   action: string;
   dataToEdit?: Transaction;
@@ -22,6 +24,7 @@ export class TransactionDialogComponent implements OnInit {
     private formBuilder: FormBuilder,
     private datePipe: DatePipe,
     private matDialogRef: MatDialogRef<TransactionDialogComponent>,
+    private converter: CurrencyUahService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
@@ -44,8 +47,13 @@ export class TransactionDialogComponent implements OnInit {
   }
 
   submit(form: any) {
-    const trans = Object.assign(form.value);
+    const trans = Object.assign({}, form.value);
+    trans.accountId = trans.account.id;
     trans.amount = Number.parseInt(trans.amount) || 0;
+    trans.amountUah = this.converter.convert(
+      trans.account.currency,
+      trans.amount
+    );
     trans.date = this.datePipe.transform(trans.date, "yyyy-MM-dd");
     this.matDialogRef.close(trans);
   }

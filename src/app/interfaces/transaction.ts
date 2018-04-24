@@ -4,6 +4,7 @@ export interface Transaction {
   date: string;
   type: string;
   amount: number;
+  amountUah: number;
   accountId: string;
   tagId: string;
 }

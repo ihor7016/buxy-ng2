@@ -47,7 +47,7 @@
           <div class="dialog__row">
             <mat-form-field class="dialog__input">
               <mat-select placeholder="Account" formControlName="accountId" required>
-                <mat-option *ngFor="let account of data.accounts" [value]="account.id">{{account.name}}</mat-option>
+                <mat-option *ngFor="let account of data.accounts" [value]="account">{{account.name}}</mat-option>
               </mat-select>
               <mat-error *ngIf="form.controls.accountId.invalid">Please choose an account</mat-error>
             </mat-form-field>
