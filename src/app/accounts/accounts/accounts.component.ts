@@ -36,12 +36,9 @@ export class AccountsComponent implements AfterContentInit {
       },
       minWidth: "50%"
     });
-    addAccountDialog
-      .afterClosed()
-      .flatMap(res => {
-        return this.database.setData(res);
-      })
-      .subscribe();
+    addAccountDialog.afterClosed().subscribe(res => {
+      return this.database.setData(res);
+    });
   }
 
   deleteAccount(data) {
