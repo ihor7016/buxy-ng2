@@ -38,7 +38,7 @@ export class TagsComponent implements AfterContentInit {
       .flatMap(res => {
         return this.database.set(res);
       })
-      .subscribe(result => {});
+      .subscribe();
   }
 
   deleteTag(data) {
