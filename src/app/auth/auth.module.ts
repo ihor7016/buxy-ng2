@@ -10,7 +10,6 @@ import { AngularFireAuthModule } from "angularfire2/auth";
 import { AuthService } from "../services/auth.service";
 import { AuthComponent } from "./auth/auth.component";
 import { AuthDialogComponent } from "./auth-dialog/auth-dialog.component";
-import { AuthGuard } from "../services/auth-guard.service";
 import { config } from "../../../firebase.config";
 
 @NgModule({
@@ -23,7 +22,7 @@ import { config } from "../../../firebase.config";
     ReactiveFormsModule
   ],
   exports: [AuthComponent],
-  providers: [AuthService, AuthGuard],
+  providers: [AuthService],
   declarations: [AuthComponent, AuthDialogComponent],
   entryComponents: [AuthDialogComponent]
 })
