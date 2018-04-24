@@ -41,20 +41,22 @@ export class TransactionDialogComponent implements OnInit {
       desc: "",
       amount: "",
       date: new Date(),
-      tagId: "",
-      accountId: ""
+      tag: "",
+      account: ""
     });
   }
 
   submit(form: any) {
-    const trans = Object.assign({}, form.value);
-    trans.accountId = trans.account.id;
-    trans.amount = Number.parseInt(trans.amount) || 0;
-    trans.amountUah = this.converter.convert(
-      trans.account.currency,
-      trans.amount
-    );
-    trans.date = this.datePipe.transform(trans.date, "yyyy-MM-dd");
+    const val = form.value;
+    const trans = {
+      date: this.datePipe.transform(val.date, "yyyy-MM-dd"),
+      type: val.type,
+      desc: val.desc,
+      amount: Number.parseInt(val.amount),
+      amountUah: this.converter.convert(val.account.currency, val.amount),
+      tagId: val.tag.id,
+      accountId: val.account.id
+    };
     this.matDialogRef.close(trans);
   }
 }
