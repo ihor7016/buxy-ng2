@@ -20,7 +20,7 @@ export class TagsComponent implements AfterContentInit {
   ngAfterContentInit() {
     this.database.getAll().subscribe(
       result => {
-        this.tags = (result as Tag[]).reverse();
+        this.tags = result.reverse();
       },
       error => {
         console.log(error);
@@ -38,12 +38,7 @@ export class TagsComponent implements AfterContentInit {
       .flatMap(res => {
         return this.database.set(res);
       })
-      .flatMap(() => {
-        return this.database.getAll();
-      })
-      .subscribe(result => {
-        this.tags = (result as Tag[]).reverse();
-      });
+      .subscribe(result => {});
   }
 
   deleteTag(data) {
