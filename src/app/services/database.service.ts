@@ -21,13 +21,13 @@ export class DatabaseService {
     });
   }
 
-  getList(dataType: string): Observable<{}[]> {
-    return this.db.list(`${this.basePath}/${dataType}`).valueChanges();
+  getList<T>(dataType: string): Observable<T[]> {
+    return this.db.list<T>(`${this.basePath}/${dataType}`).valueChanges();
   }
 
-  getData(dataType: string, dataId: string): Observable<{}> {
+  getData<T>(dataType: string, dataId: string): Observable<T> {
     return this.db
-      .object(`${this.basePath}/${dataType}/${dataId}`)
+      .object<T>(`${this.basePath}/${dataType}/${dataId}`)
       .valueChanges();
   }
 
