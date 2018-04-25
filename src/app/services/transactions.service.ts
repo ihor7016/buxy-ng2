@@ -1,31 +1,18 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 
-import { Transaction } from "../interfaces/transaction";
 import { DatabaseService } from "./database.service";
+import { AbstractService } from "./abstract.service";
+
+import { Transaction } from "../interfaces/transaction";
 
 @Injectable()
-export class TransactionsService {
-  private dataType: string = "transactions";
-  constructor(private db: DatabaseService) {}
-
-  getList(): Observable<Transaction[]> {
-    return this.db.getList(this.dataType);
+export class TransactionsService extends AbstractService<Transaction> {
+  constructor(db: DatabaseService) {
+    super(db);
   }
 
-  getData(dataId: string): Observable<Transaction> {
-    return this.db.getData(this.dataType, dataId);
-  }
-
-  setData(data: Transaction): Observable<void> {
-    return this.db.setData(this.dataType, data);
-  }
-
-  updateData(data: Transaction): Observable<void> {
-    return this.db.updateData(this.dataType, data);
-  }
-
-  deleteData(dataId: string): Observable<void> {
-    return this.db.deleteData(this.dataType, dataId);
+  getDataType(): string {
+    return "transactions";
   }
 }
