@@ -13,7 +13,6 @@ interface BarChartData {
   templateUrl: "./bar-chart.component.html"
 })
 export class BarChartComponent implements OnInit, OnDestroy {
-  @Input() data: Observable<Transaction[]>;
   public barChartOptions: any = {
     scaleShowVerticalLines: false,
     responsive: true,
@@ -36,10 +35,12 @@ export class BarChartComponent implements OnInit, OnDestroy {
 
   public barChartData: any[] = [{ data: [0, 0] }];
   public barChartColors: any[] = [{ backgroundColor: ["#4caf50", "#f44336"] }];
+
+  @Input() private barData: Observable<Transaction[]>;
   private dataStream: Subscription;
 
   ngOnInit() {
-    this.dataStream = this.data
+    this.dataStream = this.barData
       .map(list =>
         list.reduce((acc, data) => this.calculate(acc, data), {
           income: 0,
