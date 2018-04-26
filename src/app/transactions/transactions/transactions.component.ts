@@ -8,6 +8,7 @@ import "rxjs/add/observable/combineLatest";
 import { TransactionsService } from "../../services/transactions.service";
 import { DatabaseService } from "../../services/database.service";
 import { Transaction } from "../../interfaces/transaction";
+import { Tag } from "../../interfaces/tag";
 
 @Component({
   selector: "app-transactions",
@@ -16,19 +17,25 @@ import { Transaction } from "../../interfaces/transaction";
 })
 export class TransactionsComponent implements OnInit {
   contentData: Observable<any>;
-  data: Observable<Transaction[]>;
+  transactions: Observable<Transaction[]>;
+  tags: Observable<Tag[]>;
   dialogSelects: Subscription;
+  pieData: any;
 
   constructor(
     private dialog: MatDialog,
     private transDB: TransactionsService,
     private db: DatabaseService
   ) {
-    this.data = this.transDB.getList();
+    this.transactions = this.transDB.getList();
+    this.tags = this.db.getList<Tag>("tags");
+    // Observable.combineLatest(this.transactions, this.tags, (transactions, tags) => {
+    //   return {transactions: transactions, tags: tags};
+    // }).subscribe((pieData) => this.pieData = pieData);
   }
 
   ngOnInit() {
-    this.contentData = this.data
+    this.contentData = this.transactions
       .map(list => list.reverse())
       .map(list => list.map(data => this.extractData(data)));
   }

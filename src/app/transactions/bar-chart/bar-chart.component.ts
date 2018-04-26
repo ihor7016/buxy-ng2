@@ -36,11 +36,11 @@ export class BarChartComponent implements OnInit, OnDestroy {
   public barChartData: any[] = [{ data: [0, 0] }];
   public barChartColors: any[] = [{ backgroundColor: ["#4caf50", "#f44336"] }];
 
-  @Input() private barData: Observable<Transaction[]>;
+  @Input() private transactions: Observable<Transaction[]>;
   private dataStream: Subscription;
 
   ngOnInit() {
-    this.dataStream = this.barData
+    this.dataStream = this.transactions
       .map(list =>
         list.reduce((acc, data) => this.calculate(acc, data), {
           income: 0,

@@ -1,4 +1,4 @@
-<canvas *ngIf="chartData.amounts && chartData.colors && chartData.tags" baseChart
-  [data]="pieChartData" [options]="pieChartOptions" [colors]="pieChartColors" [legend]="pieChartLegend"
-  [labels]="pieChartLabels" [chartType]="pieChartType">
-  </canvas>
+<canvas *ngIf="pieChartData.length && pieChartLabels.length" baseChart [data]="pieChartData"
+  [options]="pieChartOptions" [colors]="pieChartColors" [legend]="pieChartLegend" [labels]="pieChartLabels"
+  [chartType]="pieChartType">
+</canvas>
