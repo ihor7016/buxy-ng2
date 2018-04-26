@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, OnInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material";
 
 import { AccountDialogComponent } from "../account-dialog/account-dialog.component";
@@ -10,22 +10,17 @@ import { AccountsService } from "../../services/accounts.service";
   templateUrl: "./accounts.component.html",
   styleUrls: ["../../styles/drawer-menu.scss"]
 })
-export class AccountsComponent implements AfterContentInit {
+export class AccountsComponent implements OnInit {
   accounts: Account[];
 
   constructor(private dialog: MatDialog, private database: AccountsService) {
     this.accounts = [];
   }
 
-  ngAfterContentInit() {
-    this.database.getList().subscribe(
-      result => {
-        this.accounts = result.reverse();
-      },
-      error => {
-        console.log(error);
-      }
-    );
+  ngOnInit() {
+    this.database.getList().subscribe(result => {
+      this.accounts = result.reverse();
+    });
   }
 
   handleAddAccountClick() {

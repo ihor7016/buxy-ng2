@@ -1,5 +1,6 @@
 import { DatabaseService } from "./database.service";
 import { Observable } from "rxjs/Observable";
+
 export abstract class AbstractService<T> {
   constructor(private db: DatabaseService) {}
 
