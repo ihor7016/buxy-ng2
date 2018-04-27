@@ -56,13 +56,13 @@ export class AccountDialogComponent implements OnInit {
 
   createForm() {
     this.form = this.formBuilder.group({
-      account: ["", this.uniqueNameValidator.bind(this)],
+      name: ["", this.uniqueNameValidator.bind(this)],
       balance: "",
       type: "",
       currency: ""
     });
     this.addEventValidation([
-      this.form.controls.account,
+      this.form.controls.name,
       this.form.controls.balance
     ]);
   }

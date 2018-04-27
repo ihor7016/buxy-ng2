@@ -6,7 +6,15 @@ import * as firebase from "firebase/app";
 
 @Injectable()
 export class AuthService {
-  constructor(private _firebaseAuth: AngularFireAuth, private router: Router) {}
+  constructor(private _firebaseAuth: AngularFireAuth, private router: Router) {
+    _firebaseAuth.auth.onAuthStateChanged(user => {
+      if (user) {
+        router.navigate(["main"]);
+      } else {
+        router.navigate(["/"]);
+      }
+    });
+  }
 
   signInWithGoogle() {
     return this._firebaseAuth.auth.signInWithPopup(
@@ -23,11 +31,7 @@ export class AuthService {
       email,
       password
     );
-    return this._firebaseAuth.auth
-      .setPersistence(firebase.auth.Auth.Persistence.SESSION)
-      .then(() =>
-        this._firebaseAuth.auth.signInWithEmailAndPassword(email, password)
-      );
+    return this._firebaseAuth.auth.signInWithEmailAndPassword(email, password);
   }
 
   emailSignUp(email: string, password: string) {
@@ -35,10 +39,6 @@ export class AuthService {
       email,
       password
     );
-  }
-
-  isLoggedIn() {
-    return this._firebaseAuth.auth;
   }
 
   logout() {
