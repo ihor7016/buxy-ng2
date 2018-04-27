@@ -1,5 +1,8 @@
 .transactions {
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 
   &__add-dialog-activation {
     position: fixed;
@@ -17,5 +20,10 @@
     width: calc(50% - 30px);
     padding: 10px;
     background-color: #ffffff;
+  }
+
+  &__empty-state {
+    margin: auto;
+    color: rgba(0, 0, 0, 0.26);
   }
 }
