@@ -4,9 +4,9 @@
     <div mat-dialog-content>
       <div class="dialog__row">
         <mat-form-field class="dialog__input">
-          <input matInput placeholder="Tag" formControlName="tag" required>
-          <mat-error *ngIf="form.controls.tag.hasError('required')">Please enter tag name</mat-error>
-          <mat-error *ngIf="form.controls.tag.hasError('existingName')">The name already exists</mat-error>
+          <input matInput placeholder="Tag" formControlName="name" required>
+          <mat-error *ngIf="form.controls.name.hasError('required')">Please enter tag name</mat-error>
+          <mat-error *ngIf="form.controls.name.hasError('existingName')">The name already exists</mat-error>
         </mat-form-field>
       </div>
     </div>
