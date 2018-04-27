@@ -1,20 +1,46 @@
-import { Component, EventEmitter, Output, ViewChild } from "@angular/core";
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  ViewChild,
+  OnChanges
+} from "@angular/core";
 import { MatTableDataSource, MatSort } from "@angular/material";
+
+import { Account } from "../../interfaces/account";
+import { Tag } from "../../interfaces/tag";
+
+interface ContentData {
+  id: string;
+  desc: string;
+  date: string;
+  type: string;
+  amount: number;
+  amountUah: number;
+  accountId: string;
+  tagId: string;
+  account: Account;
+  tag: Tag;
+}
 
 @Component({
   selector: "app-table-transactions",
   templateUrl: "./table-transactions.component.html",
   styleUrls: ["./table-transactions.component.scss"]
 })
-export class TableTransactionsComponent {
-  displayedColumns = ["date", "amount", "description", "tag", "account"];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+export class TableTransactionsComponent implements OnChanges {
+  public displayedColumns = ["date", "amount", "description", "tag", "account"];
+  public dataSource: MatTableDataSource<ContentData>;
 
+  @Input() tableData: any;
   @Output() editClick: EventEmitter<null> = new EventEmitter();
   @Output() deleteClick: EventEmitter<null> = new EventEmitter();
   @ViewChild(MatSort) sort: MatSort;
 
-  ngAfterViewInit() {
+  ngOnChanges() {
+    const data = this.createData();
+    this.dataSource = new MatTableDataSource(data);
     this.dataSource.sort = this.sort;
   }
 
@@ -25,46 +51,19 @@ export class TableTransactionsComponent {
   handleDeleteTransaction() {
     this.deleteClick.emit();
   }
-}
 
-const ELEMENT_DATA: any[] = [
-  {
-    date: "19.03.2018",
-    type: "-",
-    amount: 200,
-    description: "tennis",
-    id: "id1",
-    tag: { name: "hobby" },
-    account: {
-      name: "KredoBank",
-      type: "debitcard",
-      currency: "$"
-    }
-  },
-  {
-    date: "22.03.2018",
-    type: "-",
-    amount: 5000,
-    description: "rent payment",
-    id: "id2",
-    tag: { name: "rent" },
-    account: {
-      name: "PravexBank",
-      type: "creditcard",
-      currency: "€"
-    }
-  },
-  {
-    date: "02.04.2018",
-    type: "-",
-    amount: 300,
-    description: "fishing",
-    id: "id3",
-    tag: { name: "hobby" },
-    account: {
-      name: "KredoBank",
-      type: "debitcard",
-      currency: "₴"
-    }
+  createData(): ContentData[] {
+    const data = this.tableData.transactions.reverse();
+    const newData = data.map(item => this.extractData(item));
+    return newData;
   }
-];
+
+  extractData(data): ContentData {
+    const newData = Object.assign({}, data);
+    newData.account = this.tableData.accounts.find(
+      item => item.id === data.accountId
+    );
+    newData.tag = this.tableData.tags.find(item => item.id === data.tagId);
+    return newData;
+  }
+}

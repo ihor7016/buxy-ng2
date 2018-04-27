@@ -3,7 +3,7 @@ import { AngularFireDatabase } from "angularfire2/database";
 import { Observable } from "rxjs/Observable";
 import "rxjs/add/operator/switchMap";
 
-import { AuthService } from "./auth.service";
+import { AuthService } from "../auth.service";
 
 @Injectable()
 export class DatabaseService {

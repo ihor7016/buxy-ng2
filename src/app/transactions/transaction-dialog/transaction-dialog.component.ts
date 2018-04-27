@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { DatePipe } from "@angular/common";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material";
+
 import { Transaction } from "../../interfaces/transaction";
 
 interface TransactionDialogData {
@@ -38,15 +39,21 @@ export class TransactionDialogComponent implements OnInit {
       desc: "",
       amount: "",
       date: new Date(),
-      tagId: "",
-      accountId: ""
+      tag: "",
+      account: ""
     });
   }
 
   submit(form: any) {
-    const trans = Object.assign(form.value);
-    trans.amount = Number.parseInt(trans.amount) || 0;
-    trans.date = this.datePipe.transform(trans.date, "yyyy-MM-dd");
+    const val = form.value;
+    const trans = {
+      date: this.datePipe.transform(val.date, "yyyy-MM-dd"),
+      type: val.type,
+      desc: val.desc,
+      amount: Number.parseInt(val.amount),
+      tagId: val.tag.id,
+      accountId: val.account.id
+    };
     this.matDialogRef.close(trans);
   }
 }

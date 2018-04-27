@@ -27,10 +27,10 @@
           </div>
           <div class="dialog__row">
             <mat-form-field class="dialog__input">
-              <mat-select placeholder="Tag" formControlName="tagId" required>
-                <mat-option *ngFor="let tag of data.tags" [value]="tag">{{tag}}</mat-option>
+              <mat-select placeholder="Tag" formControlName="tag" required>
+                <mat-option *ngFor="let tag of data.tags" [value]="tag">{{tag.name}}</mat-option>
               </mat-select>
-              <mat-error *ngIf="form.controls.tagId.invalid">Please choose a tag</mat-error>
+              <mat-error *ngIf="form.controls.tag.invalid">Please choose a tag</mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -46,10 +46,10 @@
           </div>
           <div class="dialog__row">
             <mat-form-field class="dialog__input">
-              <mat-select placeholder="Account" formControlName="accountId" required>
-                <mat-option *ngFor="let account of data.accounts" [value]="account.id">{{account.name}}</mat-option>
+              <mat-select placeholder="Account" formControlName="account" required>
+                <mat-option *ngFor="let account of data.accounts" [value]="account">{{account.name}}</mat-option>
               </mat-select>
-              <mat-error *ngIf="form.controls.accountId.invalid">Please choose an account</mat-error>
+              <mat-error *ngIf="form.controls.account.invalid">Please choose an account</mat-error>
             </mat-form-field>
           </div>
         </div>

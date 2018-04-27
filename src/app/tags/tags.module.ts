@@ -7,8 +7,6 @@ import { SharedModule } from "../shared/shared.module";
 
 import { TagsComponent } from "./tags/tags.component";
 import { TagDialogComponent } from "./tag-dialog/tag-dialog.component";
-import { TagsService } from "../services/tags.service";
-import { DatabaseService } from "../services/database.service";
 
 @NgModule({
   imports: [
@@ -19,7 +17,6 @@ import { DatabaseService } from "../services/database.service";
   ],
   declarations: [TagsComponent, TagDialogComponent],
   exports: [TagsComponent],
-  entryComponents: [TagDialogComponent],
-  providers: [TagsService, DatabaseService]
+  entryComponents: [TagDialogComponent]
 })
 export class TagsModule {}

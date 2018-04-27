@@ -3,7 +3,7 @@ import { MatDialog } from "@angular/material";
 
 import { TagDialogComponent } from "../tag-dialog/tag-dialog.component";
 import { Tag } from "../../interfaces/tag";
-import { TagsService } from "../../services/tags.service";
+import { TagsService } from "../../services/storage/tags.service";
 
 @Component({
   selector: "app-tags",

@@ -1,15 +1,17 @@
 import { Injectable } from "@angular/core";
-import { Tag } from "../interfaces/tag";
+
 import { DatabaseService } from "./database.service";
 import { AbstractService } from "./abstract.service";
 
+import { Transaction } from "../../interfaces/transaction";
+
 @Injectable()
-export class TagsService extends AbstractService<Tag> {
+export class TransactionsService extends AbstractService<Transaction> {
   constructor(db: DatabaseService) {
     super(db);
   }
 
   getDataType(): string {
-    return "tags";
+    return "transactions";
   }
 }
