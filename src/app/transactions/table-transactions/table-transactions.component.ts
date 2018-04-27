@@ -34,8 +34,8 @@ export class TableTransactionsComponent implements OnChanges {
   public dataSource: MatTableDataSource<ContentData>;
 
   @Input() tableData: any;
-  @Output() editClick: EventEmitter<null> = new EventEmitter();
-  @Output() deleteClick: EventEmitter<null> = new EventEmitter();
+  @Output() editClick: EventEmitter<any> = new EventEmitter();
+  @Output() deleteClick: EventEmitter<any> = new EventEmitter();
   @ViewChild(MatSort) sort: MatSort;
 
   ngOnChanges() {
@@ -48,8 +48,8 @@ export class TableTransactionsComponent implements OnChanges {
     this.editClick.emit();
   }
 
-  handleDeleteTransaction() {
-    this.deleteClick.emit();
+  handleDeleteTransaction(id) {
+    this.deleteClick.emit({ id: id });
   }
 
   createData(): ContentData[] {

@@ -56,8 +56,8 @@ export class TransactionsComponent implements OnInit {
     console.log("editTransaction");
   }
 
-  deleteTransaction() {
-    console.log("deleteTransaction");
+  deleteTransaction(event) {
+    return this.transDB.deleteData(event.id).subscribe();
   }
 
   handleAddTransactionClick() {
