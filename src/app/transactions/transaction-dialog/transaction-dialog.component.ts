@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 import { DatePipe } from "@angular/common";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material";
 
-import { Transaction } from "../../interfaces/transaction";
 import { Account } from "../../interfaces/account";
 import { Tag } from "../../interfaces/tag";
 
@@ -11,7 +10,7 @@ interface TransactionDialogData {
   action: string;
   accounts: Account[];
   tags: Tag[];
-  dataToEdit?: Transaction;
+  dataToEdit?: any;
 }
 
 @Component({
