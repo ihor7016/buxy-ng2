@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material";
 import { AuthDialogComponent } from "../auth-dialog/auth-dialog.component";
 
@@ -6,12 +6,16 @@ import { AuthDialogComponent } from "../auth-dialog/auth-dialog.component";
   selector: "app-signin",
   templateUrl: "./auth.component.html"
 })
-export class AuthComponent implements OnInit {
+export class AuthComponent implements OnInit, OnDestroy {
   constructor(private dialog: MatDialog) {}
 
   ngOnInit() {
     setTimeout(() => {
       this.dialog.open(AuthDialogComponent);
     }, 0);
+  }
+
+  ngOnDestroy() {
+    this.dialog.closeAll();
   }
 }
