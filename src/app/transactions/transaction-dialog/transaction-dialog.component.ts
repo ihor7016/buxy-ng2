@@ -2,7 +2,6 @@ import { Component, Inject, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { DatePipe } from "@angular/common";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material";
-import { CurrencyUahService } from "../../services/currency-uah.service";
 
 import { Transaction } from "../../interfaces/transaction";
 
@@ -24,7 +23,6 @@ export class TransactionDialogComponent implements OnInit {
     private formBuilder: FormBuilder,
     private datePipe: DatePipe,
     private matDialogRef: MatDialogRef<TransactionDialogComponent>,
-    private converter: CurrencyUahService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
@@ -53,10 +51,6 @@ export class TransactionDialogComponent implements OnInit {
       type: val.type,
       desc: val.desc,
       amount: Number.parseInt(val.amount),
-      amountUah: this.converter.convert(
-        val.account.currency,
-        Number.parseInt(val.amount)
-      ),
       tagId: val.tag.id,
       accountId: val.account.id
     };

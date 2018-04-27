@@ -1,7 +1,4 @@
-import { Component, Input, OnInit, OnDestroy } from "@angular/core";
-import { Observable } from "rxjs/Observable";
-import { Subscription } from "rxjs/Subscription";
-import { Transaction } from "../../interfaces/transaction";
+import { Component, Input, OnChanges } from "@angular/core";
 
 interface BarChartData {
   income: number;
@@ -12,7 +9,7 @@ interface BarChartData {
   selector: "app-bar-chart",
   templateUrl: "./bar-chart.component.html"
 })
-export class BarChartComponent implements OnInit, OnDestroy {
+export class BarChartComponent implements OnChanges {
   public barChartOptions: any = {
     scaleShowVerticalLines: false,
     responsive: true,
@@ -36,23 +33,24 @@ export class BarChartComponent implements OnInit, OnDestroy {
   public barChartData: any[] = [{ data: [0, 0] }];
   public barChartColors: any[] = [{ backgroundColor: ["#4caf50", "#f44336"] }];
 
-  @Input() private transactions: Observable<Transaction[]>;
-  private dataStream: Subscription;
+  @Input() private chartData: any;
 
-  ngOnInit() {
-    this.dataStream = this.transactions
-      .map(list =>
-        list.reduce((acc, data) => this.calculate(acc, data), {
-          income: 0,
-          expense: 0
-        })
-      )
-      .subscribe(
-        data => (this.barChartData = [{ data: [data.income, data.expense] }])
-      );
+  ngOnChanges() {
+    const data = this.createData();
+    this.barChartData = [{ data: [data.income, data.expense] }];
   }
 
-  calculate(acc: BarChartData, data: Transaction): BarChartData {
+  createData(): BarChartData {
+    return this.chartData.transactions.reduce(
+      (acc, data) => this.calculate(acc, data),
+      {
+        income: 0,
+        expense: 0
+      }
+    );
+  }
+
+  calculate(acc: BarChartData, data): BarChartData {
     let res = Object.assign({}, acc);
     if (data.type === "-") {
       res.expense += data.amountUah;
@@ -60,9 +58,5 @@ export class BarChartComponent implements OnInit, OnDestroy {
       res.income += data.amountUah;
     }
     return res;
-  }
-
-  ngOnDestroy() {
-    this.dataStream.unsubscribe();
   }
 }
