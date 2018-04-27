@@ -4,7 +4,7 @@ import { Observable } from "rxjs/Observable";
 import "rxjs/add/observable/combineLatest";
 
 import { AccountDialogComponent } from "../account-dialog/account-dialog.component";
-import { Account } from "../../interfaces/account";
+
 import { AccountsService } from "../../services/storage/accounts.service";
 import { TransactionsService } from "../../services/storage/transactions.service";
 
