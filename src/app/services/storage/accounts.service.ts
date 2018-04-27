@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
-import { Account } from "../interfaces/account";
+import { Account } from "../../interfaces/account";
 import { DatabaseService } from "./database.service";
 import { AbstractService } from "./abstract.service";
 
