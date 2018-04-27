@@ -30,8 +30,7 @@ interface ContentData {
   styleUrls: ["./table-transactions.component.scss"]
 })
 export class TableTransactionsComponent implements OnChanges {
-  displayedColumns = ["date", "amount", "description", "tag", "account"];
-  private ELEMENT_DATA: ContentData[] = [];
+  public displayedColumns = ["date", "amount", "description", "tag", "account"];
   public dataSource: MatTableDataSource<ContentData>;
 
   @Input() tableData: any;
