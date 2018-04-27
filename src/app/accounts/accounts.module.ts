@@ -7,6 +7,8 @@ import { SharedModule } from "../shared/shared.module";
 
 import { AccountsComponent } from "./accounts/accounts.component";
 import { AccountDialogComponent } from "./account-dialog/account-dialog.component";
+import { DatabaseService } from "../services/database.service";
+import { AccountsService } from "../services/accounts.service";
 
 @NgModule({
   imports: [
@@ -17,6 +19,7 @@ import { AccountDialogComponent } from "./account-dialog/account-dialog.componen
   ],
   declarations: [AccountsComponent, AccountDialogComponent],
   exports: [AccountsComponent],
-  entryComponents: [AccountDialogComponent]
+  entryComponents: [AccountDialogComponent],
+  providers: [DatabaseService, AccountsService]
 })
 export class AccountsModule {}

@@ -3,6 +3,7 @@ import { MatDialog } from "@angular/material";
 
 import { AccountDialogComponent } from "../account-dialog/account-dialog.component";
 import { Account } from "../../interfaces/account";
+import { AccountsService } from "../../services/accounts.service";
 
 @Component({
   selector: "app-accounts",
@@ -12,26 +13,14 @@ import { Account } from "../../interfaces/account";
 export class AccountsComponent implements OnInit {
   accounts: Account[];
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog, private database: AccountsService) {
+    this.accounts = [];
+  }
 
   ngOnInit() {
-    this.accounts = [
-      {
-        id: "id1",
-        name: "Privat",
-        balance: 500,
-        type: "savings",
-        currency: "€"
-      },
-      { id: "id2", name: "Cash", balance: 2000, type: "cash", currency: "₴" },
-      {
-        id: "id3",
-        name: "BoaBank",
-        balance: 5000,
-        type: "credit",
-        currency: "$"
-      }
-    ];
+    this.database.getList().subscribe(result => {
+      this.accounts = result.reverse();
+    });
   }
 
   handleAddAccountClick() {
@@ -42,9 +31,9 @@ export class AccountsComponent implements OnInit {
       },
       minWidth: "50%"
     });
-    addAccountDialog
-      .afterClosed()
-      .subscribe(res => (res ? console.log(res) : null));
+    addAccountDialog.afterClosed().subscribe(res => {
+      this.database.setData(res).subscribe();
+    });
   }
 
   deleteAccount(data) {
