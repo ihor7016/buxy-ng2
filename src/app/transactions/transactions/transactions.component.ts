@@ -52,26 +52,39 @@ export class TransactionsComponent implements OnInit {
     return this.transDB.setData(data).subscribe();
   }
 
-  editTransaction() {
-    console.log("editTransaction");
+  editTransaction(data) {
+    return this.transDB.updateData(data).subscribe();
   }
 
   deleteTransaction(event) {
     return this.transDB.deleteData(event.id).subscribe();
   }
 
+  handleEditTransactionClick(event) {
+    this.openTransactionDialog("Edit", event.data);
+  }
+
   handleAddTransactionClick() {
-    const addTransactionDialog = this.dialog.open(TransactionDialogComponent, {
+    this.openTransactionDialog("Add");
+  }
+
+  openTransactionDialog(action, dataToEdit?) {
+    const transactionDialog = this.dialog.open(TransactionDialogComponent, {
       data: {
-        action: "Add",
+        action: action,
         accounts: this.data.accounts,
-        tags: this.data.tags
+        tags: this.data.tags,
+        dataToEdit: dataToEdit || null
       },
       minWidth: "50%"
     });
-    addTransactionDialog.afterClosed().subscribe(data => {
+    transactionDialog.afterClosed().subscribe(data => {
       if (data) {
-        return this.addTransaction(data);
+        if (action === "Add") {
+          this.addTransaction(data);
+        } else if (action === "Edit") {
+          this.editTransaction(data);
+        }
       }
     });
   }

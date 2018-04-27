@@ -44,8 +44,8 @@ export class TableTransactionsComponent implements OnChanges {
     this.dataSource.sort = this.sort;
   }
 
-  handleEditTransaction() {
-    this.editClick.emit();
+  handleEditTransaction(data) {
+    this.editClick.emit({ data: data });
   }
 
   handleDeleteTransaction(id) {
