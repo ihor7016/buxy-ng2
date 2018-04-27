@@ -10,6 +10,7 @@ import { AuthService } from "../auth.service";
 export class DatabaseService {
   path: Observable<string>;
   basePath: string;
+
   constructor(private db: AngularFireDatabase, private auth: AuthService) {
     this.path = this.auth.authState.map(
       user => (this.basePath = `users/${user.uid}`)
@@ -17,7 +18,6 @@ export class DatabaseService {
   }
 
   getList<T>(dataType: string): Observable<T[]> {
-    console.log(this.basePath);
     if (!this.basePath) {
       return this.path.switchMap(path =>
         this.db.list<T>(`${path}/${dataType}`).valueChanges()
