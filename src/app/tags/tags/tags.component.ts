@@ -3,6 +3,7 @@ import { MatDialog } from "@angular/material";
 
 import { TagDialogComponent } from "../tag-dialog/tag-dialog.component";
 import { Tag } from "../../interfaces/tag";
+import { TagsService } from "../../services/tags.service";
 
 @Component({
   selector: "app-tags",
@@ -12,23 +13,14 @@ import { Tag } from "../../interfaces/tag";
 export class TagsComponent implements OnInit {
   tags: Tag[];
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog, private database: TagsService) {
+    this.tags = [];
+  }
 
   ngOnInit() {
-    this.tags = [
-      {
-        id: "id1",
-        name: "Transport"
-      },
-      {
-        id: "id2",
-        name: "Rent"
-      },
-      {
-        id: "id3",
-        name: "Restaurant"
-      }
-    ];
+    this.database.getList().subscribe(result => {
+      this.tags = result.reverse();
+    });
   }
 
   handleAddTagClick() {
@@ -36,9 +28,10 @@ export class TagsComponent implements OnInit {
       data: { action: "Add", tags: this.tags },
       minWidth: "50%"
     });
-    addTagDialog
-      .afterClosed()
-      .subscribe(res => (res ? console.log(res) : null));
+
+    addTagDialog.afterClosed().subscribe(res => {
+      this.database.setData(res).subscribe();
+    });
   }
 
   deleteTag(data) {

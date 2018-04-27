@@ -8,6 +8,7 @@ import { AuthService } from "../auth.service";
 @Injectable()
 export class DatabaseService {
   path: Observable<string>;
+
   constructor(private db: AngularFireDatabase, private auth: AuthService) {
     this.path = this.auth.authState.map(user => `users/${user.uid}`);
   }
