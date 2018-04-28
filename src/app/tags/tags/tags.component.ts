@@ -4,6 +4,7 @@ import { MatDialog } from "@angular/material";
 import { TagDialogComponent } from "../tag-dialog/tag-dialog.component";
 import { Tag } from "../../interfaces/tag";
 import { TagsService } from "../../services/storage/tags.service";
+import { TransactionsService } from "../../services/storage/transactions.service";
 
 @Component({
   selector: "app-tags",
@@ -13,12 +14,16 @@ import { TagsService } from "../../services/storage/tags.service";
 export class TagsComponent implements OnInit {
   tags: Tag[];
 
-  constructor(private dialog: MatDialog, private database: TagsService) {
+  constructor(
+    private dialog: MatDialog,
+    private tagsService: TagsService,
+    private transactionsService: TransactionsService
+  ) {
     this.tags = [];
   }
 
   ngOnInit() {
-    this.database.getList().subscribe(result => {
+    this.tagsService.getList().subscribe(result => {
       this.tags = result.reverse();
     });
   }
@@ -31,13 +36,27 @@ export class TagsComponent implements OnInit {
 
     addTagDialog.afterClosed().subscribe(res => {
       if (res) {
-        this.database.setData(res).subscribe();
+        this.tagsService.setData(res).subscribe();
       }
     });
   }
 
-  deleteTag(data) {
-    console.log(`delete ${data}`);
+  deleteTag(tag) {
+    this.tagsService.deleteData(tag.id).subscribe();
+    this.transactionsService.getList().subscribe(transactions => {
+      transactions
+        .map(item => {
+          return item;
+        })
+        .filter(value => {
+          return value.tagId === tag.id;
+        })
+        .forEach(value => {
+          {
+            this.transactionsService.deleteData(value.id).subscribe();
+          }
+        });
+    });
   }
 
   editTag() {
