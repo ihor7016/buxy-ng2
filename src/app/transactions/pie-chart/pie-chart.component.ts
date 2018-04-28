@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges } from "@angular/core";
+import { Component, Input, OnChanges, SimpleChanges } from "@angular/core";
 import { ColorService } from "../../services/color.service";
 
 interface PieChartData {
@@ -30,16 +30,26 @@ export class PieChartComponent implements OnChanges {
 
   @Input() private chartData: any;
   private pallete: Color[] = [];
+  private tagIds: string[] = [];
+  private chartState: PieChartData = {
+    tagIds: [],
+    tags: [],
+    amounts: [],
+    colors: []
+  };
 
   constructor(private colorService: ColorService) {}
 
-  ngOnChanges() {
-    const data = this.createData();
-    this.pieChartLabels = data.tags;
-    this.pieChartColors[0].backgroundColor = data.colors;
-    setTimeout(() => {
-      this.pieChartData = data.amounts;
-    }, 0);
+  ngOnChanges(changes: SimpleChanges) {
+    const data = JSON.stringify(this.createData());
+    if (data !== JSON.stringify(this.chartState)) {
+      this.chartState = JSON.parse(data);
+      this.pieChartLabels = this.chartState.tags;
+      this.pieChartColors[0].backgroundColor = this.chartState.colors;
+      setTimeout(() => {
+        this.pieChartData = this.chartState.amounts;
+      }, 0);
+    }
   }
 
   createData(): PieChartData {
@@ -47,24 +57,38 @@ export class PieChartComponent implements OnChanges {
       item => item.type === "-"
     );
     const data = expenses.reduce((acc, data) => this.calculate(acc, data), {
-      tagIds: [],
+      tagIds: JSON.parse(JSON.stringify(this.tagIds)),
       tags: [],
-      amounts: [],
+      amounts: new Array(this.tagIds.length).fill(0),
       colors: []
     });
+    console.log(data);
     return data;
   }
 
   calculate(acc: PieChartData, data): PieChartData {
+    // const i = acc.tagIds.indexOf(data.tagId);
+    // if (i < 0) {
+    //   acc.tagIds.push(data.tagId);
+    //   acc.amounts.push(data.amountUah);
+    //   acc.colors.push(this.getColor(data.tagId));
+    //   acc.tags.push(this.getTagName(data.tagId));
+    // } else {
+    //   acc.amounts[i] += data.amountUah;
+    // }
     const i = acc.tagIds.indexOf(data.tagId);
     if (i < 0) {
+      this.tagIds.push(data.tagId);
       acc.tagIds.push(data.tagId);
       acc.amounts.push(data.amountUah);
       acc.colors.push(this.getColor(data.tagId));
       acc.tags.push(this.getTagName(data.tagId));
     } else {
       acc.amounts[i] += data.amountUah;
+      acc.colors[i] = this.getColor(data.tagId);
+      acc.tags[i] = this.getTagName(data.tagId);
     }
+    console.log(acc);
     return acc;
   }
 
