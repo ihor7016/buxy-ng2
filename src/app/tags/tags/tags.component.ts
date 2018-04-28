@@ -44,15 +44,9 @@ export class TagsComponent implements OnInit {
   deleteTag(tag) {
     this.tagsService.deleteData(tag.id).subscribe();
     this.transactionsService.getList().subscribe(transactions => {
-      transactions
-        .filter(value => {
-          return value.tagId === tag.id;
-        })
-        .forEach(value => {
-          {
-            this.transactionsService.deleteData(value.id).subscribe();
-          }
-        });
+      transactions.filter(value => value.tagId === tag.id).forEach(value => {
+        this.transactionsService.deleteData(value.id).subscribe();
+      });
     });
   }
 
