@@ -26,13 +26,11 @@ export class DatabaseService {
   }
 
   setData(dataType: string, data: any): Observable<void> {
-    const dataToStore = Object.assign(data);
-    const ref = this.path.switchMap(path =>
-      this.db.list(`${path}/${dataType}`).push(dataToStore)
+    const dataToStore = Object.assign({}, data);
+    dataToStore.id = this.db.createPushId();
+    return this.path.switchMap(path =>
+      this.db.list(`${path}/${dataType}`).set(dataToStore.id, dataToStore)
     );
-    return ref
-      .map(item => (dataToStore.id = item.key))
-      .switchMap(() => this.updateData(dataType, dataToStore));
   }
 
   updateData(dataType: string, data: any): Observable<void> {
