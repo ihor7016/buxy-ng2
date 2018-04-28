@@ -30,7 +30,9 @@ export class TagsComponent implements OnInit {
     });
 
     addTagDialog.afterClosed().subscribe(res => {
-      this.database.setData(res).subscribe();
+      if (res) {
+        this.database.setData(res).subscribe();
+      }
     });
   }
 
