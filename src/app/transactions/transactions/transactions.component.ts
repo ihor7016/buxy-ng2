@@ -7,8 +7,29 @@ import "rxjs/add/observable/combineLatest";
 import { TransactionDialogComponent } from "../transaction-dialog/transaction-dialog.component";
 
 import { TransactionsService } from "../../services/storage/transactions.service";
-import { DatabaseService } from "../../services/storage/database.service";
+import { AccountsService } from "../../services/storage/accounts.service";
+import { TagsService } from "../../services/storage/tags.service";
 import { CurrencyUahService } from "../../services/currency-uah.service";
+
+import { Account } from "../../interfaces/account";
+import { Tag } from "../../interfaces/tag";
+
+interface Data {
+  transactions: TransactionUah[];
+  accounts: Account[];
+  tags: Tag[];
+}
+
+interface TransactionUah {
+  id: string;
+  desc: string;
+  date: string;
+  type: string;
+  amount: number;
+  amountUah: number;
+  accountId: string;
+  tagId: string;
+}
 
 @Component({
   selector: "app-transactions",
@@ -17,21 +38,26 @@ import { CurrencyUahService } from "../../services/currency-uah.service";
   providers: [CurrencyUahService]
 })
 export class TransactionsComponent implements OnInit {
-  data: any;
-  dataStream: Observable<any>;
+  dataStream: Observable<Data>;
   dataSubscription: Subscription;
+  data: Data = {
+    transactions: [],
+    accounts: [],
+    tags: []
+  };
 
   constructor(
     private dialog: MatDialog,
     private transDB: TransactionsService,
-    private db: DatabaseService,
+    private accDB: AccountsService,
+    private tagDB: TagsService,
     private converter: CurrencyUahService
   ) {}
 
   ngOnInit() {
     const transactions = this.transDB.getList();
-    const accounts = this.db.getList("accounts");
-    const tags = this.db.getList("tags");
+    const accounts = this.accDB.getList();
+    const tags = this.tagDB.getList();
     this.dataStream = Observable.combineLatest(
       transactions,
       accounts,
