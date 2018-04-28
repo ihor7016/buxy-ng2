@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from "@angular/core";
+import { Component, Input, OnChanges } from "@angular/core";
 import { ColorService } from "../../services/color.service";
 
 interface PieChartData {
@@ -41,7 +41,7 @@ export class PieChartComponent implements OnChanges {
 
   constructor(private colorService: ColorService) {}
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges() {
     const isChanged = this.checkChanges(this.createData());
     if (isChanged) {
       this.pieChartLabels = this.chartState.tags;
