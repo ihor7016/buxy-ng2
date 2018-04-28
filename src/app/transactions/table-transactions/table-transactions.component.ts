@@ -41,7 +41,7 @@ export class TableTransactionsComponent implements OnChanges {
   ngOnChanges() {
     const data = this.createData();
     this.dataSource = new MatTableDataSource(data);
-    this.dataSource.sort = this.sort;
+    this.createSorting();
   }
 
   handleEditTransaction(data) {
@@ -65,5 +65,23 @@ export class TableTransactionsComponent implements OnChanges {
     );
     newData.tag = this.tableData.tags.find(item => item.id === data.tagId);
     return newData;
+  }
+
+  createSorting() {
+    this.dataSource.sortingDataAccessor = (item, property) => {
+      switch (property) {
+        case "amount":
+          return parseInt(item.type + item.amountUah);
+        case "desc":
+          return item.desc.toLowerCase();
+        case "tag":
+          return item.tag.name.toLowerCase();
+        case "account":
+          return item.account.name.toLowerCase();
+        default:
+          return item[property];
+      }
+    };
+    this.dataSource.sort = this.sort;
   }
 }
