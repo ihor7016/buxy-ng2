@@ -45,9 +45,6 @@ export class TagsComponent implements OnInit {
     this.tagsService.deleteData(tag.id).subscribe();
     this.transactionsService.getList().subscribe(transactions => {
       transactions
-        .map(item => {
-          return item;
-        })
         .filter(value => {
           return value.tagId === tag.id;
         })
