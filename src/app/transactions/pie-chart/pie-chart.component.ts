@@ -16,6 +16,7 @@ interface Color {
 @Component({
   selector: "app-pie-chart",
   templateUrl: "./pie-chart.component.html",
+  styleUrls: ["./pie-chart.component.scss"],
   providers: [ColorService]
 })
 export class PieChartComponent implements OnChanges {
