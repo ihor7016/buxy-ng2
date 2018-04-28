@@ -42,9 +42,9 @@ export class PieChartComponent implements OnChanges {
   constructor(private colorService: ColorService) {}
 
   ngOnChanges(changes: SimpleChanges) {
-    const data = JSON.stringify(this.createData());
-    if (data !== JSON.stringify(this.chartState)) {
-      this.chartState = JSON.parse(data);
+    const isChanged = this.checkChanges(this.createData());
+    if (isChanged) {
+      console.log(this.chartState);
       this.pieChartLabels = this.chartState.tags;
       this.pieChartColors[0].backgroundColor = this.chartState.colors;
       setTimeout(() => {
@@ -53,32 +53,43 @@ export class PieChartComponent implements OnChanges {
     }
   }
 
+  checkChanges(data: PieChartData): boolean {
+    let isChanged = false;
+    const stringData = JSON.stringify(data);
+    if (stringData !== JSON.stringify(this.chartState)) {
+      this.chartState = JSON.parse(stringData);
+      isChanged = true;
+    }
+    return isChanged;
+  }
+
   createData(): PieChartData {
     const expenses = this.chartData.transactions.filter(
       item => item.type === "-"
     );
     const fullData = expenses.reduce((acc, data) => this.calculate(acc, data), {
       tagIds: [...this.tagIds],
-      tags: [],
+      tags: new Array(this.tagIds.length),
       amounts: new Array(this.tagIds.length).fill(0),
-      colors: []
+      colors: new Array(this.tagIds.length)
     });
     const data = this.cleanData(fullData);
-    console.log(fullData);
-    console.log(data);
     return data;
   }
 
   cleanData(data: PieChartData): PieChartData {
     const cleanData = JSON.parse(JSON.stringify(data));
+    console.log(cleanData);
     cleanData.amounts.forEach((amount, i) => {
       if (!amount) {
+        console.log(cleanData.amount);
         cleanData.tagIds.splice(i, 1);
         cleanData.tags.splice(i, 1);
         cleanData.amounts.splice(i, 1);
         cleanData.colors.splice(i, 1);
       }
     });
+    console.log(cleanData);
     return cleanData;
   }
 
