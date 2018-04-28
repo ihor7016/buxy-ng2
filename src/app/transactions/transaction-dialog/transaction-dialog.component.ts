@@ -1,8 +1,9 @@
-import { Component, Inject, OnInit } from "@angular/core";
+import { Component, Inject, OnInit, OnDestroy } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { DatePipe } from "@angular/common";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material";
 
+import { Transaction } from "../../interfaces/transaction";
 import { Account } from "../../interfaces/account";
 import { Tag } from "../../interfaces/tag";
 
@@ -13,6 +14,16 @@ interface TransactionDialogData {
   dataToEdit?: any;
 }
 
+interface Group {
+  id: string;
+  type: string;
+  desc: string;
+  amount: string;
+  date: Date;
+  tagId: string;
+  accountId: string;
+}
+
 @Component({
   selector: "app-transaction-dialog",
   templateUrl: "./transaction-dialog.component.html",
@@ -21,30 +32,34 @@ interface TransactionDialogData {
 })
 export class TransactionDialogComponent implements OnInit {
   form: FormGroup;
+  group: Group = {
+    id: "",
+    type: "-",
+    desc: "",
+    amount: "",
+    date: new Date(),
+    tagId: "",
+    accountId: ""
+  };
 
   constructor(
     private formBuilder: FormBuilder,
     private datePipe: DatePipe,
     private matDialogRef: MatDialogRef<TransactionDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: TransactionDialogData
   ) {}
 
   ngOnInit() {
-    this.createForm();
+    this.form = this.formBuilder.group(this.createData());
     this.form.controls.amount.valueChanges.subscribe(() =>
       this.form.controls.amount.markAsTouched()
     );
   }
 
-  createForm() {
-    this.form = this.formBuilder.group(this.createData());
-  }
-
-  createData() {
-    let group;
+  createData(): Group {
     if (this.data.dataToEdit) {
       const data = this.data.dataToEdit;
-      group = {
+      this.group = {
         id: data.id,
         type: data.type,
         desc: data.desc,
@@ -53,23 +68,13 @@ export class TransactionDialogComponent implements OnInit {
         tagId: data.tagId,
         accountId: data.accountId
       };
-    } else {
-      group = {
-        id: "",
-        type: "-",
-        desc: "",
-        amount: "",
-        date: new Date(),
-        tagId: "",
-        accountId: ""
-      };
     }
-    return group;
+    return this.group;
   }
 
   submit(form: any) {
     const val = form.value;
-    const trans = {
+    const trans: Transaction = {
       id: val.id,
       date: this.datePipe.transform(val.date, "yyyy-MM-dd"),
       type: val.type,
