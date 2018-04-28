@@ -44,7 +44,6 @@ export class PieChartComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     const isChanged = this.checkChanges(this.createData());
     if (isChanged) {
-      console.log(this.chartState);
       this.pieChartLabels = this.chartState.tags;
       this.pieChartColors[0].backgroundColor = this.chartState.colors;
       setTimeout(() => {
@@ -79,23 +78,20 @@ export class PieChartComponent implements OnChanges {
 
   cleanData(data: PieChartData): PieChartData {
     const cleanData = JSON.parse(JSON.stringify(data));
-    console.log(cleanData);
-    cleanData.amounts.forEach((amount, i) => {
+    cleanData.amounts = data.amounts.filter((amount, i) => {
       if (!amount) {
-        console.log(cleanData.amount);
-        cleanData.tagIds.splice(i, 1);
-        cleanData.tags.splice(i, 1);
-        cleanData.amounts.splice(i, 1);
-        cleanData.colors.splice(i, 1);
+        cleanData.tagIds = data.tagIds.filter((elem, index) => i !== index);
+        cleanData.tags = data.tags.filter((elem, index) => i !== index);
+        cleanData.colors = data.colors.filter((elem, index) => i !== index);
+        return;
       }
+      return amount;
     });
-    console.log(cleanData);
     return cleanData;
   }
 
   calculate(acc: PieChartData, data): PieChartData {
     const i = acc.tagIds.indexOf(data.tagId);
-    console.log(this.tagIds);
     if (i < 0) {
       this.tagIds.push(data.tagId);
       acc.tagIds.push(data.tagId);
