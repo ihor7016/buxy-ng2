@@ -57,27 +57,34 @@ export class PieChartComponent implements OnChanges {
     const expenses = this.chartData.transactions.filter(
       item => item.type === "-"
     );
-    const data = expenses.reduce((acc, data) => this.calculate(acc, data), {
-      tagIds: JSON.parse(JSON.stringify(this.tagIds)),
+    const fullData = expenses.reduce((acc, data) => this.calculate(acc, data), {
+      tagIds: [...this.tagIds],
       tags: [],
       amounts: new Array(this.tagIds.length).fill(0),
       colors: []
     });
+    const data = this.cleanData(fullData);
+    console.log(fullData);
     console.log(data);
     return data;
   }
 
+  cleanData(data: PieChartData): PieChartData {
+    const cleanData = JSON.parse(JSON.stringify(data));
+    cleanData.amounts.forEach((amount, i) => {
+      if (!amount) {
+        cleanData.tagIds.splice(i, 1);
+        cleanData.tags.splice(i, 1);
+        cleanData.amounts.splice(i, 1);
+        cleanData.colors.splice(i, 1);
+      }
+    });
+    return cleanData;
+  }
+
   calculate(acc: PieChartData, data): PieChartData {
-    // const i = acc.tagIds.indexOf(data.tagId);
-    // if (i < 0) {
-    //   acc.tagIds.push(data.tagId);
-    //   acc.amounts.push(data.amountUah);
-    //   acc.colors.push(this.getColor(data.tagId));
-    //   acc.tags.push(this.getTagName(data.tagId));
-    // } else {
-    //   acc.amounts[i] += data.amountUah;
-    // }
     const i = acc.tagIds.indexOf(data.tagId);
+    console.log(this.tagIds);
     if (i < 0) {
       this.tagIds.push(data.tagId);
       acc.tagIds.push(data.tagId);
@@ -89,7 +96,6 @@ export class PieChartComponent implements OnChanges {
       acc.colors[i] = this.getColor(data.tagId);
       acc.tags[i] = this.getTagName(data.tagId);
     }
-    console.log(acc);
     return acc;
   }
 
