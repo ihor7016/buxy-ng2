@@ -1,3 +1,9 @@
-<canvas baseChart [data]="pieChartData" [options]="pieChartOptions" [colors]="pieChartColors"
-  [legend]="pieChartLegend" [labels]="pieChartLabels" [chartType]="pieChartType">
-</canvas>
+<div class="pie-chart mat-typography">
+  <canvas *ngIf="pieChartData.length; else emptyState" baseChart [data]="pieChartData"
+    [options]="pieChartOptions" [colors]="pieChartColors" [legend]="pieChartLegend"
+    [labels]="pieChartLabels" [chartType]="pieChartType">
+  </canvas>
+  <ng-template #emptyState>
+    <h3 class="pie-chart__empty-state">You don't have any expenses</h3>
+  </ng-template>
+</div>

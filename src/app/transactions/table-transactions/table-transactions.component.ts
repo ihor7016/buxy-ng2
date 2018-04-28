@@ -34,22 +34,22 @@ export class TableTransactionsComponent implements OnChanges {
   public dataSource: MatTableDataSource<ContentData>;
 
   @Input() tableData: any;
-  @Output() editClick: EventEmitter<null> = new EventEmitter();
-  @Output() deleteClick: EventEmitter<null> = new EventEmitter();
+  @Output() editClick: EventEmitter<any> = new EventEmitter();
+  @Output() deleteClick: EventEmitter<any> = new EventEmitter();
   @ViewChild(MatSort) sort: MatSort;
 
   ngOnChanges() {
     const data = this.createData();
     this.dataSource = new MatTableDataSource(data);
-    this.dataSource.sort = this.sort;
+    this.createSorting();
   }
 
-  handleEditTransaction() {
-    this.editClick.emit();
+  handleEditTransaction(data) {
+    this.editClick.emit({ data: data });
   }
 
-  handleDeleteTransaction() {
-    this.deleteClick.emit();
+  handleDeleteTransaction(id) {
+    this.deleteClick.emit({ id: id });
   }
 
   createData(): ContentData[] {
@@ -65,5 +65,23 @@ export class TableTransactionsComponent implements OnChanges {
     );
     newData.tag = this.tableData.tags.find(item => item.id === data.tagId);
     return newData;
+  }
+
+  createSorting() {
+    this.dataSource.sortingDataAccessor = (item, property) => {
+      switch (property) {
+        case "amount":
+          return parseInt(item.type + item.amountUah);
+        case "desc":
+          return item.desc.toLowerCase();
+        case "tag":
+          return item.tag.name.toLowerCase();
+        case "account":
+          return item.account.name.toLowerCase();
+        default:
+          return item[property];
+      }
+    };
+    this.dataSource.sort = this.sort;
   }
 }
