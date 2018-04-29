@@ -27,15 +27,15 @@ export class AccountsComponent implements OnInit {
 
   constructor(
     private dialog: MatDialog,
-    private database: AccountsService,
-    private transDB: TransactionsService
+    private accountsService: AccountsService,
+    private transactionsService: TransactionsService
   ) {
     this.accounts = [];
   }
 
   ngOnInit() {
-    const accounts = this.database.getList().map(res => res.reverse());
-    const transactions = this.transDB.getList();
+    const accounts = this.accountsService.getList().map(res => res.reverse());
+    const transactions = this.transactionsService.getList();
     Observable.combineLatest(
       accounts,
       transactions,
@@ -60,13 +60,26 @@ export class AccountsComponent implements OnInit {
     });
     addAccountDialog.afterClosed().subscribe(res => {
       if (res) {
-        this.database.setData(res).subscribe();
+        this.accountsService.setData(res).subscribe();
       }
     });
   }
 
-  deleteAccount(data) {
-    console.log(`delete ${data}`);
+  deleteAccount(account) {
+    const subscription = this.transactionsService
+      .getList()
+      .subscribe(transactions => {
+        transactions
+          .filter(value => value.accountId === account.id)
+          .forEach((value, index, array) => {
+            this.transactionsService.deleteData(value.id).subscribe(res => {
+              if (index === array.length - 1) {
+                this.accountsService.deleteData(account.id).subscribe();
+                subscription.unsubscribe();
+              }
+            });
+          });
+      });
   }
 
   editAccount() {

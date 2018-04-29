@@ -63,6 +63,10 @@ export class TransactionsComponent implements OnInit {
       accounts,
       tags,
       (transactions, accounts, tags) => {
+        console.log(transactions);
+        console.log(accounts);
+        console.log(tags);
+
         const uahTrans = transactions.map(data =>
           this.convertToUah(data, accounts)
         );
