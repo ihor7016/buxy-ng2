@@ -65,7 +65,7 @@ export class AccountsComponent implements OnInit {
     });
   }
 
-  private filterDeleteAccount(transactions, account, subscription) {
+  private removeTransactions(transactions, account, subscription) {
     transactions
       .filter(value => value.accountId === account.id)
       .forEach((value, index, array) => {
@@ -87,7 +87,7 @@ export class AccountsComponent implements OnInit {
       .getList()
       .subscribe(transactions => {
         if (transactions.length > 0) {
-          this.filterDeleteAccount(transactions, account, subscription);
+          this.removeTransactions(transactions, account, subscription);
         } else {
           this.removeAccount(account, subscription);
         }
