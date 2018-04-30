@@ -10,7 +10,7 @@ export class DatabaseService {
   constructor(private db: AngularFireDatabase, private auth: AuthService) {}
 
   get path() {
-    return `users/${this.auth.user.uid}`;
+    return `users/${this.auth.currentUser.uid}`;
   }
 
   getList<T>(dataType: string): Observable<T[]> {

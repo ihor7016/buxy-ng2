@@ -9,6 +9,6 @@ export class LayoutComponent {
   constructor(private auth: AuthService) {}
 
   get user() {
-    return this.auth.user;
+    return this.auth.currentUser;
   }
 }

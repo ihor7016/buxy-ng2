@@ -6,27 +6,24 @@ import * as firebase from "firebase/app";
 
 @Injectable()
 export class AuthService {
-  loggedUser;
   constructor(private _firebaseAuth: AngularFireAuth, private router: Router) {
     _firebaseAuth.auth.onAuthStateChanged(user => {
       if (user) {
-        this.user = user;
         router.navigate(["main"]);
       } else {
-        this.user = null;
         router.navigate(["/"]);
       }
     });
+  }
+
+  get currentUser() {
+    return this._firebaseAuth.auth.currentUser;
   }
 
   signInWithGoogle() {
     return this._firebaseAuth.auth.signInWithPopup(
       new firebase.auth.GoogleAuthProvider()
     );
-  }
-
-  get currentUser() {
-    return this._firebaseAuth.auth.currentUser;
   }
 
   signInRegular(email, password) {
@@ -46,17 +43,5 @@ export class AuthService {
 
   logout() {
     this._firebaseAuth.auth.signOut().then(res => this.router.navigate(["/"]));
-  }
-
-  get authState() {
-    return this._firebaseAuth.authState;
-  }
-
-  set user(user) {
-    this.loggedUser = user;
-  }
-
-  get user() {
-    return this.loggedUser;
   }
 }
