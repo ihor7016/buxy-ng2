@@ -58,7 +58,18 @@ export class TagsComponent implements OnInit {
       });
   }
 
-  editTag() {
-    console.log("editTag");
+  editTag(tag) {
+    console.log(" " + tag.name + " " + tag.id);
+
+    const editTagDialog = this.dialog.open(TagDialogComponent, {
+      data: { action: "Edit", dataToEdit: tag, tags: this.tags },
+      minWidth: "50%"
+    });
+    editTagDialog.afterClosed().subscribe(res => {
+      if (res) {
+        this.tagsService.updateData(res).subscribe();
+      }
+      console.log(res.name + " " + res.id);
+    });
   }
 }
