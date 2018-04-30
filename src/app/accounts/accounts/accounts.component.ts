@@ -65,24 +65,31 @@ export class AccountsComponent implements OnInit {
     });
   }
 
+  private filterDeleteAccount(transactions, account, subscription) {
+    transactions
+      .filter(value => value.accountId === account.id)
+      .forEach((value, index, array) => {
+        this.transactionsService.deleteData(value.id).subscribe(res => {
+          if (index === array.length - 1) {
+            this.removeAccount(account, subscription);
+          }
+        });
+      });
+  }
+
+  private removeAccount(account, subscription) {
+    this.accountsService.deleteData(account.id).subscribe();
+    subscription.unsubscribe();
+  }
+
   deleteAccount(account) {
     const subscription = this.transactionsService
       .getList()
       .subscribe(transactions => {
         if (transactions.length > 0) {
-          transactions
-            .filter(value => value.accountId === account.id)
-            .forEach((value, index, array) => {
-              this.transactionsService.deleteData(value.id).subscribe(res => {
-                if (index === array.length - 1) {
-                  this.accountsService.deleteData(account.id).subscribe();
-                  subscription.unsubscribe();
-                }
-              });
-            });
+          this.filterDeleteAccount(transactions, account, subscription);
         } else {
-          this.accountsService.deleteData(account.id).subscribe();
-          subscription.unsubscribe();
+          this.removeAccount(account, subscription);
         }
       });
   }
