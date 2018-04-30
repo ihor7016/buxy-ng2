@@ -45,16 +45,20 @@ export class TagsComponent implements OnInit {
     const subscription = this.transactionsService
       .getList()
       .subscribe(transactions => {
-        transactions
-          .filter(value => value.tagId === tag.id)
-          .forEach((value, index, array) => {
-            this.transactionsService.deleteData(value.id).subscribe(res => {
-              if (index === array.length - 1) {
-                this.tagsService.deleteData(tag.id).subscribe();
-                subscription.unsubscribe();
-              }
+        if (transactions.size > 0) {
+          transactions
+            .filter(value => value.tagId === tag.id)
+            .forEach((value, index, array) => {
+              this.transactionsService.deleteData(value.id).subscribe(res => {
+                if (index === array.length - 1) {
+                  this.tagsService.deleteData(tag.id).subscribe();
+                  subscription.unsubscribe();
+                }
+              });
             });
-          });
+        } else {
+          this.tagsService.deleteData(tag.id).subscribe();
+        }
       });
   }
 
