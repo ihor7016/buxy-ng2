@@ -31,40 +31,77 @@ export class PieChartComponent implements OnChanges {
 
   @Input() private chartData: any;
   private pallete: Color[] = [];
+  private tagIds: string[] = [];
+  private chartState: PieChartData = {
+    tagIds: [],
+    tags: [],
+    amounts: [],
+    colors: []
+  };
 
   constructor(private colorService: ColorService) {}
 
   ngOnChanges() {
-    const data = this.createData();
-    this.pieChartLabels = data.tags;
-    this.pieChartColors[0].backgroundColor = data.colors;
-    setTimeout(() => {
-      this.pieChartData = data.amounts;
-    }, 0);
+    const isChanged = this.checkChanges(this.createData());
+    if (isChanged) {
+      this.pieChartLabels = this.chartState.tags;
+      this.pieChartColors[0].backgroundColor = this.chartState.colors;
+      setTimeout(() => {
+        this.pieChartData = this.chartState.amounts;
+      }, 0);
+    }
+  }
+
+  checkChanges(data: PieChartData): boolean {
+    let isChanged = false;
+    const stringData = JSON.stringify(data);
+    if (stringData !== JSON.stringify(this.chartState)) {
+      this.chartState = JSON.parse(stringData);
+      isChanged = true;
+    }
+    return isChanged;
   }
 
   createData(): PieChartData {
     const expenses = this.chartData.transactions.filter(
       item => item.type === "-"
     );
-    const data = expenses.reduce((acc, data) => this.calculate(acc, data), {
-      tagIds: [],
-      tags: [],
-      amounts: [],
-      colors: []
+    const fullData = expenses.reduce((acc, data) => this.calculate(acc, data), {
+      tagIds: [...this.tagIds],
+      tags: new Array(this.tagIds.length),
+      amounts: new Array(this.tagIds.length).fill(0),
+      colors: new Array(this.tagIds.length)
     });
+    const data = this.cleanData(fullData);
     return data;
+  }
+
+  cleanData(data: PieChartData): PieChartData {
+    const cleanData = JSON.parse(JSON.stringify(data));
+    cleanData.amounts = data.amounts.filter((amount, i) => {
+      if (!amount) {
+        cleanData.tagIds = data.tagIds.filter((elem, index) => i !== index);
+        cleanData.tags = data.tags.filter((elem, index) => i !== index);
+        cleanData.colors = data.colors.filter((elem, index) => i !== index);
+        return;
+      }
+      return amount;
+    });
+    return cleanData;
   }
 
   calculate(acc: PieChartData, data): PieChartData {
     const i = acc.tagIds.indexOf(data.tagId);
     if (i < 0) {
+      this.tagIds.push(data.tagId);
       acc.tagIds.push(data.tagId);
       acc.amounts.push(data.amountUah);
       acc.colors.push(this.getColor(data.tagId));
       acc.tags.push(this.getTagName(data.tagId));
     } else {
       acc.amounts[i] += data.amountUah;
+      acc.colors[i] = this.getColor(data.tagId);
+      acc.tags[i] = this.getTagName(data.tagId);
     }
     return acc;
   }

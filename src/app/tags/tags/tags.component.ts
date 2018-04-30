@@ -42,12 +42,20 @@ export class TagsComponent implements OnInit {
   }
 
   deleteTag(tag) {
-    this.tagsService.deleteData(tag.id).subscribe();
-    this.transactionsService.getList().subscribe(transactions => {
-      transactions.filter(value => value.tagId === tag.id).forEach(value => {
-        this.transactionsService.deleteData(value.id).subscribe();
+    const subscription = this.transactionsService
+      .getList()
+      .subscribe(transactions => {
+        transactions
+          .filter(value => value.tagId === tag.id)
+          .forEach((value, index, array) => {
+            this.transactionsService.deleteData(value.id).subscribe(res => {
+              if (index === array.length - 1) {
+                this.tagsService.deleteData(tag.id).subscribe();
+                subscription.unsubscribe();
+              }
+            });
+          });
       });
-    });
   }
 
   editTag() {

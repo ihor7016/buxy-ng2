@@ -4,7 +4,6 @@ https://buxy-ng.firebaseapp.com/
 ## Deploying
 ### 1. Login to firebase:
 
-- run command
 
 ```
 npm run login
@@ -15,7 +14,6 @@ npm run login
 
 ### 2. Build project:
 
-- run command
 
 ```
 npm run build
@@ -24,7 +22,6 @@ npm run build
 
 ### 3. Deploy project:
 
-- run command
 
 ```
 npm run deploy
