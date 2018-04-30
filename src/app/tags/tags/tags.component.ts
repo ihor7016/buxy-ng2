@@ -41,26 +41,40 @@ export class TagsComponent implements OnInit {
     });
   }
 
+  private removeTag(tag, subscription) {
+    this.tagsService.deleteData(tag.id).subscribe();
+    subscription.unsubscribe();
+  }
+
+  private removeTransactions(transactions, tag, subscription) {
+    transactions
+      .filter(value => value.tagId === tag.id)
+      .forEach((value, index, array) => {
+        this.transactionsService.deleteData(value.id).subscribe(() => {
+          if (this.isLastItem(index, array)) {
+            this.removeTag(tag, subscription);
+          }
+        });
+      });
+  }
+
+  private isLastItem(index, array) {
+    return index === array.length - 1;
+  }
+
   deleteTag(tag) {
     const subscription = this.transactionsService
       .getList()
       .subscribe(transactions => {
-        transactions
-          .filter(value => value.tagId === tag.id)
-          .forEach((value, index, array) => {
-            this.transactionsService.deleteData(value.id).subscribe(res => {
-              if (index === array.length - 1) {
-                this.tagsService.deleteData(tag.id).subscribe();
-                subscription.unsubscribe();
-              }
-            });
-          });
+        if (transactions.length > 0) {
+          this.removeTransactions(transactions, tag, subscription);
+        } else {
+          this.removeTag(tag, subscription);
+        }
       });
   }
 
   editTag(tag) {
-    console.log(" " + tag.name + " " + tag.id);
-
     const editTagDialog = this.dialog.open(TagDialogComponent, {
       data: { action: "Edit", dataToEdit: tag, tags: this.tags },
       minWidth: "50%"
@@ -69,7 +83,6 @@ export class TagsComponent implements OnInit {
       if (res) {
         this.tagsService.updateData(res).subscribe();
       }
-      console.log(res.name + " " + res.id);
     });
   }
 }
