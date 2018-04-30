@@ -41,23 +41,32 @@ export class TagsComponent implements OnInit {
     });
   }
 
+  private removeTag(tag, subscription) {
+    this.tagsService.deleteData(tag.id).subscribe();
+    subscription.unsubscribe();
+  }
+
+  private removeTransactions(transactions, tag, subscription) {
+    transactions
+      .filter(value => value.tagId === tag.id)
+      .forEach((value, index, array) => {
+        this.transactionsService.deleteData(value.id).subscribe(res => {
+          if (index === array.length - 1) {
+            this.tagsService.deleteData(tag.id).subscribe();
+            subscription.unsubscribe();
+          }
+        });
+      });
+  }
+
   deleteTag(tag) {
     const subscription = this.transactionsService
       .getList()
       .subscribe(transactions => {
-        if (transactions.size > 0) {
-          transactions
-            .filter(value => value.tagId === tag.id)
-            .forEach((value, index, array) => {
-              this.transactionsService.deleteData(value.id).subscribe(res => {
-                if (index === array.length - 1) {
-                  this.tagsService.deleteData(tag.id).subscribe();
-                  subscription.unsubscribe();
-                }
-              });
-            });
+        if (transactions.length > 0) {
+          this.removeTransactions(transactions, tag, subscription);
         } else {
-          this.tagsService.deleteData(tag.id).subscribe();
+          this.removeTag(tag, subscription);
         }
       });
   }
