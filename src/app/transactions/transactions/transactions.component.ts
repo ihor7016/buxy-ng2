@@ -40,11 +40,7 @@ interface TransactionUah {
 export class TransactionsComponent implements OnInit {
   dataStream: Observable<Data>;
   dataSubscription: Subscription;
-  data: Data = {
-    transactions: [],
-    accounts: [],
-    tags: []
-  };
+  data: Data;
 
   constructor(
     private dialog: MatDialog,

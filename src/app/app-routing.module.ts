@@ -1,6 +1,6 @@
 import { RouterModule, Routes } from "@angular/router";
 import { AuthComponent } from "./auth/auth/auth.component";
-import { DrawerComponent } from "./layout/drawer/drawer.component";
+import { LayoutComponent } from "./layout/layout/layout.component";
 import { NotFoundComponent } from "./layout/not-found/not-found.component";
 
 const appRoutes: Routes = [
@@ -10,7 +10,7 @@ const appRoutes: Routes = [
   },
   {
     path: "main",
-    component: DrawerComponent
+    component: LayoutComponent
   },
   {
     path: "**",

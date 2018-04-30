@@ -1,5 +1,5 @@
 <div class="transactions">
-  <div class="transactions__content" *ngIf="data.transactions.length; else emptyState">
+  <div class="transactions__content" *ngIf="data && data.transactions.length">
     <div class="transactions__charts">
       <app-pie-chart [chartData]="data" class="transactions__chart mat-elevation-z2"></app-pie-chart>
       <app-bar-chart [chartData]="data" class="transactions__chart mat-elevation-z2"></app-bar-chart>
@@ -11,7 +11,6 @@
   <button mat-fab (click)="handleAddTransactionClick()" class="transactions__add-dialog-activation">
     <mat-icon aria-label="add">add</mat-icon>
   </button>
-  <ng-template #emptyState>
-    <h2 class="transactions__empty-state mat-display-2">You don't have any transactions</h2>
-  </ng-template>
+  <h2 *ngIf="data && !data.transactions.length" class="transactions__empty-state mat-display-2">You don't have any transactions</h2>
+  <div *ngIf="!data" class="transactions__empty-state transactions__loader"></div>
 </div>
