@@ -69,16 +69,21 @@ export class AccountsComponent implements OnInit {
     const subscription = this.transactionsService
       .getList()
       .subscribe(transactions => {
-        transactions
-          .filter(value => value.accountId === account.id)
-          .forEach((value, index, array) => {
-            this.transactionsService.deleteData(value.id).subscribe(res => {
-              if (index === array.length - 1) {
-                this.accountsService.deleteData(account.id).subscribe();
-                subscription.unsubscribe();
-              }
+        if (transactions.length > 0) {
+          transactions
+            .filter(value => value.accountId === account.id)
+            .forEach((value, index, array) => {
+              this.transactionsService.deleteData(value.id).subscribe(res => {
+                if (index === array.length - 1) {
+                  this.accountsService.deleteData(account.id).subscribe();
+                  subscription.unsubscribe();
+                }
+              });
             });
-          });
+        } else {
+          this.accountsService.deleteData(account.id).subscribe();
+          subscription.unsubscribe();
+        }
       });
   }
 
