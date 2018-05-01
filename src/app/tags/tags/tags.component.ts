@@ -1,12 +1,11 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { MatDialog } from "@angular/material";
+import { Subscription } from "rxjs/Subscription";
 
 import { TagDialogComponent } from "../tag-dialog/tag-dialog.component";
 import { Tag } from "../../interfaces/tag";
 import { TagsService } from "../../services/storage/tags.service";
 import { TransactionsService } from "../../services/storage/transactions.service";
-import { Subscription } from "rxjs/Subscription";
-import { OnDestroy } from "@angular/core/src/metadata/lifecycle_hooks";
 
 @Component({
   selector: "app-tags",

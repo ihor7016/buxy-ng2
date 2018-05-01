@@ -1,14 +1,12 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { MatDialog } from "@angular/material";
-import { Observable } from "rxjs/Observable";
+import { Observable, Subscription } from "rxjs";
 import "rxjs/add/observable/combineLatest";
 
 import { AccountDialogComponent } from "../account-dialog/account-dialog.component";
 
 import { AccountsService } from "../../services/storage/accounts.service";
 import { TransactionsService } from "../../services/storage/transactions.service";
-import { OnDestroy } from "@angular/core/src/metadata/lifecycle_hooks";
-import { Subscription } from "rxjs/Subscription";
 
 interface ContentData {
   id: string;
