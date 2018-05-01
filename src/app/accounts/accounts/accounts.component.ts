@@ -1,6 +1,6 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { MatDialog } from "@angular/material";
-import { Observable } from "rxjs/Observable";
+import { Observable, Subscription } from "rxjs";
 import "rxjs/add/observable/combineLatest";
 
 import { AccountDialogComponent } from "../account-dialog/account-dialog.component";
@@ -17,6 +17,8 @@ import { AccountsData } from "./accounts-data.interface";
 export class AccountsComponent implements OnInit {
   accounts: AccountsData[];
 
+  private subscription: Subscription;
+
   constructor(
     private dialog: MatDialog,
     private accountsService: AccountsService,
@@ -28,7 +30,7 @@ export class AccountsComponent implements OnInit {
   ngOnInit() {
     const accounts = this.accountsService.getList().map(res => res.reverse());
     const transactions = this.transactionsService.getList();
-    Observable.combineLatest(
+    this.subscription = Observable.combineLatest(
       accounts,
       transactions,
       (accounts, transactions) => {
@@ -40,6 +42,10 @@ export class AccountsComponent implements OnInit {
     ).subscribe(
       res => (this.accounts = this.createData(res.accounts, res.transactions))
     );
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   handleAddAccountClick() {

@@ -1,5 +1,6 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { MatDialog } from "@angular/material";
+import { Subscription } from "rxjs/Subscription";
 
 import { TagDialogComponent } from "../tag-dialog/tag-dialog.component";
 import { Tag } from "../../interfaces/tag.interface";
@@ -11,8 +12,10 @@ import { TransactionsService } from "../../services/storage/transactions.service
   templateUrl: "./tags.component.html",
   styleUrls: ["../../styles/drawer-menu.scss"]
 })
-export class TagsComponent implements OnInit {
+export class TagsComponent implements OnInit, OnDestroy {
   tags: Tag[];
+
+  private subscription: Subscription;
 
   constructor(
     private dialog: MatDialog,
@@ -23,9 +26,12 @@ export class TagsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.tagsService.getList().subscribe(result => {
+    this.subscription = this.tagsService.getList().subscribe(result => {
       this.tags = result.reverse();
     });
+  }
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   handleAddTagClick() {
