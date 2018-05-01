@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { MatDialog } from "@angular/material";
-import { Observable, Subscription } from "rxjs";
+import { Observable } from "rxjs/Observable";
+import { Subscription } from "rxjs/Subscription";
 import "rxjs/add/observable/combineLatest";
 
 import { AccountDialogComponent } from "../account-dialog/account-dialog.component";
