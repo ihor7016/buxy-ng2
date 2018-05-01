@@ -94,8 +94,16 @@ export class AccountsComponent implements OnInit {
       });
   }
 
-  editAccount() {
-    console.log("editAccount");
+  editAccount(account) {
+    const editAccountDialog = this.dialog.open(AccountDialogComponent, {
+      data: { action: "Edit", dataToEdit: account, accounts: this.accounts },
+      minWidth: "50%"
+    });
+    editAccountDialog.afterClosed().subscribe(res => {
+      if (res) {
+        this.accountsService.updateData(res).subscribe();
+      }
+    });
   }
 
   createData(accounts, transactions): ContentData[] {

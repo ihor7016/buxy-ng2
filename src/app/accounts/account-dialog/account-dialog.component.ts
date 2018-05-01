@@ -55,11 +55,29 @@ export class AccountDialogComponent implements OnInit {
   }
 
   createForm() {
+    const dataToEdit = this.data.dataToEdit;
+    let dataToEditName = "";
+    if (dataToEdit) {
+      dataToEditName = dataToEdit.name;
+    }
+    let dataToEditBalance;
+    if (dataToEdit) {
+      dataToEditBalance = dataToEdit.balance;
+    }
+
+    let dataToEditType = "";
+    if (dataToEdit) {
+      dataToEditType = dataToEdit.type;
+    }
+    let dataToEditCurrency = "";
+    if (dataToEdit) {
+      dataToEditCurrency = dataToEdit.currency;
+    }
     this.form = this.formBuilder.group({
-      name: ["", this.uniqueNameValidator.bind(this)],
-      balance: "",
-      type: "",
-      currency: ""
+      name: [dataToEditName, this.uniqueNameValidator.bind(this)],
+      balance: dataToEditBalance,
+      type: dataToEditType,
+      currency: dataToEditCurrency
     });
     this.addEventValidation([
       this.form.controls.name,
@@ -68,8 +86,24 @@ export class AccountDialogComponent implements OnInit {
   }
 
   submit(form: any) {
-    const acc = Object.assign(form.value);
-    acc.balance = Number.parseInt(acc.balance) || 0;
+    const val = form.value;
+    let id = "";
+    let currency = "";
+    if (this.data.dataToEdit) {
+      id = this.data.dataToEdit.id;
+      currency = this.data.dataToEdit.currency;
+    } else {
+      id = form.id;
+      currency = val.currency;
+    }
+
+    const acc: Account = {
+      id: id,
+      name: val.name,
+      balance: val.balance,
+      type: val.type,
+      currency: currency
+    };
     this.matDialogRef.close(acc);
   }
 
