@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material";
 
 import { TagDialogComponent } from "../tag-dialog/tag-dialog.component";
-import { Tag } from "../../interfaces/tag";
+import { Tag } from "../../interfaces/tag.interface";
 import { TagsService } from "../../services/storage/tags.service";
 import { TransactionsService } from "../../services/storage/transactions.service";
 

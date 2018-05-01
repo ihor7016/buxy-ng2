@@ -11,8 +11,8 @@ import { AccountsService } from "../../services/storage/accounts.service";
 import { TagsService } from "../../services/storage/tags.service";
 import { CurrencyUahService } from "../../services/currency-uah.service";
 
-import { Account } from "../../interfaces/account";
-import { Tag } from "../../interfaces/tag";
+import { Account } from "../../interfaces/account.interface";
+import { Tag } from "../../interfaces/tag.interface";
 
 interface Data {
   transactions: TransactionUah[];
