@@ -69,7 +69,6 @@ export class AccountsComponent implements OnInit {
     this.accountsService.deleteData(account.id).subscribe();
     subscription.unsubscribe();
   }
-
   private removeTransactions(transactions, account, subscription) {
     transactions
       .filter(value => value.accountId === account.id)
