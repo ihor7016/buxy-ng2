@@ -7,6 +7,8 @@ import { AccountDialogComponent } from "../account-dialog/account-dialog.compone
 
 import { AccountsService } from "../../services/storage/accounts.service";
 import { TransactionsService } from "../../services/storage/transactions.service";
+import { OnDestroy } from "@angular/core/src/metadata/lifecycle_hooks";
+import { Subscription } from "rxjs/Subscription";
 
 interface ContentData {
   id: string;
@@ -22,8 +24,10 @@ interface ContentData {
   templateUrl: "./accounts.component.html",
   styleUrls: ["../../styles/drawer-menu.scss"]
 })
-export class AccountsComponent implements OnInit {
+export class AccountsComponent implements OnInit, OnDestroy {
   accounts: ContentData[];
+
+  private subscription: Subscription;
 
   constructor(
     private dialog: MatDialog,
@@ -36,7 +40,7 @@ export class AccountsComponent implements OnInit {
   ngOnInit() {
     const accounts = this.accountsService.getList().map(res => res.reverse());
     const transactions = this.transactionsService.getList();
-    Observable.combineLatest(
+    this.subscription = Observable.combineLatest(
       accounts,
       transactions,
       (accounts, transactions) => {
@@ -48,6 +52,10 @@ export class AccountsComponent implements OnInit {
     ).subscribe(
       res => (this.accounts = this.createData(res.accounts, res.transactions))
     );
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   handleAddAccountClick() {
