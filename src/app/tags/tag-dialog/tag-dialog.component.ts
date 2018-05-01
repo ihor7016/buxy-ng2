@@ -47,7 +47,7 @@ export class TagDialogComponent implements OnInit {
     if (this.data.dataToEdit) {
       id = this.data.dataToEdit.id;
     } else {
-      id = form.id;
+      id = val.id;
     }
 
     const tag: Tag = {
