@@ -16,14 +16,14 @@ export class AuthService {
     });
   }
 
+  get currentUser() {
+    return this._firebaseAuth.auth.currentUser;
+  }
+
   signInWithGoogle() {
     return this._firebaseAuth.auth.signInWithPopup(
       new firebase.auth.GoogleAuthProvider()
     );
-  }
-
-  get currentUser() {
-    return this._firebaseAuth.auth.currentUser;
   }
 
   signInRegular(email, password) {
@@ -43,9 +43,5 @@ export class AuthService {
 
   logout() {
     this._firebaseAuth.auth.signOut().then(res => this.router.navigate(["/"]));
-  }
-
-  get authState() {
-    return this._firebaseAuth.authState;
   }
 }
