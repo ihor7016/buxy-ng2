@@ -1,7 +1,5 @@
 import { NgModule } from "@angular/core";
 
-import { MaterialComponentsModule } from "../material/material.module";
-import { CommonModule } from "@angular/common";
 import { SharedModule } from "../shared/shared.module";
 import { AccountsModule } from "../accounts/accounts.module";
 import { TagsModule } from "../tags/tags.module";
@@ -14,14 +12,7 @@ import { ToolbarUserComponent } from "./toolbar/user-button/user-button.componen
 import { NotFoundComponent } from "./not-found/not-found.component";
 
 @NgModule({
-  imports: [
-    MaterialComponentsModule,
-    SharedModule,
-    AccountsModule,
-    TagsModule,
-    TransactionsModule,
-    CommonModule
-  ],
+  imports: [SharedModule, AccountsModule, TagsModule, TransactionsModule],
   declarations: [
     LayoutComponent,
     DrawerComponent,
