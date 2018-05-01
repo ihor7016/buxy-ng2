@@ -93,7 +93,7 @@ export class AccountDialogComponent implements OnInit {
       id = this.data.dataToEdit.id;
       currency = this.data.dataToEdit.currency;
     } else {
-      id = form.id;
+      id = val.id;
       currency = val.currency;
     }
 
@@ -105,6 +105,10 @@ export class AccountDialogComponent implements OnInit {
       currency: currency
     };
     this.matDialogRef.close(acc);
+  }
+
+  isEditMode(): Boolean {
+    return this.data.dataToEdit !== undefined;
   }
 
   addEventValidation(fields: AbstractControl[]) {
