@@ -1,13 +1,7 @@
 import { Component, Inject, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, AbstractControl } from "@angular/forms";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
-import { Tag } from "../../interfaces/tag.interface";
-
-interface TagDialogData {
-  action: string;
-  tags: Tag[];
-  dataToEdit?: Tag;
-}
+import { TagDialogData } from "./tag-dialog-data.interface";
 
 @Component({
   selector: "app-tag-dialog",

@@ -7,15 +7,7 @@ import { AccountDialogComponent } from "../account-dialog/account-dialog.compone
 
 import { AccountsService } from "../../services/storage/accounts.service";
 import { TransactionsService } from "../../services/storage/transactions.service";
-
-interface ContentData {
-  id: string;
-  name: string;
-  balance: number;
-  currentBalance: number;
-  type: string;
-  currency: string;
-}
+import { AccountsData } from "./accounts-data.interface";
 
 @Component({
   selector: "app-accounts",
@@ -23,7 +15,7 @@ interface ContentData {
   styleUrls: ["../../styles/drawer-menu.scss"]
 })
 export class AccountsComponent implements OnInit {
-  accounts: ContentData[];
+  accounts: AccountsData[];
 
   constructor(
     private dialog: MatDialog,
@@ -98,7 +90,7 @@ export class AccountsComponent implements OnInit {
     console.log("editAccount");
   }
 
-  createData(accounts, transactions): ContentData[] {
+  createData(accounts, transactions): AccountsData[] {
     return accounts.map(item => {
       item.currentBalance = this.calculateBalance(item, transactions);
       return item;

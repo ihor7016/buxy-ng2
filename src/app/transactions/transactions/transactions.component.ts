@@ -11,25 +11,7 @@ import { AccountsService } from "../../services/storage/accounts.service";
 import { TagsService } from "../../services/storage/tags.service";
 import { CurrencyUahService } from "../../services/currency-uah.service";
 
-import { Account } from "../../interfaces/account.interface";
-import { Tag } from "../../interfaces/tag.interface";
-
-interface Data {
-  transactions: TransactionUah[];
-  accounts: Account[];
-  tags: Tag[];
-}
-
-interface TransactionUah {
-  id: string;
-  desc: string;
-  date: string;
-  type: string;
-  amount: number;
-  amountUah: number;
-  accountId: string;
-  tagId: string;
-}
+import { TransactionsData } from "./transactions-data.interface";
 
 @Component({
   selector: "app-transactions",
@@ -38,9 +20,9 @@ interface TransactionUah {
   providers: [CurrencyUahService]
 })
 export class TransactionsComponent implements OnInit {
-  dataStream: Observable<Data>;
+  dataStream: Observable<TransactionsData>;
   dataSubscription: Subscription;
-  data: Data;
+  data: TransactionsData;
 
   constructor(
     private dialog: MatDialog,
