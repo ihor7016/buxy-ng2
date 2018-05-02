@@ -10,5 +10,5 @@ export class BarChartComponent {
   @Input() public type: string;
   @Input() public legend: boolean;
   @Input() public data: any[];
-  @Input() public colors: any[];
+  @Input() public colors: string[];
 }

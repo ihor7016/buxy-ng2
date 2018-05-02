@@ -10,6 +10,6 @@ export class PieChartComponent {
   @Input() public data: number[];
   @Input() public type: string;
   @Input() public legend: boolean;
-  @Input() public colors: any[];
+  @Input() public colors: string[];
   @Input() public options: any;
 }
