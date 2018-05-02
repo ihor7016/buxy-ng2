@@ -9,7 +9,7 @@
     <mat-icon matListIcon>account_balance</mat-icon>
     {{account.name}} {{account.currency}}{{account.currentBalance}}
     <app-button-more [position]="'after'" [data]="{type: 'account', name: account.name}"
-      class="drawer-menu__button-more" (editClick)="editAccount()" (deleteClick)="deleteAccount(account)">
+      class="drawer-menu__button-more" (editClick)="editAccount(account)" (deleteClick)="deleteAccount(account)">
     </app-button-more>
   </mat-list-item>
 </mat-list>

@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, AbstractControl } from "@angular/forms";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { AccountDialogData } from "./account-dialog-data.interface";
+import { Account } from "../../interfaces/account.interface";
 
 @Component({
   selector: "app-account-dialog",
@@ -49,22 +50,66 @@ export class AccountDialogComponent implements OnInit {
   }
 
   createForm() {
-    this.form = this.formBuilder.group({
-      name: ["", this.uniqueNameValidator.bind(this)],
-      balance: "",
-      type: "",
-      currency: ""
-    });
+    const dataToEdit = this.data.dataToEdit;
+    let dataToEditName = "";
+    let dataToEditBalance;
+    let dataToEditType = "";
+    let dataToEditCurrency = "";
+    if (dataToEdit) {
+      dataToEditName = dataToEdit.name;
+      dataToEditBalance = dataToEdit.balance;
+      dataToEditType = dataToEdit.type;
+      dataToEditCurrency = dataToEdit.currency;
+    }
+    this.createFormBuilder(
+      dataToEditName,
+      dataToEditBalance,
+      dataToEditType,
+      dataToEditCurrency
+    );
     this.addEventValidation([
       this.form.controls.name,
       this.form.controls.balance
     ]);
   }
 
+  private createFormBuilder(
+    dataToEditName: string,
+    dataToEditBalance: number,
+    dataToEditType: string,
+    dataToEditCurrency: string
+  ) {
+    this.form = this.formBuilder.group({
+      name: [dataToEditName, this.uniqueNameValidator.bind(this)],
+      balance: dataToEditBalance,
+      type: dataToEditType,
+      currency: dataToEditCurrency
+    });
+  }
+
   submit(form: any) {
-    const acc = Object.assign(form.value);
-    acc.balance = Number.parseInt(acc.balance) || 0;
+    const val = form.value;
+    let id = "";
+    let currency = "";
+    if (this.data.dataToEdit) {
+      id = this.data.dataToEdit.id;
+      currency = this.data.dataToEdit.currency;
+    } else {
+      currency = val.currency;
+    }
+
+    const acc: Account = {
+      id: id,
+      name: val.name,
+      balance: +val.balance,
+      type: val.type,
+      currency: currency
+    };
     this.matDialogRef.close(acc);
+  }
+
+  isEditMode(): Boolean {
+    return this.data.dataToEdit !== undefined;
   }
 
   addEventValidation(fields: AbstractControl[]) {
