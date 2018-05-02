@@ -1,4 +1,4 @@
-import { Component, OnChanges, Input, SimpleChange } from "@angular/core";
+import { Component, OnChanges, Input } from "@angular/core";
 import { ColorService } from "../../../services/color.service";
 import { PieChartColor } from "./pie-chart-color.interface";
 import { PieChartData } from "./pie-chart-data.interface";
@@ -10,12 +10,12 @@ import { PieChartData } from "./pie-chart-data.interface";
 })
 export class TransactionsChartsComponent implements OnChanges {
   @Input() private chartData: any;
-  public pieChartLabels: string[] = [];
-  public pieChartData: number[] = [];
-  public pieChartType: string = "pie";
-  public pieChartLegend: boolean = true;
-  public pieChartColors: any[] = [{ backgroundColor: [] }];
-  public pieChartOptions: any = { legend: { position: "right" } };
+  public pieLabels: string[] = [];
+  public pieData: number[] = [];
+  public pieType: string = "pie";
+  public pieLegend: boolean = true;
+  public pieColors: any[] = [{ backgroundColor: [] }];
+  public pieOptions: any = { legend: { position: "right" } };
 
   private pallete: PieChartColor[] = [];
   private tagIds: string[] = [];
@@ -26,7 +26,7 @@ export class TransactionsChartsComponent implements OnChanges {
     colors: []
   };
 
-  public barChartOptions: any = {
+  public barOptions: any = {
     scaleShowVerticalLines: false,
     responsive: true,
     scales: {
@@ -42,52 +42,26 @@ export class TransactionsChartsComponent implements OnChanges {
       ]
     }
   };
-  public barChartLabels: string[] = ["Income", "Expenses"];
-  public barChartType: string = "bar";
-  public barChartLegend: boolean = false;
+  public barLabels: string[] = ["Income", "Expenses"];
+  public barType: string = "bar";
+  public barLegend: boolean = false;
 
-  public barChartData: any[] = [{ data: [200, 300] }];
-  public barChartColors: any[] = [{ backgroundColor: ["#4caf50", "#f44336"] }];
-
-  pieData: any;
-  barData: any;
+  public barData: any[] = [{ data: [200, 300] }];
+  public barColors: any[] = [{ backgroundColor: ["#4caf50", "#f44336"] }];
 
   constructor(private colorService: ColorService) {}
 
-  ngOnInit() {
-    this.barData = {
-      barChartOptions: this.barChartOptions,
-      barChartLabels: this.barChartLabels,
-      barChartType: this.barChartType,
-      barChartLegend: this.barChartLegend,
-      barChartData: this.barChartData,
-      barChartColors: this.barChartColors
-    };
-  }
-
-  ngOnChages(change: SimpleChange) {
-    // if (change.isFirstChange) {
-    //   this.initCharts();
-    // } else {
-    this.pieData = {
-      pieChartLabels: this.pieChartLabels,
-      pieChartData: this.pieChartData,
-      pieChartType: this.pieChartType,
-      pieChartLegend: this.pieChartLegend,
-      pieChartColors: this.pieChartColors,
-      pieChartOptions: this.pieChartOptions
-    };
-  }
+  ngOnChages() {}
 
   initCharts() {}
 
   ngOnChanges() {
     const isChanged = this.checkChanges(this.createData());
     if (isChanged) {
-      this.pieChartLabels = this.chartState.tags;
-      this.pieChartColors[0].backgroundColor = this.chartState.colors;
+      this.pieLabels = this.chartState.tags;
+      this.pieColors[0].backgroundColor = this.chartState.colors;
       setTimeout(() => {
-        this.pieChartData = this.chartState.amounts;
+        this.pieData = this.chartState.amounts;
       }, 0);
     }
   }

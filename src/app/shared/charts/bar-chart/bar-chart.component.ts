@@ -5,11 +5,10 @@ import { Component, Input } from "@angular/core";
   templateUrl: "./bar-chart.component.html"
 })
 export class BarChartComponent {
-  @Input() data: any;
-  // @Input() public barChartOptions: any;
-  // @Input() public barChartLabels: string[];
-  // @Input() public barChartType: string;
-  // @Input() public barChartLegend: boolean;
-  // @Input() public barChartData: any[];
-  // @Input() public barChartColors: any[];
+  @Input() public options: any;
+  @Input() public labels: string[];
+  @Input() public type: string;
+  @Input() public legend: boolean;
+  @Input() public data: any[];
+  @Input() public colors: any[];
 }
