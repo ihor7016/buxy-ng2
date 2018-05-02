@@ -24,7 +24,7 @@ export class TransactionsChartsComponent implements OnChanges {
   public barLabels: string[] = ["Income", "Expenses"];
   public barType: string = "bar";
   public barLegend: boolean = false;
-  public barData: any[] = [{ data: [200, 300] }];
+  public barData: any[] = [{ data: [] }];
   public barColors: any[] = [{ backgroundColor: ["#4caf50", "#f44336"] }];
   public barOptions: any = {
     scaleShowVerticalLines: false,
