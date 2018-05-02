@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, AbstractControl } from "@angular/forms";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { TagDialogData } from "./tag-dialog-data.interface";
+import { Tag } from "../../interfaces/tag.interface";
 
 @Component({
   selector: "app-tag-dialog",
