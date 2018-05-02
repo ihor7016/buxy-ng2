@@ -7,6 +7,9 @@ import { ButtonMoreComponent } from "./button-more/button-more.component";
 import { ConfirmDialogComponent } from "./confirm-dialog/confirm-dialog.component";
 import { AboutDialogComponent } from "./about-dialog/about-dialog.component";
 
+import { CurrencyUahService } from "./services/currency-uah.service";
+import { ColorService } from "./services/color.service";
+
 @NgModule({
   imports: [CommonModule, ReactiveFormsModule, MaterialComponentsModule],
   declarations: [
@@ -22,6 +25,7 @@ import { AboutDialogComponent } from "./about-dialog/about-dialog.component";
     ConfirmDialogComponent,
     AboutDialogComponent
   ],
+  providers: [CurrencyUahService, ColorService],
   entryComponents: [AboutDialogComponent, ConfirmDialogComponent]
 })
 export class SharedModule {}
