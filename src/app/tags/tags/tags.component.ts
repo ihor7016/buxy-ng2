@@ -54,15 +54,13 @@ export class TagsComponent implements OnInit, OnDestroy {
   }
 
   private removeTransactions(transactions, tag, subscription) {
-    transactions
-      .filter(value => value.tagId === tag.id)
-      .forEach((value, index, array) => {
-        this.transactionsService.deleteData(value.id).subscribe(() => {
-          if (this.isLastItem(index, array)) {
-            this.removeTag(tag, subscription);
-          }
-        });
+    transactions.forEach((value, index, array) => {
+      this.transactionsService.deleteData(value.id).subscribe(() => {
+        if (this.isLastItem(index, array)) {
+          this.removeTag(tag, subscription);
+        }
       });
+    });
   }
 
   private isLastItem(index, array) {
@@ -74,8 +72,15 @@ export class TagsComponent implements OnInit, OnDestroy {
       .getList()
       .first()
       .subscribe(transactions => {
-        if (transactions.length > 0) {
-          this.removeTransactions(transactions, tag, subscription);
+        const transactionsWithTagToRemove = transactions.filter(
+          value => value.tagId === tag.id
+        );
+        if (transactionsWithTagToRemove.length > 0) {
+          this.removeTransactions(
+            transactionsWithTagToRemove,
+            tag,
+            subscription
+          );
         } else {
           this.removeTag(tag, subscription);
         }
