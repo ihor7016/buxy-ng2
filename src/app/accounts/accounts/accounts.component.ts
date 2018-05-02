@@ -15,7 +15,7 @@ import { AccountsData } from "./accounts-data.interface";
   templateUrl: "./accounts.component.html",
   styleUrls: ["../../styles/drawer-menu.scss"]
 })
-export class AccountsComponent implements OnInit {
+export class AccountsComponent implements OnInit, OnDestroy {
   accounts: AccountsData[];
 
   private subscription: Subscription;

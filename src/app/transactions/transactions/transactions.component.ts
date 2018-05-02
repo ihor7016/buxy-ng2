@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { MatDialog } from "@angular/material";
 import { Observable } from "rxjs/Observable";
 import { Subscription } from "rxjs/Subscription";
@@ -19,7 +19,7 @@ import { TransactionsData } from "./transactions-data.interface";
   styleUrls: ["./transactions.component.scss"],
   providers: [CurrencyUahService]
 })
-export class TransactionsComponent implements OnInit {
+export class TransactionsComponent implements OnInit, OnDestroy {
   dataStream: Observable<TransactionsData>;
   dataSubscription: Subscription;
   data: TransactionsData;

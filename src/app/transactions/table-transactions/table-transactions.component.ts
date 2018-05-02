@@ -8,8 +8,6 @@ import {
 } from "@angular/core";
 import { MatTableDataSource, MatSort } from "@angular/material";
 
-import { Account } from "../../interfaces/account.interface";
-import { Tag } from "../../interfaces/tag.interface";
 import { TableTransactionsData } from "./table-transactions-data.interface";
 
 @Component({

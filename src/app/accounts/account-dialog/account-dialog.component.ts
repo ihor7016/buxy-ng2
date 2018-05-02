@@ -1,7 +1,6 @@
 import { Component, Inject, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, AbstractControl } from "@angular/forms";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
-import { Account } from "../../interfaces/account.interface";
 import { AccountDialogData } from "./account-dialog-data.interface";
 
 @Component({
