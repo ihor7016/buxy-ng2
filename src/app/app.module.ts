@@ -5,7 +5,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { LayoutModule } from "./layout/layout.module";
 import { AuthModule } from "./auth/auth.module";
 import { AppRoutes } from "./app-routing.module";
-import { StorageModule } from "./storage/stotage.module";
+import { StorageModule } from "./storage/storage.module";
 
 import { AppComponent } from "./app/app.component";
 
