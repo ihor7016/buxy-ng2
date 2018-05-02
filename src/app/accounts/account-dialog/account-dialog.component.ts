@@ -101,7 +101,7 @@ export class AccountDialogComponent implements OnInit {
     const acc: Account = {
       id: id,
       name: val.name,
-      balance: val.balance,
+      balance: +val.balance,
       type: val.type,
       currency: currency
     };
