@@ -69,16 +69,15 @@ export class AccountsComponent implements OnInit, OnDestroy {
     this.accountsService.deleteData(account.id).subscribe();
     subscription.unsubscribe();
   }
+
   private removeTransactions(transactions, account, subscription) {
-    transactions
-      .filter(value => value.accountId === account.id)
-      .forEach((value, index, array) => {
-        this.transactionsService.deleteData(value.id).subscribe(() => {
-          if (this.isLastItem(index, array)) {
-            this.removeAccount(account, subscription);
-          }
-        });
+    transactions.forEach((value, index, array) => {
+      this.transactionsService.deleteData(value.id).subscribe(() => {
+        if (this.isLastItem(index, array)) {
+          this.removeAccount(account, subscription);
+        }
       });
+    });
   }
 
   private isLastItem(index, array) {
@@ -90,8 +89,15 @@ export class AccountsComponent implements OnInit, OnDestroy {
       .getList()
       .first()
       .subscribe(transactions => {
-        if (transactions.length > 0) {
-          this.removeTransactions(transactions, account, subscription);
+        const transactionsWIthAccount = transactions.filter(
+          value => value.accountId === account.id
+        );
+        if (transactionsWIthAccount.length > 0) {
+          this.removeTransactions(
+            transactionsWIthAccount,
+            account,
+            subscription
+          );
         } else {
           this.removeAccount(account, subscription);
         }
