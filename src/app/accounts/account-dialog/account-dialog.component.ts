@@ -100,7 +100,6 @@ export class AccountDialogComponent implements OnInit {
       id = this.data.dataToEdit.id;
       currency = this.data.dataToEdit.currency;
     } else {
-      id = val.id;
       currency = val.currency;
     }
 
