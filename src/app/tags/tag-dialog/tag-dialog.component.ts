@@ -34,7 +34,8 @@ export class TagDialogComponent implements OnInit {
       dataToEditName = dataToEdit.name;
     }
     this.form = this.formBuilder.group({
-      name: [dataToEditName, this.uniqueNameValidator.bind(this)]
+      name: [dataToEditName, this.uniqueNameValidator.bind(this)],
+      id: ""
     });
     this.form.controls.name.valueChanges.subscribe(() =>
       this.form.controls.name.markAsTouched()
