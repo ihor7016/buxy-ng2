@@ -5,6 +5,7 @@ import { TagDialogComponent } from "../tag-dialog/tag-dialog.component";
 import { Tag } from "../../interfaces/tag";
 import { TagsService } from "../../services/storage/tags.service";
 import { TransactionsService } from "../../services/storage/transactions.service";
+import "rxjs/add/operator/first";
 
 @Component({
   selector: "app-tags",
@@ -65,6 +66,7 @@ export class TagsComponent implements OnInit {
   deleteTag(tag) {
     const subscription = this.transactionsService
       .getList()
+      .first()
       .subscribe(transactions => {
         if (transactions.length > 0) {
           this.removeTransactions(transactions, tag, subscription);

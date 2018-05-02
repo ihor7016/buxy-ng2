@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material";
 import { Observable } from "rxjs/Observable";
 import "rxjs/add/observable/combineLatest";
+import "rxjs/add/operator/first";
 
 import { AccountDialogComponent } from "../account-dialog/account-dialog.component";
 
@@ -88,6 +89,7 @@ export class AccountsComponent implements OnInit {
   deleteAccount(account) {
     const subscription = this.transactionsService
       .getList()
+      .first()
       .subscribe(transactions => {
         if (transactions.length > 0) {
           this.removeTransactions(transactions, account, subscription);
