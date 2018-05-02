@@ -22,8 +22,13 @@ export class TagDialogComponent implements OnInit {
   }
 
   createForm() {
+    const dataToEdit = this.data.dataToEdit;
+    let dataToEditName = "";
+    if (dataToEdit) {
+      dataToEditName = dataToEdit.name;
+    }
     this.form = this.formBuilder.group({
-      name: ["", this.uniqueNameValidator.bind(this)]
+      name: [dataToEditName, this.uniqueNameValidator.bind(this)]
     });
     this.form.controls.name.valueChanges.subscribe(() =>
       this.form.controls.name.markAsTouched()
@@ -31,7 +36,17 @@ export class TagDialogComponent implements OnInit {
   }
 
   submit(form: any) {
-    this.matDialogRef.close(form.value);
+    const val = form.value;
+    let id = "";
+    if (this.data.dataToEdit) {
+      id = this.data.dataToEdit.id;
+    }
+
+    const tag: Tag = {
+      id: id,
+      name: val.name
+    };
+    this.matDialogRef.close(tag);
   }
 
   uniqueNameValidator(control: AbstractControl) {

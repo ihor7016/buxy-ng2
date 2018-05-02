@@ -3,6 +3,7 @@ import { MatDialog } from "@angular/material";
 import { Observable } from "rxjs/Observable";
 import { Subscription } from "rxjs/Subscription";
 import "rxjs/add/observable/combineLatest";
+import "rxjs/add/operator/first";
 
 import { AccountDialogComponent } from "../account-dialog/account-dialog.component";
 
@@ -64,26 +65,30 @@ export class AccountsComponent implements OnInit, OnDestroy {
     });
   }
 
+  private removeAccount(account, subscription) {
+    this.accountsService.deleteData(account.id).subscribe();
+    subscription.unsubscribe();
+  }
   private removeTransactions(transactions, account, subscription) {
     transactions
       .filter(value => value.accountId === account.id)
       .forEach((value, index, array) => {
-        this.transactionsService.deleteData(value.id).subscribe(res => {
-          if (index === array.length - 1) {
+        this.transactionsService.deleteData(value.id).subscribe(() => {
+          if (this.isLastItem(index, array)) {
             this.removeAccount(account, subscription);
           }
         });
       });
   }
 
-  private removeAccount(account, subscription) {
-    this.accountsService.deleteData(account.id).subscribe();
-    subscription.unsubscribe();
+  private isLastItem(index, array) {
+    return index === array.length - 1;
   }
 
   deleteAccount(account) {
     const subscription = this.transactionsService
       .getList()
+      .first()
       .subscribe(transactions => {
         if (transactions.length > 0) {
           this.removeTransactions(transactions, account, subscription);
