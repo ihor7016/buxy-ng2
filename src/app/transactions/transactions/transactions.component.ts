@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { MatDialog } from "@angular/material";
 import { Observable } from "rxjs/Observable";
 import { Subscription } from "rxjs/Subscription";
@@ -11,25 +11,7 @@ import { AccountsService } from "../../services/storage/accounts.service";
 import { TagsService } from "../../services/storage/tags.service";
 import { CurrencyUahService } from "../../services/currency-uah.service";
 
-import { Account } from "../../interfaces/account";
-import { Tag } from "../../interfaces/tag";
-
-interface Data {
-  transactions: TransactionUah[];
-  accounts: Account[];
-  tags: Tag[];
-}
-
-interface TransactionUah {
-  id: string;
-  desc: string;
-  date: string;
-  type: string;
-  amount: number;
-  amountUah: number;
-  accountId: string;
-  tagId: string;
-}
+import { TransactionsData } from "./transactions-data.interface";
 
 @Component({
   selector: "app-transactions",
@@ -37,27 +19,23 @@ interface TransactionUah {
   styleUrls: ["./transactions.component.scss"],
   providers: [CurrencyUahService]
 })
-export class TransactionsComponent implements OnInit {
-  dataStream: Observable<Data>;
+export class TransactionsComponent implements OnInit, OnDestroy {
+  dataStream: Observable<TransactionsData>;
   dataSubscription: Subscription;
-  data: Data = {
-    transactions: [],
-    accounts: [],
-    tags: []
-  };
+  data: TransactionsData;
 
   constructor(
     private dialog: MatDialog,
-    private transDB: TransactionsService,
-    private accDB: AccountsService,
-    private tagDB: TagsService,
+    private transactionsService: TransactionsService,
+    private accountsService: AccountsService,
+    private tagsService: TagsService,
     private converter: CurrencyUahService
   ) {}
 
   ngOnInit() {
-    const transactions = this.transDB.getList();
-    const accounts = this.accDB.getList();
-    const tags = this.tagDB.getList();
+    const transactions = this.transactionsService.getList();
+    const accounts = this.accountsService.getList();
+    const tags = this.tagsService.getList();
     this.dataStream = Observable.combineLatest(
       transactions,
       accounts,
@@ -75,15 +53,15 @@ export class TransactionsComponent implements OnInit {
   }
 
   addTransaction(data) {
-    return this.transDB.setData(data).subscribe();
+    return this.transactionsService.setData(data).subscribe();
   }
 
   editTransaction(data) {
-    return this.transDB.updateData(data).subscribe();
+    return this.transactionsService.updateData(data).subscribe();
   }
 
   deleteTransaction(event) {
-    return this.transDB.deleteData(event.id).subscribe();
+    return this.transactionsService.deleteData(event.id).subscribe();
   }
 
   handleEditTransactionClick(event) {

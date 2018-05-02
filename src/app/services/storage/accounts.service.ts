@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Account } from "../../interfaces/account";
+import { Account } from "../../interfaces/account.interface";
 import { DatabaseService } from "./database.service";
 import { AbstractService } from "./abstract.service";
 
