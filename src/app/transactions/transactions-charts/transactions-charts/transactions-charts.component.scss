@@ -1,0 +1,11 @@
+.transactions-charts {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+
+  &__chart {
+    width: calc(50% - 30px);
+    padding: 10px;
+    background-color: #ffffff;
+  }
+}
