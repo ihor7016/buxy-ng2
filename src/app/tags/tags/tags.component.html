@@ -9,6 +9,6 @@
     <mat-icon matListIcon>local_offer</mat-icon>
     {{tag.name}}
     <app-button-more [position]="'after'" [data]="{type: 'tag', name: tag.name}" class="drawer-menu__button-more"
-      (editClick)="editTag()" (deleteClick)="deleteTag(tag)"></app-button-more>
+      (editClick)="editTag(tag)" (deleteClick)="deleteTag(tag)"></app-button-more>
   </mat-list-item>
 </mat-list>

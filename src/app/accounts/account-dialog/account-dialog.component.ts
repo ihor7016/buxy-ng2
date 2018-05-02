@@ -1,13 +1,7 @@
 import { Component, Inject, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, AbstractControl } from "@angular/forms";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
-import { Account } from "../../interfaces/account";
-
-interface AccountDialogData {
-  action: string;
-  accounts: Account[];
-  dataToEdit?: Account;
-}
+import { AccountDialogData } from "./account-dialog-data.interface";
 
 @Component({
   selector: "app-account-dialog",

@@ -1,9 +1,5 @@
 import { Component, Input, OnChanges } from "@angular/core";
-
-interface BarChartData {
-  income: number;
-  expense: number;
-}
+import { BarChartData } from "./bar-chart-data.interface";
 
 @Component({
   selector: "app-bar-chart",

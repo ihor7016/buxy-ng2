@@ -8,21 +8,7 @@ import {
 } from "@angular/core";
 import { MatTableDataSource, MatSort } from "@angular/material";
 
-import { Account } from "../../interfaces/account";
-import { Tag } from "../../interfaces/tag";
-
-interface ContentData {
-  id: string;
-  desc: string;
-  date: string;
-  type: string;
-  amount: number;
-  amountUah: number;
-  accountId: string;
-  tagId: string;
-  account: Account;
-  tag: Tag;
-}
+import { TableTransactionsData } from "./table-transactions-data.interface";
 
 @Component({
   selector: "app-table-transactions",
@@ -31,7 +17,7 @@ interface ContentData {
 })
 export class TableTransactionsComponent implements OnChanges {
   public displayedColumns = ["date", "amount", "description", "tag", "account"];
-  public dataSource: MatTableDataSource<ContentData>;
+  public dataSource: MatTableDataSource<TableTransactionsData>;
 
   @Input() tableData: any;
   @Output() editClick: EventEmitter<any> = new EventEmitter();
@@ -52,13 +38,13 @@ export class TableTransactionsComponent implements OnChanges {
     this.deleteClick.emit({ id: id });
   }
 
-  createData(): ContentData[] {
+  createData(): TableTransactionsData[] {
     const data = this.tableData.transactions.reverse();
     const newData = data.map(item => this.extractData(item));
     return newData;
   }
 
-  extractData(data): ContentData {
+  extractData(data): TableTransactionsData {
     const newData = Object.assign({}, data);
     newData.account = this.tableData.accounts.find(
       item => item.id === data.accountId

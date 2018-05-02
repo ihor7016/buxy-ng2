@@ -1,21 +1,15 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { MatDialog } from "@angular/material";
-import { Observable, Subscription } from "rxjs";
+import { Observable } from "rxjs/Observable";
+import { Subscription } from "rxjs/Subscription";
 import "rxjs/add/observable/combineLatest";
+import "rxjs/add/operator/first";
 
 import { AccountDialogComponent } from "../account-dialog/account-dialog.component";
 
 import { AccountsService } from "../../services/storage/accounts.service";
 import { TransactionsService } from "../../services/storage/transactions.service";
-
-interface ContentData {
-  id: string;
-  name: string;
-  balance: number;
-  currentBalance: number;
-  type: string;
-  currency: string;
-}
+import { AccountsData } from "./accounts-data.interface";
 
 @Component({
   selector: "app-accounts",
@@ -23,7 +17,7 @@ interface ContentData {
   styleUrls: ["../../styles/drawer-menu.scss"]
 })
 export class AccountsComponent implements OnInit, OnDestroy {
-  accounts: ContentData[];
+  accounts: AccountsData[];
 
   private subscription: Subscription;
 
@@ -71,26 +65,30 @@ export class AccountsComponent implements OnInit, OnDestroy {
     });
   }
 
+  private removeAccount(account, subscription) {
+    this.accountsService.deleteData(account.id).subscribe();
+    subscription.unsubscribe();
+  }
   private removeTransactions(transactions, account, subscription) {
     transactions
       .filter(value => value.accountId === account.id)
       .forEach((value, index, array) => {
-        this.transactionsService.deleteData(value.id).subscribe(res => {
-          if (index === array.length - 1) {
+        this.transactionsService.deleteData(value.id).subscribe(() => {
+          if (this.isLastItem(index, array)) {
             this.removeAccount(account, subscription);
           }
         });
       });
   }
 
-  private removeAccount(account, subscription) {
-    this.accountsService.deleteData(account.id).subscribe();
-    subscription.unsubscribe();
+  private isLastItem(index, array) {
+    return index === array.length - 1;
   }
 
   deleteAccount(account) {
     const subscription = this.transactionsService
       .getList()
+      .first()
       .subscribe(transactions => {
         if (transactions.length > 0) {
           this.removeTransactions(transactions, account, subscription);
@@ -104,7 +102,7 @@ export class AccountsComponent implements OnInit, OnDestroy {
     console.log("editAccount");
   }
 
-  createData(accounts, transactions): ContentData[] {
+  createData(accounts, transactions): AccountsData[] {
     return accounts.map(item => {
       item.currentBalance = this.calculateBalance(item, transactions);
       return item;

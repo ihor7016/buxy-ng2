@@ -3,26 +3,9 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 import { DatePipe } from "@angular/common";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material";
 
-import { Transaction } from "../../interfaces/transaction";
-import { Account } from "../../interfaces/account";
-import { Tag } from "../../interfaces/tag";
-
-interface TransactionDialogData {
-  action: string;
-  accounts: Account[];
-  tags: Tag[];
-  dataToEdit?: any;
-}
-
-interface Group {
-  id: string;
-  type: string;
-  desc: string;
-  amount: string;
-  date: Date;
-  tagId: string;
-  accountId: string;
-}
+import { Transaction } from "../../interfaces/transaction.interface";
+import { TransactionsDialogGroup } from "./transactions-dialog-group.interface";
+import { TransactionDialogData } from "./transactions-dialog-data.interface";
 
 @Component({
   selector: "app-transaction-dialog",
@@ -32,7 +15,7 @@ interface Group {
 })
 export class TransactionDialogComponent implements OnInit {
   form: FormGroup;
-  group: Group = {
+  group: TransactionsDialogGroup = {
     id: "",
     type: "-",
     desc: "",
@@ -56,7 +39,7 @@ export class TransactionDialogComponent implements OnInit {
     );
   }
 
-  createData(): Group {
+  createData(): TransactionsDialogGroup {
     if (this.data.dataToEdit) {
       const data = this.data.dataToEdit;
       this.group = {
