@@ -1,8 +1,11 @@
 import { Component, OnChanges, Input } from "@angular/core";
 import { ColorService } from "../../../services/color.service";
-import { PieChartColor } from "./pie-chart-color.interface";
-import { PieChartData } from "./pie-chart-data.interface";
-import { BarChartData } from "./bar-chart-data.interface";
+
+import { PieChartColor } from "./interfaces/pie-chart-color.interface";
+import { PieChartData } from "./interfaces/pie-chart-data.interface";
+import { BarChartData } from "./interfaces/bar-chart-data.interface";
+import { TransactionUah } from "../../transactions/transaction-uah.interface";
+import { TransactionsData } from "../../transactions/transactions-data.interface";
 
 @Component({
   selector: "app-transactions-charts",
@@ -10,7 +13,7 @@ import { BarChartData } from "./bar-chart-data.interface";
   styleUrls: ["./transactions-charts.component.scss"]
 })
 export class TransactionsChartsComponent implements OnChanges {
-  @Input() private data: any;
+  @Input() private data: TransactionsData;
   public pieLabels: string[] = [];
   public pieData: number[] = [];
   public pieType: string = "pie";
@@ -18,6 +21,11 @@ export class TransactionsChartsComponent implements OnChanges {
   public pieColors: any[] = [{ backgroundColor: [] }];
   public pieOptions: any = { legend: { position: "right" } };
 
+  public barLabels: string[] = ["Income", "Expenses"];
+  public barType: string = "bar";
+  public barLegend: boolean = false;
+  public barData: any[] = [{ data: [200, 300] }];
+  public barColors: any[] = [{ backgroundColor: ["#4caf50", "#f44336"] }];
   public barOptions: any = {
     scaleShowVerticalLines: false,
     responsive: true,
@@ -34,17 +42,9 @@ export class TransactionsChartsComponent implements OnChanges {
       ]
     }
   };
-  public barLabels: string[] = ["Income", "Expenses"];
-  public barType: string = "bar";
-  public barLegend: boolean = false;
-  public barData: any[] = [{ data: [200, 300] }];
-  public barColors: any[] = [{ backgroundColor: ["#4caf50", "#f44336"] }];
 
   private pallete: PieChartColor[] = [];
   private tagIds: string[] = [];
-  private tags: string[] = [];
-  private amounts: number[] = [];
-  private colors: string[] = [];
 
   constructor(private colorService: ColorService) {}
 
@@ -72,7 +72,7 @@ export class TransactionsChartsComponent implements OnChanges {
     );
   }
 
-  calculateBarData(acc: BarChartData, data): BarChartData {
+  calculateBarData(acc: BarChartData, data: TransactionUah): BarChartData {
     let res = Object.assign({}, acc);
     if (data.type === "-") {
       res.expense += data.amountUah;
@@ -105,7 +105,7 @@ export class TransactionsChartsComponent implements OnChanges {
     return data;
   }
 
-  cleanPieData(data: PieChartData) {
+  cleanPieData(data: PieChartData): PieChartData {
     const tags = [...data.tags];
     const tagIds = [...data.tagIds];
     const colors = [...data.colors];
@@ -127,7 +127,7 @@ export class TransactionsChartsComponent implements OnChanges {
     };
   }
 
-  calculatePieData(acc: PieChartData, data): PieChartData {
+  calculatePieData(acc: PieChartData, data: TransactionUah): PieChartData {
     const i = acc.tagIds.indexOf(data.tagId);
     if (i < 0) {
       this.tagIds.push(data.tagId);
@@ -162,7 +162,7 @@ export class TransactionsChartsComponent implements OnChanges {
     return color;
   }
 
-  isChanged(oldData, newData) {
+  isChanged(oldData, newData): boolean {
     return JSON.stringify(oldData) !== JSON.stringify(newData);
   }
 }
