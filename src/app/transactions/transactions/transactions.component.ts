@@ -26,16 +26,16 @@ export class TransactionsComponent implements OnInit {
 
   constructor(
     private dialog: MatDialog,
-    private transDB: TransactionsService,
-    private accDB: AccountsService,
-    private tagDB: TagsService,
+    private transactionsService: TransactionsService,
+    private accountsService: AccountsService,
+    private tagsService: TagsService,
     private converter: CurrencyUahService
   ) {}
 
   ngOnInit() {
-    const transactions = this.transDB.getList();
-    const accounts = this.accDB.getList();
-    const tags = this.tagDB.getList();
+    const transactions = this.transactionsService.getList();
+    const accounts = this.accountsService.getList();
+    const tags = this.tagsService.getList();
     this.dataStream = Observable.combineLatest(
       transactions,
       accounts,
@@ -53,15 +53,15 @@ export class TransactionsComponent implements OnInit {
   }
 
   addTransaction(data) {
-    return this.transDB.setData(data).subscribe();
+    return this.transactionsService.setData(data).subscribe();
   }
 
   editTransaction(data) {
-    return this.transDB.updateData(data).subscribe();
+    return this.transactionsService.updateData(data).subscribe();
   }
 
   deleteTransaction(event) {
-    return this.transDB.deleteData(event.id).subscribe();
+    return this.transactionsService.deleteData(event.id).subscribe();
   }
 
   handleEditTransactionClick(event) {
