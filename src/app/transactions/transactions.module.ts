@@ -1,7 +1,4 @@
 import { NgModule } from "@angular/core";
-import { ReactiveFormsModule } from "@angular/forms";
-import { CommonModule } from "@angular/common";
-import { MaterialComponentsModule } from "../material/material.module";
 import { ChartsModule } from "ng2-charts";
 import { SharedModule } from "../shared/shared.module";
 
@@ -19,13 +16,7 @@ import { TableTransactionsComponent } from "./table-transactions/table-transacti
     BarChartComponent,
     PieChartComponent
   ],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    MaterialComponentsModule,
-    ChartsModule,
-    SharedModule
-  ],
+  imports: [ChartsModule, SharedModule],
   exports: [TransactionsComponent],
   entryComponents: [TransactionDialogComponent]
 })

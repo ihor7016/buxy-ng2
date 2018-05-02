@@ -1,21 +1,14 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { MatDialog } from "@angular/material";
-import { Observable, Subscription } from "rxjs";
+import { Observable } from "rxjs/Observable";
+import { Subscription } from "rxjs/Subscription";
 import "rxjs/add/observable/combineLatest";
 
 import { AccountDialogComponent } from "../account-dialog/account-dialog.component";
 
 import { AccountsService } from "../../services/storage/accounts.service";
 import { TransactionsService } from "../../services/storage/transactions.service";
-
-interface ContentData {
-  id: string;
-  name: string;
-  balance: number;
-  currentBalance: number;
-  type: string;
-  currency: string;
-}
+import { AccountsData } from "./accounts-data.interface";
 
 @Component({
   selector: "app-accounts",
@@ -23,7 +16,7 @@ interface ContentData {
   styleUrls: ["../../styles/drawer-menu.scss"]
 })
 export class AccountsComponent implements OnInit, OnDestroy {
-  accounts: ContentData[];
+  accounts: AccountsData[];
 
   private subscription: Subscription;
 
@@ -104,7 +97,7 @@ export class AccountsComponent implements OnInit, OnDestroy {
     console.log("editAccount");
   }
 
-  createData(accounts, transactions): ContentData[] {
+  createData(accounts, transactions): AccountsData[] {
     return accounts.map(item => {
       item.currentBalance = this.calculateBalance(item, transactions);
       return item;

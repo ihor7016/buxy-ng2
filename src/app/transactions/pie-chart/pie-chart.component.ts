@@ -1,17 +1,7 @@
 import { Component, Input, OnChanges } from "@angular/core";
 import { ColorService } from "../../services/color.service";
-
-interface PieChartData {
-  tagIds: string[];
-  tags: string[];
-  amounts: number[];
-  colors: string[];
-}
-
-interface Color {
-  tagId: string;
-  color: string;
-}
+import { PieChartColor } from "./pie-chart-color.interface";
+import { PieChartData } from "./pie-chart-data.interface";
 
 @Component({
   selector: "app-pie-chart",
@@ -30,7 +20,7 @@ export class PieChartComponent implements OnChanges {
   };
 
   @Input() private chartData: any;
-  private pallete: Color[] = [];
+  private pallete: PieChartColor[] = [];
   private tagIds: string[] = [];
   private chartState: PieChartData = {
     tagIds: [],

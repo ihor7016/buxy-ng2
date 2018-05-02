@@ -3,7 +3,7 @@ import { MatDialog } from "@angular/material";
 import { Subscription } from "rxjs/Subscription";
 
 import { TagDialogComponent } from "../tag-dialog/tag-dialog.component";
-import { Tag } from "../../interfaces/tag";
+import { Tag } from "../../interfaces/tag.interface";
 import { TagsService } from "../../services/storage/tags.service";
 import { TransactionsService } from "../../services/storage/transactions.service";
 
