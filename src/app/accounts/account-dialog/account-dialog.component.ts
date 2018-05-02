@@ -57,32 +57,39 @@ export class AccountDialogComponent implements OnInit {
   createForm() {
     const dataToEdit = this.data.dataToEdit;
     let dataToEditName = "";
-    if (dataToEdit) {
-      dataToEditName = dataToEdit.name;
-    }
     let dataToEditBalance;
-    if (dataToEdit) {
-      dataToEditBalance = dataToEdit.balance;
-    }
-
     let dataToEditType = "";
-    if (dataToEdit) {
-      dataToEditType = dataToEdit.type;
-    }
     let dataToEditCurrency = "";
     if (dataToEdit) {
+      dataToEditName = dataToEdit.name;
+      dataToEditBalance = dataToEdit.balance;
+      dataToEditType = dataToEdit.type;
       dataToEditCurrency = dataToEdit.currency;
     }
+    this.createFormBuilder(
+      dataToEditName,
+      dataToEditBalance,
+      dataToEditType,
+      dataToEditCurrency
+    );
+    this.addEventValidation([
+      this.form.controls.name,
+      this.form.controls.balance
+    ]);
+  }
+
+  private createFormBuilder(
+    dataToEditName: string,
+    dataToEditBalance,
+    dataToEditType: string,
+    dataToEditCurrency: string
+  ) {
     this.form = this.formBuilder.group({
       name: [dataToEditName, this.uniqueNameValidator.bind(this)],
       balance: dataToEditBalance,
       type: dataToEditType,
       currency: dataToEditCurrency
     });
-    this.addEventValidation([
-      this.form.controls.name,
-      this.form.controls.balance
-    ]);
   }
 
   submit(form: any) {
