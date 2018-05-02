@@ -80,7 +80,7 @@ export class AccountDialogComponent implements OnInit {
 
   private createFormBuilder(
     dataToEditName: string,
-    dataToEditBalance,
+    dataToEditBalance: number,
     dataToEditType: string,
     dataToEditCurrency: string
   ) {
