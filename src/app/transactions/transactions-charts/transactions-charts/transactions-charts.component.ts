@@ -40,28 +40,26 @@ export class TransactionsChartsComponent implements OnChanges {
   public barData: any[] = [{ data: [200, 300] }];
   public barColors: any[] = [{ backgroundColor: ["#4caf50", "#f44336"] }];
 
-  private piePallete: PieChartColor[] = [];
+  private pallete: PieChartColor[] = [];
   private tagIds: string[] = [];
-  private pieChartState: PieChartData = {
-    tagIds: [],
-    tags: [],
-    amounts: [],
-    colors: []
-  };
+  private tags: string[] = [];
+  private amounts: number[] = [];
+  private colors: string[] = [];
 
   constructor(private colorService: ColorService) {}
 
   ngOnChanges() {
-    const isPieChanged = this.checkChanges(this.createPieData());
-    if (isPieChanged) {
-      this.pieLabels = this.pieChartState.tags;
-      this.pieColors[0].backgroundColor = this.pieChartState.colors;
-      setTimeout(() => {
-        this.pieData = this.pieChartState.amounts;
-      }, 0);
-    }
     const barData = this.createBarData();
     this.barData = [{ data: [barData.income, barData.expense] }];
+    const pieData = this.createPieData();
+    const isPieChanged = this.checkChanges(pieData);
+    if (isPieChanged) {
+      this.pieLabels = pieData.tags;
+      this.pieColors[0].backgroundColor = pieData.colors;
+      setTimeout(() => {
+        this.pieData = pieData.amounts;
+      }, 0);
+    }
   }
 
   createBarData(): BarChartData {
@@ -85,12 +83,10 @@ export class TransactionsChartsComponent implements OnChanges {
   }
 
   checkChanges(data: PieChartData): boolean {
-    let isChanged = false;
-    const stringData = JSON.stringify(data);
-    if (stringData !== JSON.stringify(this.pieChartState)) {
-      this.pieChartState = JSON.parse(stringData);
-      isChanged = true;
-    }
+    let isChanged =
+      this.isChanged(this.pieLabels, data.tags) ||
+      this.isChanged(this.pieData, data.amounts) ||
+      this.isChanged(this.pieColors[0].backgroundColor, data.colors);
     return isChanged;
   }
 
@@ -109,18 +105,26 @@ export class TransactionsChartsComponent implements OnChanges {
     return data;
   }
 
-  cleanPieData(data: PieChartData): PieChartData {
-    const cleanData = JSON.parse(JSON.stringify(data));
-    cleanData.amounts = data.amounts.filter((amount, i) => {
+  cleanPieData(data: PieChartData) {
+    const tags = [...data.tags];
+    const tagIds = [...data.tagIds];
+    const colors = [...data.colors];
+    const amounts = [...data.amounts];
+    amounts.filter((amount, i) => {
       if (!amount) {
-        cleanData.tagIds = data.tagIds.filter((elem, index) => i !== index);
-        cleanData.tags = data.tags.filter((elem, index) => i !== index);
-        cleanData.colors = data.colors.filter((elem, index) => i !== index);
+        tags.filter((elem, index) => i !== index);
+        tagIds.filter((elem, index) => i !== index);
+        colors.filter((elem, index) => i !== index);
         return;
       }
       return amount;
     });
-    return cleanData;
+    return {
+      tags: tags,
+      tagIds: tagIds,
+      amounts: amounts,
+      colors: colors
+    };
   }
 
   calculatePieData(acc: PieChartData, data): PieChartData {
@@ -139,22 +143,26 @@ export class TransactionsChartsComponent implements OnChanges {
     return acc;
   }
 
-  getTagName(id): string {
+  getTagName(id: string): string {
     return this.data.tags.find(elem => elem.id === id).name;
   }
 
-  getColor(tagId): string {
-    const colorObj = this.piePallete.find(item => item.tagId === tagId);
+  getColor(tagId: string): string {
+    const colorObj = this.pallete.find(item => item.tagId === tagId);
     let color;
     if (colorObj) {
       color = colorObj.color;
     } else {
       color = this.colorService.get();
-      this.piePallete.push({
+      this.pallete.push({
         color: color,
         tagId: tagId
       });
     }
     return color;
+  }
+
+  isChanged(oldData, newData) {
+    return JSON.stringify(oldData) !== JSON.stringify(newData);
   }
 }
