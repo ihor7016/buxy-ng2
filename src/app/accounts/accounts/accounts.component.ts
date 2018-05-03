@@ -14,7 +14,7 @@ import { AccountsData } from "./accounts-data.interface";
 @Component({
   selector: "app-accounts",
   templateUrl: "./accounts.component.html",
-  styleUrls: ["../../styles/drawer-menu.scss"]
+  styleUrls: ["./accounts.component.scss"]
 })
 export class AccountsComponent implements OnInit, OnDestroy {
   accounts: AccountsData[];

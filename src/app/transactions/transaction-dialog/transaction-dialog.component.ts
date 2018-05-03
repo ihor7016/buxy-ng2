@@ -10,7 +10,7 @@ import { TransactionDialogData } from "./transactions-dialog-data.interface";
 @Component({
   selector: "app-transaction-dialog",
   templateUrl: "./transaction-dialog.component.html",
-  styleUrls: ["../../styles/dialog.scss"],
+  styleUrls: ["./transaction-dialog.component.scss"],
   providers: [DatePipe]
 })
 export class TransactionDialogComponent implements OnInit {

@@ -5,7 +5,7 @@ import { version } from "../../../../package.json";
 @Component({
   selector: "app-about-dialog",
   templateUrl: "./about-dialog.component.html",
-  styleUrls: ["../../styles/dialog.scss"]
+  styleUrls: ["./about-dialog.component.scss"]
 })
 export class AboutDialogComponent {
   version: any = version;

@@ -1,7 +1,0 @@
-$theme-primary: mat-palette($mat-deep-purple);
-$theme-accent: mat-palette($mat-teal);
-
-$theme: mat-light-theme($theme-primary, $theme-accent);
-
-@include mat-core();
-@include angular-material-theme($theme);

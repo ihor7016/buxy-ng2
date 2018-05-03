@@ -7,7 +7,7 @@ import { Account } from "../../interfaces/account.interface";
 @Component({
   selector: "app-account-dialog",
   templateUrl: "./account-dialog.component.html",
-  styleUrls: ["../../styles/dialog.scss"]
+  styleUrls: ["./account-dialog.component.scss"]
 })
 export class AccountDialogComponent implements OnInit {
   form: FormGroup;
