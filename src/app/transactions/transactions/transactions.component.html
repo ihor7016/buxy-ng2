@@ -5,7 +5,7 @@
       <app-bar-chart [chartData]="data" class="transactions__chart mat-elevation-z2"></app-bar-chart>
     </div>
     <app-table-transactions [tableData]="data" (editClick)="handleEditTransactionClick($event)"
-      (deleteClick)="deleteTransaction($event)">
+      (deleteClick)="handleDeleteTransaction($event)">
     </app-table-transactions>
   </div>
   <button mat-fab (click)="handleAddTransactionClick()" class="transactions__add-dialog-activation">

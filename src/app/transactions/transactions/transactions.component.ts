@@ -52,15 +52,19 @@ export class TransactionsComponent implements OnInit, OnDestroy {
   }
 
   addTransaction(data) {
-    return this.transactionsService.setData(data).subscribe();
+    return this.transactionsService.setData(data);
   }
 
   editTransaction(data) {
-    return this.transactionsService.updateData(data).subscribe();
+    return this.transactionsService.updateData(data);
   }
 
-  deleteTransaction(event) {
-    return this.transactionsService.deleteData(event.id).subscribe();
+  deleteTransaction(id) {
+    return this.transactionsService.deleteData(id);
+  }
+
+  handleDeleteTransaction(event) {
+    this.deleteTransaction(event.id).subscribe();
   }
 
   handleEditTransactionClick(event) {
@@ -84,9 +88,9 @@ export class TransactionsComponent implements OnInit, OnDestroy {
     transactionDialog.afterClosed().subscribe(data => {
       if (data) {
         if (action === "Add") {
-          this.addTransaction(data);
+          this.addTransaction(data).subscribe();
         } else if (action === "Edit") {
-          this.editTransaction(data);
+          this.editTransaction(data).subscribe();
         }
       }
     });

@@ -4,6 +4,7 @@ import { Observable } from "rxjs/Observable";
 import { Subscription } from "rxjs/Subscription";
 import "rxjs/add/observable/combineLatest";
 import "rxjs/add/operator/first";
+import "rxjs/add/operator/filter";
 
 import { AccountDialogComponent } from "../account-dialog/account-dialog.component";
 
@@ -65,18 +66,16 @@ export class AccountsComponent implements OnInit, OnDestroy {
     });
   }
 
-  private removeAccount(account, subscription) {
-    this.accountsService.deleteData(account.id).subscribe();
-    subscription.unsubscribe();
+  private removeAccount(account) {
+    return this.accountsService.deleteData(account.id);
   }
 
-  private removeTransactions(transactions, account, subscription) {
+  private removeTransactions(transactions, account) {
     transactions.forEach((value, index, array) => {
-      this.transactionsService.deleteData(value.id).subscribe(() => {
-        if (this.isLastItem(index, array)) {
-          this.removeAccount(account, subscription);
-        }
-      });
+      this.transactionsService
+        .deleteData(value.id)
+        .filter(() => this.isLastItem(index, array))
+        .subscribe(() => this.removeAccount(account).subscribe());
     });
   }
 
@@ -85,7 +84,7 @@ export class AccountsComponent implements OnInit, OnDestroy {
   }
 
   deleteAccount(account) {
-    const subscription = this.transactionsService
+    this.transactionsService
       .getList()
       .first()
       .subscribe(transactions => {
@@ -93,13 +92,9 @@ export class AccountsComponent implements OnInit, OnDestroy {
           value => value.accountId === account.id
         );
         if (transactionsWIthAccount.length > 0) {
-          this.removeTransactions(
-            transactionsWIthAccount,
-            account,
-            subscription
-          );
+          this.removeTransactions(transactionsWIthAccount, account);
         } else {
-          this.removeAccount(account, subscription);
+          this.removeAccount(account).subscribe();
         }
       });
   }
