@@ -52,13 +52,14 @@ export class TransactionsChartsComponent implements OnChanges {
     const barData = this.createBarData();
     this.barData = [{ data: [barData.income, barData.expense] }];
     const pieData = this.createPieData();
-    const isPieChanged = this.checkChanges(pieData);
-    if (isPieChanged) {
+    if (this.isChanged(this.pieLabels, pieData.tags)) {
       this.pieLabels = pieData.tags;
       this.pieColors[0].backgroundColor = pieData.colors;
       setTimeout(() => {
         this.pieData = pieData.amounts;
       }, 0);
+    } else if (this.isChanged(this.pieData, pieData.amounts)) {
+      this.pieData = pieData.amounts;
     }
   }
 
@@ -106,15 +107,15 @@ export class TransactionsChartsComponent implements OnChanges {
   }
 
   cleanPieData(data: PieChartData): PieChartData {
-    const tags = [...data.tags];
-    const tagIds = [...data.tagIds];
-    const colors = [...data.colors];
-    const amounts = [...data.amounts];
-    amounts.filter((amount, i) => {
+    let tags = [...data.tags];
+    let tagIds = [...data.tagIds];
+    let colors = [...data.colors];
+    let amounts = [...data.amounts];
+    amounts = amounts.filter((amount, i) => {
       if (!amount) {
-        tags.filter((elem, index) => i !== index);
-        tagIds.filter((elem, index) => i !== index);
-        colors.filter((elem, index) => i !== index);
+        tags = tags.filter((elem, index) => i !== index);
+        tagIds = tagIds.filter((elem, index) => i !== index);
+        colors = colors.filter((elem, index) => i !== index);
         return;
       }
       return amount;
