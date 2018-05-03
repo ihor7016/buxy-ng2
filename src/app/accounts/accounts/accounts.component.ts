@@ -7,8 +7,8 @@ import "rxjs/add/operator/first";
 
 import { AccountDialogComponent } from "../account-dialog/account-dialog.component";
 
-import { AccountsService } from "../../services/storage/accounts.service";
-import { TransactionsService } from "../../services/storage/transactions.service";
+import { AccountsService } from "../../storage/services/accounts.service";
+import { TransactionsService } from "../../storage/services/transactions.service";
 import { AccountsData } from "./accounts-data.interface";
 
 @Component({

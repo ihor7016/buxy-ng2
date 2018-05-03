@@ -1,13 +1,12 @@
 import { Component, Input, OnChanges } from "@angular/core";
-import { ColorService } from "../../services/color.service";
+import { ColorService } from "../../shared/services/color.service";
 import { PieChartColor } from "./pie-chart-color.interface";
 import { PieChartData } from "./pie-chart-data.interface";
 
 @Component({
   selector: "app-pie-chart",
   templateUrl: "./pie-chart.component.html",
-  styleUrls: ["./pie-chart.component.scss"],
-  providers: [ColorService]
+  styleUrls: ["./pie-chart.component.scss"]
 })
 export class PieChartComponent implements OnChanges {
   public pieChartLabels: string[] = [];

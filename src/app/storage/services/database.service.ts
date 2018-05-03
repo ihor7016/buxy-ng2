@@ -3,7 +3,7 @@ import { AngularFireDatabase } from "angularfire2/database";
 import { Observable } from "rxjs/Observable";
 import { fromPromise } from "rxjs/observable/fromPromise";
 
-import { AuthService } from "../auth.service";
+import { AuthService } from "../../auth/auth/auth.service";
 
 @Injectable()
 export class DatabaseService {
