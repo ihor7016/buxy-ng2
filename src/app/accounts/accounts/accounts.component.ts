@@ -58,11 +58,10 @@ export class AccountsComponent implements OnInit, OnDestroy {
       },
       minWidth: "50%"
     });
-    addAccountDialog.afterClosed().subscribe(res => {
-      if (res) {
-        this.accountsService.setData(res).subscribe();
-      }
-    });
+    addAccountDialog
+      .afterClosed()
+      .filter(res => res)
+      .subscribe(res => this.accountsService.setData(res).subscribe());
   }
 
   private removeAccount(account, subscription) {
@@ -109,11 +108,10 @@ export class AccountsComponent implements OnInit, OnDestroy {
       data: { action: "Edit", dataToEdit: account, accounts: this.accounts },
       minWidth: "50%"
     });
-    editAccountDialog.afterClosed().subscribe(res => {
-      if (res) {
-        this.accountsService.updateData(res).subscribe();
-      }
-    });
+    editAccountDialog
+      .afterClosed()
+      .filter(res => res)
+      .subscribe(res => this.accountsService.updateData(res).subscribe());
   }
 
   createData(accounts, transactions): AccountsData[] {

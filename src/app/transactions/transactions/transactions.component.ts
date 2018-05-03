@@ -81,15 +81,16 @@ export class TransactionsComponent implements OnInit, OnDestroy {
       },
       minWidth: "50%"
     });
-    transactionDialog.afterClosed().subscribe(data => {
-      if (data) {
+    transactionDialog
+      .afterClosed()
+      .filter(res => res)
+      .subscribe(res => {
         if (action === "Add") {
-          this.addTransaction(data);
+          this.addTransaction(res);
         } else if (action === "Edit") {
-          this.editTransaction(data);
+          this.editTransaction(res);
         }
-      }
-    });
+      });
   }
 
   convertToUah(transaction, accountList) {
