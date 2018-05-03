@@ -6,18 +6,17 @@ import "rxjs/add/observable/combineLatest";
 
 import { TransactionDialogComponent } from "../transaction-dialog/transaction-dialog.component";
 
-import { TransactionsService } from "../../services/storage/transactions.service";
-import { AccountsService } from "../../services/storage/accounts.service";
-import { TagsService } from "../../services/storage/tags.service";
-import { CurrencyUahService } from "../../services/currency-uah.service";
+import { TransactionsService } from "../../storage/services/transactions.service";
+import { AccountsService } from "../../storage/services/accounts.service";
+import { TagsService } from "../../storage/services/tags.service";
+import { CurrencyUahService } from "../../shared/services/currency-uah.service";
 
 import { TransactionsData } from "./transactions-data.interface";
 
 @Component({
   selector: "app-transactions",
   templateUrl: "./transactions.component.html",
-  styleUrls: ["./transactions.component.scss"],
-  providers: [CurrencyUahService]
+  styleUrls: ["./transactions.component.scss"]
 })
 export class TransactionsComponent implements OnInit, OnDestroy {
   dataStream: Observable<TransactionsData>;

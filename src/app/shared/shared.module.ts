@@ -10,7 +10,8 @@ import { AboutDialogComponent } from "./about-dialog/about-dialog.component";
 import { BarChartComponent } from "./charts/bar-chart/bar-chart.component";
 import { PieChartComponent } from "./charts/pie-chart/pie-chart.component";
 
-import { ColorService } from "../services/color.service";
+import { CurrencyUahService } from "./services/currency-uah.service";
+import { ColorService } from "./services/color.service";
 
 @NgModule({
   imports: [
@@ -36,12 +37,7 @@ import { ColorService } from "../services/color.service";
     BarChartComponent,
     PieChartComponent
   ],
-  providers: [ColorService],
-  entryComponents: [
-    AboutDialogComponent,
-    ConfirmDialogComponent,
-    BarChartComponent,
-    PieChartComponent
-  ]
+  providers: [CurrencyUahService, ColorService],
+  entryComponents: [AboutDialogComponent, ConfirmDialogComponent]
 })
 export class SharedModule {}

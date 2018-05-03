@@ -1,5 +1,5 @@
 import { Component, OnChanges, Input } from "@angular/core";
-import { ColorService } from "../../../services/color.service";
+import { ColorService } from "../../../shared/services/color.service";
 
 import { PieChartColor } from "./interfaces/pie-chart-color.interface";
 import { PieChartData } from "./interfaces/pie-chart-data.interface";
