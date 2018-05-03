@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { DatePipe } from "@angular/common";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material";
+import "rxjs/add/operator/first";
 
 import { Transaction } from "../../interfaces/transaction.interface";
 import { TransactionsDialogGroup } from "./transactions-dialog-group.interface";
@@ -34,9 +35,9 @@ export class TransactionDialogComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.formBuilder.group(this.createData());
-    this.form.controls.amount.valueChanges.subscribe(() =>
-      this.form.controls.amount.markAsTouched()
-    );
+    this.form.controls.amount.valueChanges
+      .first()
+      .subscribe(() => this.form.controls.amount.markAsTouched());
   }
 
   createData(): TransactionsDialogGroup {
