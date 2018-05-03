@@ -1,5 +1,4 @@
 import { Component } from "@angular/core";
-import { MatDialogRef } from "@angular/material";
 import { version } from "../../../../package.json";
 
 @Component({
@@ -9,5 +8,4 @@ import { version } from "../../../../package.json";
 })
 export class AboutDialogComponent {
   version: any = version;
-  constructor(public matDialogRef: MatDialogRef<AboutDialogComponent>) {}
 }
