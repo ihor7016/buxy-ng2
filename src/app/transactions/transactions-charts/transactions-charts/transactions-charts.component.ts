@@ -49,8 +49,16 @@ export class TransactionsChartsComponent implements OnChanges {
   constructor(private colorService: ColorService) {}
 
   ngOnChanges() {
+    this.updateBarData();
+    this.updatePieData();
+  }
+
+  updateBarData() {
     const barData = this.createBarData();
     this.barData = [{ data: [barData.income, barData.expense] }];
+  }
+
+  updatePieData() {
     const pieData = this.createPieData();
     if (this.isChanged(this.pieLabels, pieData.tags)) {
       this.pieLabels = pieData.tags;
