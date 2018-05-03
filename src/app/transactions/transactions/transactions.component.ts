@@ -10,6 +10,7 @@ import { TransactionsService } from "../../storage/services/transactions.service
 import { AccountsService } from "../../storage/services/accounts.service";
 import { TagsService } from "../../storage/services/tags.service";
 import { CurrencyUahService } from "../../shared/services/currency-uah.service";
+import { ErrorService } from "../../shared/error/error.service";
 
 import { TransactionsData } from "./transactions-data.interface";
 
@@ -28,7 +29,8 @@ export class TransactionsComponent implements OnInit, OnDestroy {
     private transactionsService: TransactionsService,
     private accountsService: AccountsService,
     private tagsService: TagsService,
-    private converter: CurrencyUahService
+    private converter: CurrencyUahService,
+    private errorService: ErrorService
   ) {}
 
   ngOnInit() {
@@ -90,7 +92,10 @@ export class TransactionsComponent implements OnInit, OnDestroy {
         if (action === "Add") {
           this.addTransaction(data).subscribe();
         } else if (action === "Edit") {
-          this.editTransaction(data).subscribe();
+          this.editTransaction(data).subscribe(
+            () => {},
+            error => this.errorService.setError(error)
+          );
         }
       }
     });

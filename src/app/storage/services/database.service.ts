@@ -2,6 +2,8 @@ import { Injectable } from "@angular/core";
 import { AngularFireDatabase } from "angularfire2/database";
 import { Observable } from "rxjs/Observable";
 import { fromPromise } from "rxjs/observable/fromPromise";
+import "rxjs/add/operator/catch";
+import "rxjs/add/observable/throw";
 
 import { AuthService } from "../../auth/auth/auth.service";
 
@@ -34,10 +36,14 @@ export class DatabaseService {
   updateData(dataType: string, data: any): Observable<void> {
     return fromPromise(
       this.db.list(`${this.path}/${dataType}`).update(data.id, data)
-    );
+    ).catch(this.handleError);
   }
 
   deleteData(dataType: string, dataId: string): Observable<void> {
     return fromPromise(this.db.list(`${this.path}/${dataType}`).remove(dataId));
+  }
+
+  handleError(error) {
+    return Observable.throw(error);
   }
 }

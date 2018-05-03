@@ -1,4 +1,5 @@
 <div class="transactions">
+  <app-error></app-error>
   <div class="transactions__content" *ngIf="data && data.transactions.length">
     <div class="transactions__charts">
       <app-pie-chart [chartData]="data" class="transactions__chart mat-elevation-z2"></app-pie-chart>
