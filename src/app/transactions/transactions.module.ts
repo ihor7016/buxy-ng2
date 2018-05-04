@@ -1,5 +1,4 @@
 import { NgModule } from "@angular/core";
-import { ChartsModule } from "ng2-charts";
 import { SharedModule } from "../shared/shared.module";
 import { TransactionsChartsModule } from "./transactions-charts/transactions-charts.module";
 
