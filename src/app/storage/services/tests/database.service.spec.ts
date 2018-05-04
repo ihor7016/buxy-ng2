@@ -1,8 +1,10 @@
 import { TestBed } from "@angular/core/testing";
 import { DatabaseService } from "../database.service";
 import { Observable } from "rxjs/Observable";
+import { fromPromise } from "rxjs/observable/fromPromise";
 import { AuthService } from "../../../auth/auth/auth.service";
 import { AngularFireDatabase } from "angularfire2/database";
+import { PromiseObservable } from "rxjs/observable/PromiseObservable";
 
 class AuthMock {
   currentUser = {
@@ -10,20 +12,36 @@ class AuthMock {
   };
 }
 
-let samleToStore = { id: "", name: "tagNameToStore" };
-let sampleToUpdate = { id: "tagId1", name: "newName" };
-
 describe("DatabaseService", () => {
-  let sampleList, sampleObject;
+  let sampleList, sampleObject, sampleToStore, sampleToUpdate;
   let service: DatabaseService;
   let dataType: string = "tags";
+  let dataId: string = "tagId1";
+  let setSpy = jasmine
+    .createSpy("set")
+    .and.callFake((id: string, data: any) => {
+      return Promise.resolve();
+    });
+  let updateSpy = jasmine
+    .createSpy("update")
+    .and.callFake((id: string, data: any) => {
+      return Promise.resolve();
+    });
+  let removeSpy = jasmine.createSpy("remove").and.callFake((id: string) => {
+    return Promise.resolve();
+  });
   let objectSpy: any = jasmine
     .createSpy("object")
     .and.callFake((path: string) => {
       return { valueChanges: () => Observable.of(sampleObject) };
     });
   let listSpy: any = jasmine.createSpy("list").and.callFake((path: string) => {
-    return { valueChanges: () => Observable.of(sampleList) };
+    return {
+      valueChanges: () => Observable.of(sampleList),
+      set: setSpy,
+      update: updateSpy,
+      remove: removeSpy
+    };
   });
   let createPushIdSpy: any = jasmine
     .createSpy("createPushId")
@@ -48,6 +66,8 @@ describe("DatabaseService", () => {
       { id: "tagId2", name: "tagName2" }
     ];
     sampleObject = { id: "tagId1", name: "tagName1" };
+    sampleToStore = { id: "", name: "tagNameToStore" };
+    sampleToUpdate = { id: "tagId1", name: "newName" };
   });
 
   afterEach(() => {
@@ -56,5 +76,86 @@ describe("DatabaseService", () => {
 
   it("should be created", () => {
     expect(service).toBeTruthy();
+  });
+
+  describe("get path", () => {
+    it("should return path 'users/id'", () => {
+      expect(service.path).toBe("users/id");
+    });
+  });
+
+  describe("getList", () => {
+    it("should return Observable with correct array", () => {
+      expect(service.getList(dataType)).toEqual(Observable.of(sampleList));
+    });
+
+    it("should call db.list with correct path", () => {
+      expect(listSpy).toHaveBeenCalledWith(`users/id/${dataType}`);
+    });
+  });
+
+  describe("getData", () => {
+    it("should return Observable with correct object", () => {
+      expect(service.getData(dataType, dataId)).toEqual(
+        Observable.of(sampleObject)
+      );
+    });
+
+    it("should call db.object with correct path", () => {
+      expect(objectSpy).toHaveBeenCalledWith(`users/id/${dataType}/${dataId}`);
+    });
+  });
+
+  describe("setData", () => {
+    it("should return empty Observable", () => {
+      expect(service.setData(dataType, sampleToStore)).toEqual(
+        fromPromise(Promise.resolve())
+      );
+    });
+
+    it("should call db.list with correct path", () => {
+      expect(listSpy).toHaveBeenCalledWith(`users/id/${dataType}`);
+    });
+
+    it("should call db.createPushId", () => {
+      expect(createPushIdSpy).toHaveBeenCalledTimes(1);
+    });
+
+    it("should call db.list.set with correct id and data", () => {
+      sampleToStore.id = "newId";
+      expect(setSpy).toHaveBeenCalledWith("newId", sampleToStore);
+    });
+  });
+
+  describe("updateData", () => {
+    it("should return empty Observable", () => {
+      expect(service.updateData(dataType, sampleToUpdate)).toEqual(
+        fromPromise(Promise.resolve())
+      );
+    });
+
+    it("should call db.list with correct path", () => {
+      expect(listSpy).toHaveBeenCalledWith(`users/id/${dataType}`);
+    });
+
+    it("should call db.list.update with correct id and data", () => {
+      expect(updateSpy).toHaveBeenCalledWith(sampleToUpdate.id, sampleToUpdate);
+    });
+  });
+
+  describe("deleteData", () => {
+    it("should return empty Observable", () => {
+      expect(service.deleteData(dataType, "tagId1")).toEqual(
+        fromPromise(Promise.resolve())
+      );
+    });
+
+    it("should call db.list with correct path", () => {
+      expect(listSpy).toHaveBeenCalledWith(`users/id/${dataType}`);
+    });
+
+    it("should call db.list.remove with correct id", () => {
+      expect(removeSpy).toHaveBeenCalledWith("tagId1");
+    });
   });
 });
