@@ -1,10 +1,9 @@
 import { TestBed } from "@angular/core/testing";
 import { DatabaseService } from "../database.service";
-import { Observable } from "rxjs/Observable";
-import { fromPromise } from "rxjs/observable/fromPromise";
 import { AuthService } from "../../../auth/auth/auth.service";
 import { AngularFireDatabase } from "angularfire2/database";
-import { PromiseObservable } from "rxjs/observable/PromiseObservable";
+import { Observable } from "rxjs/Observable";
+import { fromPromise } from "rxjs/observable/fromPromise";
 
 class AuthMock {
   currentUser = {
