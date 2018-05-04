@@ -7,9 +7,6 @@ let service: ColorService;
 describe("ColorService", () => {
   beforeAll(() => {
     Math.random = () => 0.5;
-  });
-
-  beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [ColorService]
     });
