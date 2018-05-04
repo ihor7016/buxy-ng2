@@ -4,6 +4,7 @@ import { Observable } from "rxjs/Observable";
 import { Subscription } from "rxjs/Subscription";
 import "rxjs/add/observable/combineLatest";
 import "rxjs/add/operator/first";
+import "rxjs/add/operator/filter";
 
 import { AccountDialogComponent } from "../account-dialog/account-dialog.component";
 
@@ -50,9 +51,9 @@ export class AccountsComponent implements OnInit, OnDestroy {
           transactions: transactions
         };
       }
-    ).subscribe(
-      res => (this.accounts = this.createData(res.accounts, res.transactions))
-    );
+    )
+      .map(res => this.createData(res.accounts, res.transactions))
+      .subscribe(res => (this.accounts = res));
   }
 
   ngOnDestroy() {
@@ -73,27 +74,25 @@ export class AccountsComponent implements OnInit, OnDestroy {
       .subscribe(res => this.accountsService.setData(res).subscribe());
   }
 
-  private removeAccount(account, subscription) {
-    this.accountsService.deleteData(account.id).subscribe();
-    subscription.unsubscribe();
+  private removeAccount(account: Account): Observable<void> {
+    return this.accountsService.deleteData(account.id);
   }
 
-  private removeTransactions(transactions, account, subscription) {
+  private removeTransactions(transactions: Transaction[], account: Account) {
     transactions.forEach((value, index, array) => {
-      this.transactionsService.deleteData(value.id).subscribe(() => {
-        if (this.isLastItem(index, array)) {
-          this.removeAccount(account, subscription);
-        }
-      });
+      this.transactionsService
+        .deleteData(value.id)
+        .filter(() => this.isLastItem(index, array))
+        .subscribe(() => this.removeAccount(account).subscribe());
     });
   }
 
-  private isLastItem(index, array) {
+  private isLastItem(index: number, array: Transaction[]) {
     return index === array.length - 1;
   }
 
-  deleteAccount(account) {
-    const subscription = this.transactionsService
+  deleteAccount(account: Account) {
+    this.transactionsService
       .getList()
       .first()
       .subscribe(transactions => {
@@ -101,18 +100,14 @@ export class AccountsComponent implements OnInit, OnDestroy {
           value => value.accountId === account.id
         );
         if (transactionsWIthAccount.length > 0) {
-          this.removeTransactions(
-            transactionsWIthAccount,
-            account,
-            subscription
-          );
+          this.removeTransactions(transactionsWIthAccount, account);
         } else {
-          this.removeAccount(account, subscription);
+          this.removeAccount(account).subscribe();
         }
       });
   }
 
-  editAccount(account) {
+  editAccount(account: Account) {
     const editAccountDialog = this.dialog.open(AccountDialogComponent, {
       data: { action: "Edit", dataToEdit: account, accounts: this.accounts },
       minWidth: "50%"
@@ -123,21 +118,14 @@ export class AccountsComponent implements OnInit, OnDestroy {
       .subscribe(res => this.accountsService.updateData(res).subscribe());
   }
 
-  createData(accounts, transactions): AccountsData[] {
+  createData(accounts: Account[], transactions: Transaction[]): AccountsData[] {
     return accounts.map(item => {
-      item.currentBalance = this.calculateBalance(item, transactions);
-      return item;
+      const newItem: any = Object.assign({}, item);
+      newItem.currentBalance = this.dataService.calculateBalance(
+        item,
+        transactions
+      );
+      return <AccountsData>newItem;
     });
-  }
-
-  calculateBalance(account, transactions): number {
-    let currentBalance = account.balance;
-    const amount = transactions.reduce((amount, item) => {
-      if (item.accountId === account.id) {
-        amount += parseInt(item.type + item.amount);
-      }
-      return amount;
-    }, 0);
-    return currentBalance + amount;
   }
 }
