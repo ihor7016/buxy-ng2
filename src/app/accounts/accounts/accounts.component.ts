@@ -10,7 +10,10 @@ import { AccountDialogComponent } from "../account-dialog/account-dialog.compone
 
 import { AccountsService } from "../../storage/services/accounts.service";
 import { TransactionsService } from "../../storage/services/transactions.service";
+
 import { AccountsData } from "./accounts-data.interface";
+import { Transaction } from "../../interfaces/transaction.interface";
+import { Account } from "../../interfaces/account.interface";
 
 @Component({
   selector: "app-accounts",
@@ -31,8 +34,12 @@ export class AccountsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    const accounts = this.accountsService.getList().map(res => res.reverse());
-    const transactions = this.transactionsService.getList();
+    const accounts: Observable<Account[]> = this.accountsService
+      .getList()
+      .map(res => res.reverse());
+    const transactions: Observable<
+      Transaction[]
+    > = this.transactionsService.getList();
     this.subscription = Observable.combineLatest(
       accounts,
       transactions,
@@ -59,11 +66,10 @@ export class AccountsComponent implements OnInit, OnDestroy {
       },
       minWidth: "50%"
     });
-    addAccountDialog.afterClosed().subscribe(res => {
-      if (res) {
-        this.accountsService.setData(res).subscribe();
-      }
-    });
+    addAccountDialog
+      .afterClosed()
+      .filter(res => res)
+      .subscribe(res => this.accountsService.setData(res).subscribe());
   }
 
   private removeAccount(account) {
@@ -104,11 +110,10 @@ export class AccountsComponent implements OnInit, OnDestroy {
       data: { action: "Edit", dataToEdit: account, accounts: this.accounts },
       minWidth: "50%"
     });
-    editAccountDialog.afterClosed().subscribe(res => {
-      if (res) {
-        this.accountsService.updateData(res).subscribe();
-      }
-    });
+    editAccountDialog
+      .afterClosed()
+      .filter(res => res)
+      .subscribe(res => this.accountsService.updateData(res).subscribe());
   }
 
   createData(accounts, transactions): AccountsData[] {

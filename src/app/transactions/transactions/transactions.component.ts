@@ -13,6 +13,9 @@ import { CurrencyUahService } from "../../shared/services/currency-uah.service";
 import { ErrorService } from "../../shared/error/error.service";
 
 import { TransactionsData } from "./transactions-data.interface";
+import { Transaction } from "../../interfaces/transaction.interface";
+import { Account } from "../../interfaces/account.interface";
+import { Tag } from "../../interfaces/tag.interface";
 
 @Component({
   selector: "app-transactions",
@@ -34,9 +37,11 @@ export class TransactionsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    const transactions = this.transactionsService.getList();
-    const accounts = this.accountsService.getList();
-    const tags = this.tagsService.getList();
+    const transactions: Observable<
+      Transaction[]
+    > = this.transactionsService.getList();
+    const accounts: Observable<Account[]> = this.accountsService.getList();
+    const tags: Observable<Tag[]> = this.tagsService.getList();
     this.dataStream = Observable.combineLatest(
       transactions,
       accounts,
@@ -87,18 +92,22 @@ export class TransactionsComponent implements OnInit, OnDestroy {
       },
       minWidth: "50%"
     });
-    transactionDialog.afterClosed().subscribe(data => {
-      if (data) {
+    transactionDialog
+      .afterClosed()
+      .filter(res => res)
+      .subscribe(res => {
         if (action === "Add") {
-          this.addTransaction(data).subscribe();
+          this.addTransaction(res).subscribe(
+            () => {},
+            error => this.errorService.setError(error)
+          );
         } else if (action === "Edit") {
-          this.editTransaction(data).subscribe(
+          this.editTransaction(res).subscribe(
             () => {},
             error => this.errorService.setError(error)
           );
         }
-      }
-    });
+      });
   }
 
   convertToUah(transaction, accountList) {
