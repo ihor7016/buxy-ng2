@@ -2,7 +2,8 @@ import { RouterModule, Routes } from "@angular/router";
 import { AuthComponent } from "./auth/auth/auth.component";
 import { LayoutComponent } from "./layout/layout/layout.component";
 import { NotFoundComponent } from "./layout/not-found/not-found.component";
-import { AuthGuard, MainGuard } from "./auth/auth/auth-guard.service";
+import { AuthGuard } from "./auth/auth/auth-guard.service";
+import { MainGuard } from "./auth/auth/main-guard.service";
 
 const appRoutes: Routes = [
   {
