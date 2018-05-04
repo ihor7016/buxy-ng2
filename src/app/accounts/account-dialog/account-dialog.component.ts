@@ -1,6 +1,8 @@
 import { Component, Inject, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, AbstractControl } from "@angular/forms";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
+import "rxjs/add/operator/first";
+
 import { AccountDialogData } from "./account-dialog-data.interface";
 import { Account } from "../../interfaces/account.interface";
 
@@ -114,7 +116,7 @@ export class AccountDialogComponent implements OnInit {
 
   addEventValidation(fields: AbstractControl[]) {
     fields.forEach(field =>
-      field.valueChanges.subscribe(() => field.markAsTouched())
+      field.valueChanges.first().subscribe(() => field.markAsTouched())
     );
   }
 
