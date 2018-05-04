@@ -9,6 +9,8 @@ import { AccountDialogComponent } from "../account-dialog/account-dialog.compone
 
 import { AccountsService } from "../../storage/services/accounts.service";
 import { TransactionsService } from "../../storage/services/transactions.service";
+import { AccountsDataService } from "./accounts-data.service";
+
 import { AccountsData } from "./accounts-data.interface";
 
 @Component({
@@ -24,7 +26,8 @@ export class AccountsComponent implements OnInit, OnDestroy {
   constructor(
     private dialog: MatDialog,
     private accountsService: AccountsService,
-    private transactionsService: TransactionsService
+    private transactionsService: TransactionsService,
+    private dataService: AccountsDataService
   ) {
     this.accounts = [];
   }
