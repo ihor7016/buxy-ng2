@@ -1,10 +1,8 @@
 import { Component, OnChanges, Input } from "@angular/core";
-import { ColorService } from "../../../shared/services/color.service";
+import { TransactionsChartsService } from "./transactions-charts.service";
 
-import { PieChartColor } from "./interfaces/pie-chart-color.interface";
 import { PieChartData } from "./interfaces/pie-chart-data.interface";
 import { BarChartData } from "./interfaces/bar-chart-data.interface";
-import { TransactionUah } from "../../transactions/transaction-uah.interface";
 import { TransactionsData } from "../../transactions/transactions-data.interface";
 
 @Component({
@@ -43,10 +41,7 @@ export class TransactionsChartsComponent implements OnChanges {
     }
   };
 
-  private pallete: PieChartColor[] = [];
-  private tagIds: string[] = [];
-
-  constructor(private colorService: ColorService) {}
+  constructor(private chartsService: TransactionsChartsService) {}
 
   ngOnChanges() {
     this.updateBarData();
@@ -54,124 +49,20 @@ export class TransactionsChartsComponent implements OnChanges {
   }
 
   updateBarData() {
-    const barData = this.createBarData();
+    const barData: BarChartData = this.chartsService.createBarData(this.data);
     this.barData = [{ data: [barData.income, barData.expense] }];
   }
 
   updatePieData() {
-    const pieData = this.createPieData();
-    if (this.isChanged(this.pieLabels, pieData.tags)) {
+    const pieData: PieChartData = this.chartsService.createPieData(this.data);
+    if (this.chartsService.isChanged(this.pieLabels, pieData.tags)) {
       this.pieLabels = pieData.tags;
       this.pieColors[0].backgroundColor = pieData.colors;
       setTimeout(() => {
         this.pieData = pieData.amounts;
       }, 0);
-    } else if (this.isChanged(this.pieData, pieData.amounts)) {
+    } else if (this.chartsService.isChanged(this.pieData, pieData.amounts)) {
       this.pieData = pieData.amounts;
     }
-  }
-
-  createBarData(): BarChartData {
-    return this.data.transactions.reduce(
-      (acc, data) => this.calculateBarData(acc, data),
-      {
-        income: 0,
-        expense: 0
-      }
-    );
-  }
-
-  calculateBarData(acc: BarChartData, data: TransactionUah): BarChartData {
-    let res = Object.assign({}, acc);
-    if (data.type === "-") {
-      res.expense += data.amountUah;
-    } else {
-      res.income += data.amountUah;
-    }
-    return res;
-  }
-
-  checkChanges(data: PieChartData): boolean {
-    let isChanged =
-      this.isChanged(this.pieLabels, data.tags) ||
-      this.isChanged(this.pieData, data.amounts) ||
-      this.isChanged(this.pieColors[0].backgroundColor, data.colors);
-    return isChanged;
-  }
-
-  createPieData(): PieChartData {
-    const expenses = this.data.transactions.filter(item => item.type === "-");
-    const fullData = expenses.reduce(
-      (acc, data) => this.calculatePieData(acc, data),
-      {
-        tagIds: [...this.tagIds],
-        tags: new Array(this.tagIds.length),
-        amounts: new Array(this.tagIds.length).fill(0),
-        colors: new Array(this.tagIds.length)
-      }
-    );
-    const data = this.cleanPieData(fullData);
-    return data;
-  }
-
-  cleanPieData(data: PieChartData): PieChartData {
-    let tags = [...data.tags];
-    let tagIds = [...data.tagIds];
-    let colors = [...data.colors];
-    let amounts = [...data.amounts];
-    amounts = amounts.filter((amount, i) => {
-      if (!amount) {
-        tags = tags.filter((elem, index) => i !== index);
-        tagIds = tagIds.filter((elem, index) => i !== index);
-        colors = colors.filter((elem, index) => i !== index);
-        return;
-      }
-      return amount;
-    });
-    return {
-      tags: tags,
-      tagIds: tagIds,
-      amounts: amounts,
-      colors: colors
-    };
-  }
-
-  calculatePieData(acc: PieChartData, data: TransactionUah): PieChartData {
-    const i = acc.tagIds.indexOf(data.tagId);
-    if (i < 0) {
-      this.tagIds.push(data.tagId);
-      acc.tagIds.push(data.tagId);
-      acc.amounts.push(data.amountUah);
-      acc.colors.push(this.getColor(data.tagId));
-      acc.tags.push(this.getTagName(data.tagId));
-    } else {
-      acc.amounts[i] += data.amountUah;
-      acc.colors[i] = this.getColor(data.tagId);
-      acc.tags[i] = this.getTagName(data.tagId);
-    }
-    return acc;
-  }
-
-  getTagName(id: string): string {
-    return this.data.tags.find(elem => elem.id === id).name;
-  }
-
-  getColor(tagId: string): string {
-    const colorObj = this.pallete.find(item => item.tagId === tagId);
-    let color;
-    if (colorObj) {
-      color = colorObj.color;
-    } else {
-      color = this.colorService.get();
-      this.pallete.push({
-        color: color,
-        tagId: tagId
-      });
-    }
-    return color;
-  }
-
-  isChanged(oldData, newData): boolean {
-    return JSON.stringify(oldData) !== JSON.stringify(newData);
   }
 }
