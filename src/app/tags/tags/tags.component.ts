@@ -41,11 +41,10 @@ export class TagsComponent implements OnInit, OnDestroy {
       minWidth: "50%"
     });
 
-    addTagDialog.afterClosed().subscribe(res => {
-      if (res) {
-        this.tagsService.setData(res).subscribe();
-      }
-    });
+    addTagDialog
+      .afterClosed()
+      .filter(res => res)
+      .subscribe(res => this.tagsService.setData(res).subscribe());
   }
 
   private removeTag(tag, subscription) {
@@ -92,10 +91,9 @@ export class TagsComponent implements OnInit, OnDestroy {
       data: { action: "Edit", dataToEdit: tag, tags: this.tags },
       minWidth: "50%"
     });
-    editTagDialog.afterClosed().subscribe(res => {
-      if (res) {
-        this.tagsService.updateData(res).subscribe();
-      }
-    });
+    editTagDialog
+      .afterClosed()
+      .filter(res => res)
+      .subscribe(res => this.tagsService.updateData(res).subscribe());
   }
 }
