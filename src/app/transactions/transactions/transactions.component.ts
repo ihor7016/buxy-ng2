@@ -6,18 +6,20 @@ import "rxjs/add/observable/combineLatest";
 
 import { TransactionDialogComponent } from "../transaction-dialog/transaction-dialog.component";
 
-import { TransactionsService } from "../../services/storage/transactions.service";
-import { AccountsService } from "../../services/storage/accounts.service";
-import { TagsService } from "../../services/storage/tags.service";
-import { CurrencyUahService } from "../../services/currency-uah.service";
+import { TransactionsService } from "../../storage/services/transactions.service";
+import { AccountsService } from "../../storage/services/accounts.service";
+import { TagsService } from "../../storage/services/tags.service";
+import { CurrencyUahService } from "../../shared/services/currency-uah.service";
 
 import { TransactionsData } from "./transactions-data.interface";
+import { Transaction } from "../../interfaces/transaction.interface";
+import { Account } from "../../interfaces/account.interface";
+import { Tag } from "../../interfaces/tag.interface";
 
 @Component({
   selector: "app-transactions",
   templateUrl: "./transactions.component.html",
-  styleUrls: ["./transactions.component.scss"],
-  providers: [CurrencyUahService]
+  styleUrls: ["./transactions.component.scss"]
 })
 export class TransactionsComponent implements OnInit, OnDestroy {
   dataStream: Observable<TransactionsData>;
@@ -33,9 +35,11 @@ export class TransactionsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    const transactions = this.transactionsService.getList();
-    const accounts = this.accountsService.getList();
-    const tags = this.tagsService.getList();
+    const transactions: Observable<
+      Transaction[]
+    > = this.transactionsService.getList();
+    const accounts: Observable<Account[]> = this.accountsService.getList();
+    const tags: Observable<Tag[]> = this.tagsService.getList();
     this.dataStream = Observable.combineLatest(
       transactions,
       accounts,
@@ -82,15 +86,16 @@ export class TransactionsComponent implements OnInit, OnDestroy {
       },
       minWidth: "50%"
     });
-    transactionDialog.afterClosed().subscribe(data => {
-      if (data) {
+    transactionDialog
+      .afterClosed()
+      .filter(res => res)
+      .subscribe(res => {
         if (action === "Add") {
-          this.addTransaction(data);
+          this.addTransaction(res);
         } else if (action === "Edit") {
-          this.editTransaction(data);
+          this.editTransaction(res);
         }
-      }
-    });
+      });
   }
 
   convertToUah(transaction, accountList) {

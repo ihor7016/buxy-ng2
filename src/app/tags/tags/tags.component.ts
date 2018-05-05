@@ -1,12 +1,12 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { MatDialog } from "@angular/material";
 import { Subscription } from "rxjs/Subscription";
+import "rxjs/add/operator/first";
 
 import { TagDialogComponent } from "../tag-dialog/tag-dialog.component";
 import { Tag } from "../../interfaces/tag.interface";
-import { TagsService } from "../../services/storage/tags.service";
-import { TransactionsService } from "../../services/storage/transactions.service";
-import "rxjs/add/operator/first";
+import { TagsService } from "../../storage/services/tags.service";
+import { TransactionsService } from "../../storage/services/transactions.service";
 
 @Component({
   selector: "app-tags",
@@ -41,11 +41,10 @@ export class TagsComponent implements OnInit, OnDestroy {
       minWidth: "50%"
     });
 
-    addTagDialog.afterClosed().subscribe(res => {
-      if (res) {
-        this.tagsService.setData(res).subscribe();
-      }
-    });
+    addTagDialog
+      .afterClosed()
+      .filter(res => res)
+      .subscribe(res => this.tagsService.setData(res).subscribe());
   }
 
   private removeTag(tag, subscription) {
@@ -54,15 +53,13 @@ export class TagsComponent implements OnInit, OnDestroy {
   }
 
   private removeTransactions(transactions, tag, subscription) {
-    transactions
-      .filter(value => value.tagId === tag.id)
-      .forEach((value, index, array) => {
-        this.transactionsService.deleteData(value.id).subscribe(() => {
-          if (this.isLastItem(index, array)) {
-            this.removeTag(tag, subscription);
-          }
-        });
+    transactions.forEach((value, index, array) => {
+      this.transactionsService.deleteData(value.id).subscribe(() => {
+        if (this.isLastItem(index, array)) {
+          this.removeTag(tag, subscription);
+        }
       });
+    });
   }
 
   private isLastItem(index, array) {
@@ -74,8 +71,15 @@ export class TagsComponent implements OnInit, OnDestroy {
       .getList()
       .first()
       .subscribe(transactions => {
-        if (transactions.length > 0) {
-          this.removeTransactions(transactions, tag, subscription);
+        const transactionsWithTagToRemove = transactions.filter(
+          value => value.tagId === tag.id
+        );
+        if (transactionsWithTagToRemove.length > 0) {
+          this.removeTransactions(
+            transactionsWithTagToRemove,
+            tag,
+            subscription
+          );
         } else {
           this.removeTag(tag, subscription);
         }
@@ -87,10 +91,9 @@ export class TagsComponent implements OnInit, OnDestroy {
       data: { action: "Edit", dataToEdit: tag, tags: this.tags },
       minWidth: "50%"
     });
-    editTagDialog.afterClosed().subscribe(res => {
-      if (res) {
-        this.tagsService.updateData(res).subscribe();
-      }
-    });
+    editTagDialog
+      .afterClosed()
+      .filter(res => res)
+      .subscribe(res => this.tagsService.updateData(res).subscribe());
   }
 }

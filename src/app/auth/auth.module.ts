@@ -5,10 +5,12 @@ import { AngularFireDatabaseModule } from "angularfire2/database";
 import { AngularFireAuthModule } from "angularfire2/auth";
 
 import { SharedModule } from "../shared/shared.module";
-import { AuthService } from "../services/auth.service";
+import { AuthService } from "./auth/auth.service";
 import { AuthComponent } from "./auth/auth.component";
 import { AuthDialogComponent } from "./auth-dialog/auth-dialog.component";
 import { config } from "../../../firebase.config";
+import { AuthGuard } from "./auth/auth-guard.service";
+import { MainGuard } from "./auth/main-guard.service";
 
 @NgModule({
   imports: [
@@ -18,7 +20,7 @@ import { config } from "../../../firebase.config";
     AngularFireAuthModule
   ],
   exports: [AuthComponent],
-  providers: [AuthService],
+  providers: [AuthService, AuthGuard, MainGuard],
   declarations: [AuthComponent, AuthDialogComponent],
   entryComponents: [AuthDialogComponent]
 })

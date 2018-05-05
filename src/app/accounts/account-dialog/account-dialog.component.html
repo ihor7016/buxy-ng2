@@ -31,7 +31,8 @@
           </div>
           <div class="dialog__row">
             <mat-form-field class="dialog__input">
-              <mat-select placeholder="Currency" formControlName="currency" required>
+              <mat-select placeholder="Currency" formControlName="currency" [disabled]="isEditMode()"
+                required>
                 <mat-option *ngFor="let currency of currencies" [value]="currency.symbol">{{currency.code}}, {{currency.symbol}}</mat-option>
               </mat-select>
               <mat-error *ngIf="form.controls.currency.invalid">Please choose a currency</mat-error>

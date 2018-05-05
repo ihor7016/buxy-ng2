@@ -1,7 +1,10 @@
 import { Component, Inject, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, AbstractControl } from "@angular/forms";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
+import "rxjs/add/operator/first";
+
 import { TagDialogData } from "./tag-dialog-data.interface";
+import { Tag } from "../../interfaces/tag.interface";
 
 @Component({
   selector: "app-tag-dialog",
@@ -30,9 +33,9 @@ export class TagDialogComponent implements OnInit {
     this.form = this.formBuilder.group({
       name: [dataToEditName, this.uniqueNameValidator.bind(this)]
     });
-    this.form.controls.name.valueChanges.subscribe(() =>
-      this.form.controls.name.markAsTouched()
-    );
+    this.form.controls.name.valueChanges
+      .first()
+      .subscribe(() => this.form.controls.name.markAsTouched());
   }
 
   submit(form: any) {

@@ -25,6 +25,7 @@ export class ButtonMoreComponent {
     });
     confirmDialog
       .afterClosed()
-      .subscribe(res => (res ? this.deleteClick.emit() : null));
+      .filter(res => res)
+      .subscribe(res => this.deleteClick.emit());
   }
 }
