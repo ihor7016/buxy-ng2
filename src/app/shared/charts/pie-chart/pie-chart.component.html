@@ -1,0 +1,8 @@
+<div class="pie-chart mat-typography">
+  <canvas *ngIf="data && data.length; else emptyState" baseChart [data]="data" [options]="options"
+    [colors]="colors" [legend]="legend" [labels]="labels" [chartType]="type">
+  </canvas>
+  <ng-template #emptyState>
+    <h3 class="pie-chart__empty-state">You don't have any expenses</h3>
+  </ng-template>
+</div>
