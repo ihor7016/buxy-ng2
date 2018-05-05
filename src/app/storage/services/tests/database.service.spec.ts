@@ -18,21 +18,23 @@ describe("DatabaseService", () => {
   let dataId: string = "tagId1";
   const setSpy = jasmine
     .createSpy("set")
-    .and.callFake((id: string, data) => Promise.resolve());
+    .and.callFake((id: string, data): Promise<void> => Promise.resolve());
   const updateSpy = jasmine
     .createSpy("update")
-    .and.callFake((id: string, data) => Promise.resolve());
+    .and.callFake((id: string, data): Promise<void> => Promise.resolve());
   const removeSpy = jasmine
     .createSpy("remove")
-    .and.callFake((id: string) => Promise.resolve());
+    .and.callFake((id: string): Promise<void> => Promise.resolve());
   const dbStub = {
     createPushId: jasmine.createSpy("createPushId").and.returnValue("newId"),
     object: jasmine.createSpy("object").and.callFake((path: string) => {
-      return { valueChanges: () => Observable.of(sampleObject) };
+      return {
+        valueChanges: (): Observable<any> => Observable.of(sampleObject)
+      };
     }),
     list: jasmine.createSpy("list").and.callFake((path: string) => {
       return {
-        valueChanges: () => Observable.of(sampleList),
+        valueChanges: (): Observable<any> => Observable.of(sampleList),
         set: setSpy,
         update: updateSpy,
         remove: removeSpy
