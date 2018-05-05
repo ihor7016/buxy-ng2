@@ -16,39 +16,28 @@ describe("DatabaseService", () => {
   let service: DatabaseService;
   let dataType: string = "tags";
   let dataId: string = "tagId1";
-  let setSpy = jasmine
+  const setSpy = jasmine
     .createSpy("set")
-    .and.callFake((id: string, data: any) => {
-      return Promise.resolve();
-    });
-  let updateSpy = jasmine
+    .and.callFake((id: string, data) => Promise.resolve());
+  const updateSpy = jasmine
     .createSpy("update")
-    .and.callFake((id: string, data: any) => {
-      return Promise.resolve();
-    });
-  let removeSpy = jasmine.createSpy("remove").and.callFake((id: string) => {
-    return Promise.resolve();
-  });
-  let objectSpy: any = jasmine
-    .createSpy("object")
-    .and.callFake((path: string) => {
+    .and.callFake((id: string, data) => Promise.resolve());
+  const removeSpy = jasmine
+    .createSpy("remove")
+    .and.callFake((id: string) => Promise.resolve());
+  const dbStub = {
+    createPushId: jasmine.createSpy("createPushId").and.returnValue("newId"),
+    object: jasmine.createSpy("object").and.callFake((path: string) => {
       return { valueChanges: () => Observable.of(sampleObject) };
-    });
-  let listSpy: any = jasmine.createSpy("list").and.callFake((path: string) => {
-    return {
-      valueChanges: () => Observable.of(sampleList),
-      set: setSpy,
-      update: updateSpy,
-      remove: removeSpy
-    };
-  });
-  let createPushIdSpy: any = jasmine
-    .createSpy("createPushId")
-    .and.returnValue("newId");
-  let dbStub: any = {
-    object: objectSpy,
-    list: listSpy,
-    createPushId: createPushIdSpy
+    }),
+    list: jasmine.createSpy("list").and.callFake((path: string) => {
+      return {
+        valueChanges: () => Observable.of(sampleList),
+        set: setSpy,
+        update: updateSpy,
+        remove: removeSpy
+      };
+    })
   };
 
   beforeEach(() => {
@@ -89,7 +78,7 @@ describe("DatabaseService", () => {
     });
 
     it("should call db.list with correct path", () => {
-      expect(listSpy).toHaveBeenCalledWith(`users/id/${dataType}`);
+      expect(dbStub.list).toHaveBeenCalledWith(`users/id/${dataType}`);
     });
   });
 
@@ -101,7 +90,9 @@ describe("DatabaseService", () => {
     });
 
     it("should call db.object with correct path", () => {
-      expect(objectSpy).toHaveBeenCalledWith(`users/id/${dataType}/${dataId}`);
+      expect(dbStub.object).toHaveBeenCalledWith(
+        `users/id/${dataType}/${dataId}`
+      );
     });
   });
 
@@ -113,11 +104,11 @@ describe("DatabaseService", () => {
     });
 
     it("should call db.list with correct path", () => {
-      expect(listSpy).toHaveBeenCalledWith(`users/id/${dataType}`);
+      expect(dbStub.list).toHaveBeenCalledWith(`users/id/${dataType}`);
     });
 
     it("should call db.createPushId", () => {
-      expect(createPushIdSpy).toHaveBeenCalledTimes(1);
+      expect(dbStub.createPushId).toHaveBeenCalledTimes(1);
     });
 
     it("should call db.list.set with correct id and data", () => {
@@ -134,7 +125,7 @@ describe("DatabaseService", () => {
     });
 
     it("should call db.list with correct path", () => {
-      expect(listSpy).toHaveBeenCalledWith(`users/id/${dataType}`);
+      expect(dbStub.list).toHaveBeenCalledWith(`users/id/${dataType}`);
     });
 
     it("should call db.list.update with correct id and data", () => {
@@ -150,7 +141,7 @@ describe("DatabaseService", () => {
     });
 
     it("should call db.list with correct path", () => {
-      expect(listSpy).toHaveBeenCalledWith(`users/id/${dataType}`);
+      expect(dbStub.list).toHaveBeenCalledWith(`users/id/${dataType}`);
     });
 
     it("should call db.list.remove with correct id", () => {
