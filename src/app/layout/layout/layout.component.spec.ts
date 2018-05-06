@@ -27,7 +27,7 @@ describe("LayoutComponent", () => {
     layout = fixture.nativeElement;
   });
 
-  it("should not have template content and user defined", () => {
+  it("should not have template content and user defined at the start", () => {
     expect(layout.textContent).toBe("");
     expect(component.user).toBeUndefined();
   });
