@@ -11,8 +11,6 @@ import { Router } from "@angular/router";
 })
 export class AuthDialogComponent implements OnInit {
   userForm: FormGroup;
-  email: FormControl;
-  password: FormControl;
   error: string;
 
   constructor(
@@ -24,28 +22,18 @@ export class AuthDialogComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.createFormControls();
     this.createForm();
-  }
-
-  createFormControls() {
-    this.email = new FormControl("", [
-      Validators.required,
-      Validators.pattern("[^ @]*@[^ @]*")
-    ]);
-    this.password = new FormControl("", [
-      Validators.required,
-      Validators.minLength(8)
-    ]);
   }
 
   createForm() {
     this.userForm = new FormGroup({
-      email: this.email,
-      password: this.password
+      email: new FormControl(""),
+      password: new FormControl("")
     });
     this.userForm.valueChanges.subscribe(() => {
       this.error = "";
+      this.userForm.controls.email.markAsTouched();
+      this.userForm.controls.password.markAsTouched();
     });
   }
 
