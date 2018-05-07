@@ -1,8 +1,9 @@
 import { Component, OnInit } from "@angular/core";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { FormControl, FormGroup } from "@angular/forms";
 import { MatDialogRef } from "@angular/material";
 import { AuthService } from "../auth/auth.service";
 import { Router } from "@angular/router";
+import "rxjs/add/operator/first";
 
 @Component({
   selector: "app-auth-dialog",
