@@ -30,7 +30,7 @@ export class AuthDialogComponent implements OnInit {
       email: new FormControl(""),
       password: new FormControl("")
     });
-    this.userForm.valueChanges.subscribe(() => {
+    this.userForm.valueChanges.first().subscribe(() => {
       this.error = "";
       this.userForm.controls.email.markAsTouched();
       this.userForm.controls.password.markAsTouched();
