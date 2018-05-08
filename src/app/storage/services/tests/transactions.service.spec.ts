@@ -1,21 +1,24 @@
 import { TestBed, inject } from "@angular/core/testing";
 
 import { TransactionsService } from "../transactions.service";
-import { MockDatabaseService } from "./database.service.mock";
 import { DatabaseService } from "../database.service";
 
+import { MockDatabaseService } from "./database.service.mock";
+import { MockAbstractService } from "./abstract.service.mock";
+
 describe("TransactionsService", () => {
+  Object.setPrototypeOf(TransactionsService, MockAbstractService);
+  console.dir(Object.getPrototypeOf(TransactionsService));
   let service: TransactionsService;
-  let db: DatabaseService;
-  const mockDatabaseService = new MockDatabaseService();
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
         TransactionsService,
-        { provide: DatabaseService, useValue: mockDatabaseService }
+        { provide: DatabaseService, useClass: MockDatabaseService }
       ]
     });
     service = TestBed.get(TransactionsService);
+    console.log(service);
   });
 
   it("should be created", () => {
