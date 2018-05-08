@@ -5,7 +5,7 @@ import { ColorService } from "../color.service";
 let service: ColorService;
 
 describe("ColorService", () => {
-  beforeAll(() => {
+  beforeEach(() => {
     Math.random = () => 0.5;
     TestBed.configureTestingModule({
       providers: [ColorService]
