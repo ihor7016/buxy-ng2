@@ -8,8 +8,8 @@ import { MockAbstractService } from "./abstract.service.mock";
 
 describe("TransactionsService", () => {
   Object.setPrototypeOf(TransactionsService, MockAbstractService);
-  console.dir(Object.getPrototypeOf(TransactionsService));
   let service: TransactionsService;
+  let db: DatabaseService;
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
@@ -18,11 +18,12 @@ describe("TransactionsService", () => {
       ]
     });
     service = TestBed.get(TransactionsService);
-    console.log(service);
+    db = TestBed.get(DatabaseService);
   });
 
   it("should be created", () => {
     expect(service).toBeTruthy();
+    expect(db).toBeDefined();
   });
 
   describe("getDataType", () => {
