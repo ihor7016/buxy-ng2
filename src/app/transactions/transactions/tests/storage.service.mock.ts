@@ -37,7 +37,7 @@ export const sampleTransactionList: Transaction[] = [
 ];
 
 export const sampleAccount: Account = {
-  id: "id",
+  id: "accountId",
   name: "account",
   balance: 300,
   currency: "$",
@@ -45,9 +45,15 @@ export const sampleAccount: Account = {
 };
 
 export const sampleAccountList: Account[] = [
-  { id: "id1", name: "account1", balance: 500, currency: "$", type: "saving" },
   {
-    id: "id2",
+    id: "accountId1",
+    name: "account1",
+    balance: 500,
+    currency: "$",
+    type: "saving"
+  },
+  {
+    id: "accountId2",
     name: "account2",
     balance: 1000,
     currency: "€",
@@ -55,19 +61,18 @@ export const sampleAccountList: Account[] = [
   }
 ];
 
-export const sampleTag: Tag = { id: "id", name: "tag" };
+export const sampleTag: Tag = { id: "tagId", name: "tag" };
 
 export const sampleTagList: Tag[] = [
-  { id: "id1", name: "tag1" },
-  { id: "id2", name: "tag2" }
+  { id: "tagId1", name: "tag1" },
+  { id: "tagId2", name: "tag2" }
 ];
 
 export abstract class MockAbstractService<T> {
   constructor(private sampleList: T[], private sampleData: T) {}
 
-  abstract getDataType(): string;
-
   getList(): Observable<T[]> {
+    console.log(Observable.of(this.sampleList));
     return Observable.of(this.sampleList);
   }
 
@@ -93,10 +98,6 @@ export class MockTransactionsService extends MockAbstractService<Transaction> {
   constructor() {
     super(sampleTransactionList, sampleTransaction);
   }
-
-  getDataType(): string {
-    return "transactions";
-  }
 }
 
 @Injectable()
@@ -104,19 +105,11 @@ export class MockAccountsService extends MockAbstractService<Account> {
   constructor() {
     super(sampleAccountList, sampleAccount);
   }
-
-  getDataType(): string {
-    return "transactions";
-  }
 }
 
 @Injectable()
 export class MockTagsService extends MockAbstractService<Tag> {
   constructor() {
     super(sampleTagList, sampleTag);
-  }
-
-  getDataType(): string {
-    return "transactions";
   }
 }
