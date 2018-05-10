@@ -17,7 +17,6 @@ export abstract class MockAbstractService<T> {
   constructor(private sampleList: T[], private sampleData: T) {}
 
   getList(): Observable<T[]> {
-    console.log(Observable.of(this.sampleList));
     return Observable.of(this.sampleList);
   }
 
