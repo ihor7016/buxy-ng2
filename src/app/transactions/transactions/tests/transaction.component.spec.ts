@@ -1,5 +1,4 @@
 import {
-  async,
   ComponentFixture,
   TestBed,
   fakeAsync,
@@ -38,30 +37,26 @@ describe("TransactionComponent", () => {
   let converter: CurrencyUahService;
   let dialog: MatDialog;
 
-  beforeEach(
-    // async(
-    () => {
-      TestBed.configureTestingModule({
-        declarations: [TransactionsComponent],
-        imports: [MaterialComponentsModule],
-        providers: [
-          { provide: MatDialog, useClass: MockMatDialog },
-          {
-            provide: TransactionsService,
-            useClass: MockTransactionsService
-          },
-          {
-            provide: AccountsService,
-            useClass: MockAccountsService
-          },
-          { provide: TagsService, useClass: MockTagsService },
-          { provide: CurrencyUahService, useClass: MockCurrencyUahService }
-        ],
-        schemas: [CUSTOM_ELEMENTS_SCHEMA]
-      }).compileComponents();
-    }
-    // )
-  );
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [TransactionsComponent],
+      imports: [MaterialComponentsModule],
+      providers: [
+        { provide: MatDialog, useClass: MockMatDialog },
+        {
+          provide: TransactionsService,
+          useClass: MockTransactionsService
+        },
+        {
+          provide: AccountsService,
+          useClass: MockAccountsService
+        },
+        { provide: TagsService, useClass: MockTagsService },
+        { provide: CurrencyUahService, useClass: MockCurrencyUahService }
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    }).compileComponents();
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(TransactionsComponent);
