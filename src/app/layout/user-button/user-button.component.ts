@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { Router } from "@angular/router";
 import { AuthService } from "../../auth/auth/auth.service";
 
 @Component({
@@ -10,7 +11,7 @@ export class ToolbarUserComponent {
   isOpen = false;
   currentUser: AuthService;
 
-  constructor(private auth: AuthService) {
+  constructor(private auth: AuthService, private router: Router) {
     this.currentUser = this.auth;
   }
 
@@ -19,6 +20,8 @@ export class ToolbarUserComponent {
   }
 
   logout() {
-    this.currentUser.logout();
+    this.currentUser.logout().then(() => {
+      this.router.navigate(["/"]);
+    });
   }
 }
