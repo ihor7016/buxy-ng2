@@ -10,6 +10,7 @@ import { AccountDialogComponent } from "../account-dialog/account-dialog.compone
 
 import { AccountsService } from "../../storage/services/accounts.service";
 import { TransactionsService } from "../../storage/services/transactions.service";
+import { AccountsDataService } from "./accounts-data.service";
 
 import { AccountsData } from "./accounts-data.interface";
 import { Transaction } from "../../interfaces/transaction.interface";
@@ -28,7 +29,8 @@ export class AccountsComponent implements OnInit, OnDestroy {
   constructor(
     private dialog: MatDialog,
     private accountsService: AccountsService,
-    private transactionsService: TransactionsService
+    private transactionsService: TransactionsService,
+    private dataService: AccountsDataService
   ) {
     this.accounts = [];
   }
@@ -49,9 +51,9 @@ export class AccountsComponent implements OnInit, OnDestroy {
           transactions: transactions
         };
       }
-    ).subscribe(
-      res => (this.accounts = this.createData(res.accounts, res.transactions))
-    );
+    )
+      .map(res => this.createData(res.accounts, res.transactions))
+      .subscribe(res => (this.accounts = res));
   }
 
   ngOnDestroy() {
@@ -72,11 +74,11 @@ export class AccountsComponent implements OnInit, OnDestroy {
       .subscribe(res => this.accountsService.setData(res).subscribe());
   }
 
-  private removeAccount(account) {
+  private removeAccount(account: Account): Observable<void> {
     return this.accountsService.deleteData(account.id);
   }
 
-  private removeTransactions(transactions, account) {
+  private removeTransactions(transactions: Transaction[], account: Account) {
     transactions.forEach((value, index, array) => {
       this.transactionsService
         .deleteData(value.id)
@@ -85,11 +87,11 @@ export class AccountsComponent implements OnInit, OnDestroy {
     });
   }
 
-  private isLastItem(index, array) {
+  private isLastItem(index: number, array: Transaction[]) {
     return index === array.length - 1;
   }
 
-  deleteAccount(account) {
+  deleteAccount(account: Account) {
     this.transactionsService
       .getList()
       .first()
@@ -105,7 +107,7 @@ export class AccountsComponent implements OnInit, OnDestroy {
       });
   }
 
-  editAccount(account) {
+  editAccount(account: Account) {
     const editAccountDialog = this.dialog.open(AccountDialogComponent, {
       data: { action: "Edit", dataToEdit: account, accounts: this.accounts },
       minWidth: "50%"
@@ -116,21 +118,14 @@ export class AccountsComponent implements OnInit, OnDestroy {
       .subscribe(res => this.accountsService.updateData(res).subscribe());
   }
 
-  createData(accounts, transactions): AccountsData[] {
+  createData(accounts: Account[], transactions: Transaction[]): AccountsData[] {
     return accounts.map(item => {
-      item.currentBalance = this.calculateBalance(item, transactions);
-      return item;
+      const newItem: any = Object.assign({}, item);
+      newItem.currentBalance = this.dataService.calculateBalance(
+        item,
+        transactions
+      );
+      return <AccountsData>newItem;
     });
-  }
-
-  calculateBalance(account, transactions): number {
-    let currentBalance = account.balance;
-    const amount = transactions.reduce((amount, item) => {
-      if (item.accountId === account.id) {
-        amount += parseInt(item.type + item.amount);
-      }
-      return amount;
-    }, 0);
-    return currentBalance + amount;
   }
 }

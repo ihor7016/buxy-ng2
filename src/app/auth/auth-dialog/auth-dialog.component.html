@@ -4,19 +4,19 @@
     <div mat-dialog-content>
       <div class="dialog__row">
         <mat-form-field class="dialog__input">
-          <input type="email" placeholder="Email" formControlName="email" required matInput>
+          <input type="email" placeholder="Email" formControlName="email" pattern="\S+@[a-z]+.[a-z]+"
+            required matInput>
           <mat-error *ngIf="userForm.controls.email.hasError('required')">Email is required</mat-error>
-          <mat-error *ngIf="userForm.controls.email.hasError('pattern')">The email address must contain at least the @ character
+          <mat-error *ngIf="userForm.controls.email.hasError('pattern')">The email address not valid
           </mat-error>
         </mat-form-field>
       </div>
       <div class="dialog__row">
         <mat-form-field class="dialog__input">
           <input matInput type="password" placeholder="Password" formControlName="password"
-            required>
+            minlength="8" required>
           <mat-error *ngIf="userForm.controls.password.hasError('required')">Password is required</mat-error>
-          <mat-error *ngIf="userForm.controls.password.hasError('minlength')">Password must be 8 characters long, we need another {{password.errors.minlength.requiredLength
-            - password.errors.minlength.actualLength}} characters
+          <mat-error *ngIf="userForm.controls.password.hasError('minlength')">Password must be 8 characters long
           </mat-error>
         </mat-form-field>
       </div>
@@ -24,7 +24,7 @@
     </div>
     <div class="dialog__row dialog__row--col">
       <div mat-dialog-actions>
-        <button mat-button type="reset" color="primary" (click)="login()" [disabled]="!userForm.valid">
+        <button mat-button color="primary" (click)="login()" [disabled]="!userForm.valid">
           Login
         </button>
         <button mat-button color="primary" (click)="register()" [disabled]="!userForm.valid">

@@ -6,15 +6,7 @@ import * as firebase from "firebase/app";
 
 @Injectable()
 export class AuthService {
-  constructor(private _firebaseAuth: AngularFireAuth, private router: Router) {
-    _firebaseAuth.auth.onAuthStateChanged(user => {
-      if (user) {
-        router.navigate(["main"]);
-      } else {
-        router.navigate(["/"]);
-      }
-    });
-  }
+  constructor(private _firebaseAuth: AngularFireAuth, private router: Router) {}
 
   get currentUser() {
     return this._firebaseAuth.auth.currentUser;

@@ -1,10 +1,7 @@
 <div class="transactions">
   <app-error></app-error>
   <div class="transactions__content" *ngIf="data && data.transactions.length">
-    <div class="transactions__charts">
-      <app-pie-chart [chartData]="data" class="transactions__chart mat-elevation-z2"></app-pie-chart>
-      <app-bar-chart [chartData]="data" class="transactions__chart mat-elevation-z2"></app-bar-chart>
-    </div>
+    <app-transactions-charts [data]="data"></app-transactions-charts>
     <app-table-transactions [tableData]="data" (editClick)="handleEditTransactionClick($event)"
       (deleteClick)="handleDeleteTransaction($event)">
     </app-table-transactions>
