@@ -44,6 +44,9 @@
     }
   ],
   "test": {
+    "codeCoverage": {
+      "exclude": ["**/abstract**"]
+    },
     "karma": {
       "config": "./karma.conf.js"
     }

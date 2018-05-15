@@ -20,7 +20,7 @@ export class TransactionDialogComponent implements OnInit {
     id: "",
     type: "-",
     desc: "",
-    amount: "",
+    amount: null,
     date: new Date(),
     tagId: "",
     accountId: ""
@@ -42,7 +42,7 @@ export class TransactionDialogComponent implements OnInit {
 
   createData(): TransactionsDialogGroup {
     if (this.data.dataToEdit) {
-      const data = this.data.dataToEdit;
+      const data: TransactionsDialogGroup = this.data.dataToEdit;
       this.group = {
         id: data.id,
         type: data.type,
