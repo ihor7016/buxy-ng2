@@ -1,12 +1,11 @@
-import { Account } from "../../../interfaces/account.interface";
-import { Tag } from "../../../interfaces/tag.interface";
 import { Component, NgModule } from "@angular/core";
-import { TransactionDialogComponent } from "../transaction-dialog.component";
 import { ReactiveFormsModule } from "@angular/forms";
-import { MaterialComponentsModule } from "../../../shared/material/material.module";
-import { MatDialogModule } from "@angular/material";
 import { NoopAnimationsModule } from "@angular/platform-browser/animations";
+import { MatDialogModule } from "@angular/material";
+import { MaterialComponentsModule } from "../../../shared/material/material.module";
+import { TransactionDialogComponent } from "../transaction-dialog.component";
 import { TransactionsDialogGroup } from "../transactions-dialog-group.interface";
+import { Transaction } from "../../../interfaces/transaction.interface";
 
 export const sampleEmptyGroup: TransactionsDialogGroup = {
   id: "",
@@ -28,7 +27,7 @@ export const sampleGroup: TransactionsDialogGroup = {
   accountId: "accountId2"
 };
 
-export const sampleTransaction = {
+export const sampleTransaction: Transaction = {
   id: "id2",
   desc: "salary",
   date: "2018-05-05",
@@ -36,18 +35,6 @@ export const sampleTransaction = {
   amount: 2,
   accountId: "accountId2",
   tagId: "tagId2"
-};
-
-export const sampleForm = {
-  value: {
-    id: "",
-    date: "",
-    type: "+",
-    desc: "desc",
-    amount: "10",
-    tagId: "tagId1",
-    accountId: "accountId1"
-  }
 };
 
 @Component({
