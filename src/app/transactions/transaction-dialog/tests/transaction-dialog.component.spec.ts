@@ -7,22 +7,19 @@ import {
 } from "@angular/core/testing";
 import { DebugElement } from "@angular/core";
 import { By } from "@angular/platform-browser";
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
-import { OverlayContainer } from "@angular/cdk/overlay";
+import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
+import { ReactiveFormsModule } from "@angular/forms";
+import { MaterialComponentsModule } from "../../../shared/material/material.module";
+import { NoopAnimationsModule } from "@angular/platform-browser/animations";
 
 import { TransactionDialogComponent } from "../transaction-dialog.component";
 import {
-  NoopComponent,
-  DialogTestModule,
   sampleEmptyGroup,
   sampleTransaction,
   sampleGroup
 } from "./samples.mock";
 
 describe("TransactionDialogComponent", () => {
-  let dialog: MatDialog;
-  let overlayContainerElement: HTMLElement;
-  let noop: ComponentFixture<NoopComponent>;
   let component: TransactionDialogComponent;
   let fixture: ComponentFixture<TransactionDialogComponent>;
   let mockDialogRef = {};
@@ -36,7 +33,12 @@ describe("TransactionDialogComponent", () => {
     beforeEach(
       async(() => {
         TestBed.configureTestingModule({
-          imports: [DialogTestModule],
+          imports: [
+            ReactiveFormsModule,
+            MaterialComponentsModule,
+            NoopAnimationsModule
+          ],
+          declarations: [TransactionDialogComponent],
           providers: [
             { provide: MatDialogRef, useValue: mockDialogRef },
             { provide: MAT_DIALOG_DATA, useValue: mockDialogData }
@@ -81,35 +83,6 @@ describe("TransactionDialogComponent", () => {
         component.data.dataToEdit = sampleTransaction;
         expect(component.createData()).toEqual(sampleGroup);
       });
-    });
-  });
-
-  describe("opened dialog", () => {
-    const config = {
-      data: mockDialogData
-    };
-    beforeEach(() => {
-      TestBed.configureTestingModule({
-        imports: [DialogTestModule],
-        providers: [
-          {
-            provide: OverlayContainer,
-            useFactory: () => {
-              overlayContainerElement = document.createElement("div");
-              return { getContainerElement: () => overlayContainerElement };
-            }
-          }
-        ]
-      }).compileComponents();
-      dialog = TestBed.get(MatDialog);
-      noop = TestBed.createComponent(NoopComponent);
-    });
-
-    it("should have correct header", () => {
-      dialog.open(TransactionDialogComponent, config);
-      noop.detectChanges();
-      const header = overlayContainerElement.querySelector("h1");
-      expect(header.textContent).toBe("Add transaction");
     });
   });
 });
