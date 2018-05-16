@@ -82,17 +82,6 @@ describe("TransactionDialogComponent", () => {
         expect(component.createData()).toEqual(sampleGroup);
       });
     });
-
-    xdescribe("submit", () => {
-      it("should collect data from dialog correctly", () => {
-        spyOn(component["matDialogRef"], "close").and.returnValue({});
-        // expect(component.submit(sampleForm)).toEqual(sampleTransaction);
-        // component.submit(sampleForm)
-        expect(component["matDialogRef"].close).toHaveBeenCalledWith(
-          sampleTransaction
-        );
-      });
-    });
   });
 
   describe("opened dialog", () => {
@@ -119,7 +108,6 @@ describe("TransactionDialogComponent", () => {
     it("should have correct header", () => {
       dialog.open(TransactionDialogComponent, config);
       noop.detectChanges();
-      console.log(overlayContainerElement);
       const header = overlayContainerElement.querySelector("h1");
       expect(header.textContent).toBe("Add transaction");
     });
