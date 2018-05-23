@@ -10,6 +10,7 @@ import { TransactionsService } from "../../storage/services/transactions.service
 import { AccountsService } from "../../storage/services/accounts.service";
 import { TagsService } from "../../storage/services/tags.service";
 import { CurrencyUahService } from "../../shared/services/currency-uah.service";
+import { ErrorService } from "../../shared/error/error.service";
 
 import { TransactionsData } from "./transactions-data.interface";
 import { Transaction } from "../../interfaces/transaction.interface";
@@ -31,7 +32,8 @@ export class TransactionsComponent implements OnInit, OnDestroy {
     private transactionsService: TransactionsService,
     private accountsService: AccountsService,
     private tagsService: TagsService,
-    private converter: CurrencyUahService
+    private converter: CurrencyUahService,
+    private errorService: ErrorService
   ) {}
 
   ngOnInit() {
@@ -57,15 +59,19 @@ export class TransactionsComponent implements OnInit, OnDestroy {
   }
 
   addTransaction(data) {
-    return this.transactionsService.setData(data).subscribe();
+    return this.transactionsService.setData(data);
   }
 
   editTransaction(data) {
-    return this.transactionsService.updateData(data).subscribe();
+    return this.transactionsService.updateData(data);
   }
 
-  deleteTransaction(event) {
-    return this.transactionsService.deleteData(event.id).subscribe();
+  deleteTransaction(id) {
+    return this.transactionsService.deleteData(id);
+  }
+
+  handleDeleteTransaction(event) {
+    this.deleteTransaction(event.id).subscribe();
   }
 
   handleEditTransactionClick(event) {
@@ -91,9 +97,15 @@ export class TransactionsComponent implements OnInit, OnDestroy {
       .filter(res => res)
       .subscribe(res => {
         if (action === "Add") {
-          this.addTransaction(res);
+          this.addTransaction(res).subscribe(
+            () => {},
+            error => this.errorService.setError(error)
+          );
         } else if (action === "Edit") {
-          this.editTransaction(res);
+          this.editTransaction(res).subscribe(
+            () => {},
+            error => this.errorService.setError(error)
+          );
         }
       });
   }

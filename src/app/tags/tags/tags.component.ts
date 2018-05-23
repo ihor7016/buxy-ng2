@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from "@angular/core";
 import { MatDialog } from "@angular/material";
 import { Subscription } from "rxjs/Subscription";
 import "rxjs/add/operator/first";
+import "rxjs/add/operator/filter";
 
 import { TagDialogComponent } from "../tag-dialog/tag-dialog.component";
 import { Tag } from "../../interfaces/tag.interface";
@@ -47,18 +48,16 @@ export class TagsComponent implements OnInit, OnDestroy {
       .subscribe(res => this.tagsService.setData(res).subscribe());
   }
 
-  private removeTag(tag, subscription) {
-    this.tagsService.deleteData(tag.id).subscribe();
-    subscription.unsubscribe();
+  private removeTag(tag) {
+    return this.tagsService.deleteData(tag.id);
   }
 
-  private removeTransactions(transactions, tag, subscription) {
+  private removeTransactions(transactions, tag) {
     transactions.forEach((value, index, array) => {
-      this.transactionsService.deleteData(value.id).subscribe(() => {
-        if (this.isLastItem(index, array)) {
-          this.removeTag(tag, subscription);
-        }
-      });
+      this.transactionsService
+        .deleteData(value.id)
+        .filter(() => this.isLastItem(index, array))
+        .subscribe(() => this.removeTag(tag).subscribe());
     });
   }
 
@@ -75,13 +74,9 @@ export class TagsComponent implements OnInit, OnDestroy {
           value => value.tagId === tag.id
         );
         if (transactionsWithTagToRemove.length > 0) {
-          this.removeTransactions(
-            transactionsWithTagToRemove,
-            tag,
-            subscription
-          );
+          this.removeTransactions(transactionsWithTagToRemove, tag);
         } else {
-          this.removeTag(tag, subscription);
+          this.removeTag(tag).subscribe();
         }
       });
   }
