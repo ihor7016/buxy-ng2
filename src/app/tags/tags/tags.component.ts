@@ -11,7 +11,7 @@ import { TransactionsService } from "../../storage/services/transactions.service
 @Component({
   selector: "app-tags",
   templateUrl: "./tags.component.html",
-  styleUrls: ["../../styles/drawer-menu.scss"]
+  styleUrls: ["./tags.component.scss"]
 })
 export class TagsComponent implements OnInit, OnDestroy {
   tags: Tag[];

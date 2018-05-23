@@ -9,7 +9,7 @@ import { Tag } from "../../interfaces/tag.interface";
 @Component({
   selector: "app-tag-dialog",
   templateUrl: "./tag-dialog.component.html",
-  styleUrls: ["../../styles/dialog.scss"]
+  styleUrls: ["./tag-dialog.component.scss"]
 })
 export class TagDialogComponent implements OnInit {
   form: FormGroup;
